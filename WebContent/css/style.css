@@ -1,0 +1,205 @@
+
+/* ボディ */
+body {
+    margin:0px;
+    font-family: "筑紫A丸ゴシック"
+}
+/* ロゴ */
+.logo {
+    width: 120px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+}
+.logo a{
+    color: #F26161;
+    text-decoration: none;
+    font-family: "PilGi";
+}
+/* ログインボタン */
+.login-button {
+    color: #ffffff;
+    text-decoration: none;
+}
+.login-button-wrapper {
+    height:28px;
+    line-height: 28px;
+    border: 1px solid #828290;
+    border-radius: 4px;
+    background-color: #F26161;
+    border-color: #F26161;
+    margin: 10px 10px 10px auto;
+    padding: 0px 10px;
+}
+/* ヘッダー */
+.header-frame {
+    width: 100%;
+    height: 50px;
+    background-color: #ffffff;
+    display: flex;
+}
+/* アイキャッチ画像 */
+.eyecatch img{
+    width:100%;
+}
+/* TOPの検索フォームヘッダー */
+#search-header{
+    margin-bottom: 24px;
+    text-align: center;
+    font-weight: 700;
+    font-size: 15px;
+    color: #707070;
+}
+/* 検索フォーム */
+.labeled-form-group-main-label {
+    -webkit-box-flex: 1;
+    flex: auto;
+    margin: 5px 0px 3px 0px;
+}
+.labeled-form-group-labels {
+    display: flex;
+    color: #828290;
+}
+.top-search-box {
+    width:90%;
+    margin: 0 auto;
+}
+
+.labeled-form-group-pull-down {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+}
+.labeled-form-group-pull-down::after{
+    content: '';
+    width: 6px;
+    height: 6px;
+    border: 0px;
+    border-bottom: solid 2px #b4b3b3;
+    border-right: solid 2px #b4b3b3;
+    -ms-transform: rotate(45deg);
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    margin-top: -4px;
+}
+.labeled-form-group-pull-down select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 40px;
+    background: transparent;
+    position: relative;
+    z-index: 1;
+    padding: 0 40px 0 10px;
+    border: 1px solid #dadbe3;
+    border-radius: 4px;
+    color: #707070;
+    font-size: 15px;
+}
+
+
+.labeled-form-group-pull-down select::-ms-expand {
+    display: none;
+}
+.labeled-form-group-input {
+    width: 100%;
+    position: relative;
+    display: inline-block;
+    
+}
+.labeled-form-group-input input[type=text] {
+	font: 15px/24px sans-serif;
+	box-sizing: border-box;
+	width: 100%;
+	padding: 0.3em;
+	transition: 0.3s;
+	border: 1px solid #dadbe3;
+	border-radius: 4px;
+    outline: none;
+    color: #707070;
+}
+/* 送信ボタン */
+.submit-button {
+    height:44px;
+    width: 294px;
+    line-height: 28px;
+    border: 1px solid #828290;
+    border-radius: 4px;
+    background-color: #F26161;
+    border-color: #F26161;
+    padding: 0px 5px;
+    color: #ffffff;
+    font-size: 18px;
+}
+.button-block {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0px;
+}
+/* TOPケーキ屋サジェスト */
+.popular-suggest p{
+    font-size: 15px;
+    color: #707070;
+    margin-bottom: 8px; 
+}
+hr{
+    margin: 2px 0px;
+}
+
+.popular-suggest-block {
+    display: flex;
+    width: 100%;
+    height: 150px;
+    justify-content: center;
+    align-items: center;
+}
+.popular-suggest-img-container {
+    height: 100px;
+    width: auto;
+    text-align: center;
+    position: relative;
+}
+.popular-suggest-img {
+    height: 100px;
+    width: auto;
+    display: block;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin: auto;
+}
+.popular-suggest-h3 {
+    width: 50%;
+    padding: 10px 10px 10px 30px;
+}
+.popular-suggest-h3 h3 {
+    width: 100%;
+    margin: auto 0px;
+    color: #707070;
+}
+/* フッター */
+.footer{
+    width: 100%;
+    height: 300px;
+    background-color: #41424F;
+    margin-top: 50px;
+    padding-top: 30px;
+}
+.logo-footer{
+    font-size: 20px;
+    text-align: center;
+    position: relative;
+}
+.logo-footer a{
+    color: #ffffff;
+    text-decoration: none;
+    font-family: "PilGi";
+}
