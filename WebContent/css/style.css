@@ -2,7 +2,7 @@
 /* ボディ */
 body {
     margin:0px;
-    font-family: "筑紫A丸ゴシック"
+    font-family: "TsukuARdGothic-Regular";
 }
 /* ロゴ */
 .logo {
@@ -12,6 +12,7 @@ body {
     justify-content: center;
     align-items: center;
     font-size: 20px;
+    /* position: absolute; */
 }
 .logo a{
     color: #F26161;
@@ -22,6 +23,7 @@ body {
 .login-button {
     color: #ffffff;
     text-decoration: none;
+
 }
 .login-button-wrapper {
     height:28px;
@@ -33,12 +35,31 @@ body {
     margin: 10px 10px 10px auto;
     padding: 0px 10px;
 }
+.account-button-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 10px 10px auto;
+}
+.account-button {
+    height: 40px;
+}
 /* ヘッダー */
 .header-frame {
     width: 100%;
     height: 50px;
     background-color: #ffffff;
     display: flex;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+}
+.header-frame-search {
+    width: 100%;
+    height: 50px;
+    background-color: #ffffff;
+    display: flex;
+    box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+    position: absolute;
+    z-index: 5;
 }
 /* アイキャッチ画像 */
 .eyecatch img{
@@ -56,7 +77,7 @@ body {
 .labeled-form-group-main-label {
     -webkit-box-flex: 1;
     flex: auto;
-    margin: 5px 0px 3px 0px;
+    margin: 8px 0px;
 }
 .labeled-form-group-labels {
     display: flex;
@@ -111,7 +132,7 @@ body {
     width: 100%;
     position: relative;
     display: inline-block;
-    
+
 }
 .labeled-form-group-input input[type=text] {
 	font: 15px/24px sans-serif;
@@ -146,8 +167,9 @@ body {
 .popular-suggest p{
     font-size: 15px;
     color: #707070;
-    margin-bottom: 8px; 
+    margin: 8px auto;
 }
+
 hr{
     margin: 2px 0px;
 }
@@ -178,7 +200,9 @@ hr{
 }
 .popular-suggest-h3 {
     width: 50%;
-    padding: 10px 10px 10px 30px;
+    padding: 10px 10px 10px 15px;
+    font-size: 20px;
+    line-height: 1.5em;
 }
 .popular-suggest-h3 h3 {
     width: 100%;
@@ -202,4 +226,60 @@ hr{
     color: #ffffff;
     text-decoration: none;
     font-family: "PilGi";
+}
+.complete-container h2{
+    color: #707070;
+    padding: 20px;
+    font-size: 20px;
+}
+.complete-container {
+    height: 200px;
+    width: 100%;
+    display: flex; /* 子要素をflexboxで揃える */
+    flex-direction: column; /* 子要素をflexboxにより縦方向に揃える */
+    justify-content: center; /* 子要素をflexboxにより中央に配置する */
+    align-items: center;  /* 子要素をflexboxにより中央に配置する */
+}
+.complete-box {
+    height: 600px;
+    display: flex;
+    align-items: center;
+    justify-content: center
+}
+.content-block {
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+}
+.content-block h1 {
+    margin: 30px 0;
+}
+#search-header {
+    margin: 30px auto 20px auto;
+}
+#search-header h1 {
+    font-size: 24px;
+}
+
+.order-list-box img {
+    height: 50px;
+    margin: 10px auto;
+}
+.order-list-box p:not(.order-list-date) {
+    font-size: 20px;
+}
+.order-list-box a {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    text-indent:-999px;
+}
+.order-list-box {
+    position: relative;
+}
+.order-list-date {
+    font-size: 15px;
+    margin: 10px 0;
 }
