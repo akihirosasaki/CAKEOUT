@@ -132,7 +132,7 @@ body {
     width: 100%;
     position: relative;
     display: inline-block;
-    
+
 }
 .labeled-form-group-input input[type=text] {
 	font: 15px/24px sans-serif;
@@ -167,7 +167,7 @@ body {
 .popular-suggest p{
     font-size: 15px;
     color: #707070;
-    margin: 8px auto; 
+    margin: 8px auto;
 }
 
 hr{
@@ -265,7 +265,7 @@ hr{
     height: 50px;
     margin: 10px auto;
 }
-.order-list-box p {
+.order-list-box p:not(.order-list-date) {
     font-size: 20px;
 }
 .order-list-box a {
@@ -278,4 +278,8 @@ hr{
 }
 .order-list-box {
     position: relative;
+}
+.order-list-date {
+    font-size: 15px;
+    margin: 10px 0;
 }
