@@ -12,7 +12,10 @@
         <link rel="stylesheet" href="css/normalize.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/form.css" type="text/css" media="screen">
+        <link rel="stylesheet" type="text/css" href="css/validationEngine.jquery.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
+		<script type="text/javascript" src="js/jquery.validationEngine-ja.js"></script>
         <script src="js/script.js"></script>
     </head>
     <body>
@@ -33,7 +36,7 @@
                                         <span class="labeled-form-group-main-label">ユーザーネーム</span>
                                     </div>
                                     <div class="labeled-form-group-input">
-                                        <input type="text" name="userName" placeholder="user">
+                                        <input type="text" name="userName" placeholder="user" class="validate[required,maxSize[16]] text-input" required>
                                     </div>
                             </div>
                             <div class="labeled-form-group form-inline">
@@ -42,7 +45,7 @@
                                 </div>
                                 <c:if test="${mailCheck==false}"><p>このメールアドレスはすでに使われています</p></c:if>
                                 <div class="labeled-form-group-input">
-                                    <input type="text" name="mailAdd" placeholder="メールアドレス">
+                                    <input type="text" name="mailAdd" placeholder="メールアドレス" class="validate[required,maxSize[16]] text-input" required>
                                 </div>
                         </div>
                         <div class="labeled-form-group form-inline">
@@ -50,7 +53,7 @@
                                     <span class="labeled-form-group-main-label">パスワード</span>
                                 </div>
                                 <div class="labeled-form-group-input">
-                                    <input type="password" name="password" placeholder="パスワード">
+                                    <input type="password" name="password" placeholder="パスワード" class="validate[required,maxSize[16]] text-input" required>
                                 </div>
                         </div>
                         <div class="button-block form-inline">

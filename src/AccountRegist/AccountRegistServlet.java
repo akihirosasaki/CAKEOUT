@@ -43,7 +43,6 @@ public class AccountRegistServlet extends HttpServlet {
 		String password = req.getParameter("password");
 		boolean mailCheck;
 
-
 		String exceptPattern = "<|>|\"|\'|&";
 		Pattern p = Pattern.compile(exceptPattern);
 		Matcher m = p.matcher(mailAdd);
@@ -69,8 +68,6 @@ public class AccountRegistServlet extends HttpServlet {
 				return;
 			}else {
 				HttpSession sess = req.getSession(true);
-				sess.invalidate();
-
 				session.setAttribute("userName", userName);
 				session.setAttribute("mailAdd", mailAdd);
 				session.setAttribute("password", password);
