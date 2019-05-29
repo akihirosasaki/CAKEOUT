@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -39,6 +40,7 @@
                                 <div class="labeled-form-group-labels">
                                     <span class="labeled-form-group-main-label">メールアドレス</span>
                                 </div>
+                                <c:if test="${mailCheck==false}"><p>このメールアドレスはすでに使われています</p></c:if>
                                 <div class="labeled-form-group-input">
                                     <input type="text" name="mailAdd" placeholder="メールアドレス">
                                 </div>
