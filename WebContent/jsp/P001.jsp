@@ -86,9 +86,9 @@
 						<div class="labeled-form-group-labels">
 							<span class="labeled-form-group-main-label">エリアで探す</span>
 						</div>
-						<form action="P001.html" method="">
+						<form action="PopularCakeStoreServlet" method="POST">
 							<div class="labeled-form-group-pull-down">
-								<select name="erea-pull-down">
+								<select name="erea-pull-down" required>
 									<option value='' hidden>選択してください</option>
 									<option value="渋谷">渋谷</option>
 									<option value="表参道・青山">表参道・青山</option>

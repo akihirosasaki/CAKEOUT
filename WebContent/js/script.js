@@ -17,6 +17,6 @@ $(function() {
 
     $(".top-cakes-search").click(function(){
         $(".suggest-show").toggle();
-        $(".top-cakes-search").css("display", "none");
+//        $(".top-cakes-search").css("display", "none");
     })
 })
