@@ -110,13 +110,14 @@
 										エリアで人気のお店
 									</p>
 									<hr>
+									<c:set var="count" value="0" scope="page" />
 									<c:forEach var="popularCakeStore" items="${popularCakeStores}"
 										varStatus="status">
 										<form action="CakeStoreInfoServlet" method="POST" name="popularCakeStoreForm">
 											<div class="popular-suggest-block">
 												<input type="hidden" name="cakeStoreId"
 												value="${popularCakeStore.cakeStoreId}">
-												<a href="javascript:document.forms.popularCakeStoreForm.submit();"></a>
+												<a href="javascript:popularCakeStoreForm[<c:out value="${count}" />].submit()"></a>
 												<div class="popular-suggest-img-container">
 													<img class="popular-suggest-img"
 														src="images/<c:out value="${popularCakeStore.cakeStorePrimaryImg}" />"
@@ -130,6 +131,7 @@
 											</div>
 											<hr>
 										</form>
+										<c:set var="count" value="${count+1}" scope="page" />
 									</c:forEach>
 								</div>
 							</c:when>

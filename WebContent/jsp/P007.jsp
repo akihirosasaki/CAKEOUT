@@ -65,12 +65,16 @@
 				<div class="logo">
 					<a href="index.html">CAKEOUT</a>
 				</div>
-				<div class="login-button-wrapper">
-					<a class="login-button" href="login.html">ログイン</a>
-				</div>
-				<div class="account-button-wrapper">
-					<img class="account-button" src="images/account.gif">
-				</div>
+				<c:if test="${isLogin==false}">
+					<div class="login-button-wrapper">
+						<a class="login-button" href="LoginViewServlet">ログイン</a>
+					</div>
+				</c:if>
+				<c:if test="${isLogin==true}">
+					<div class="account-button-wrapper">
+						<img class="account-button" src="images/account.gif">
+					</div>
+				</c:if>
 			</div>
 		</header>
 		<section id="main">

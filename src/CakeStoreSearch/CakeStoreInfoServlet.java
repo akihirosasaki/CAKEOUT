@@ -3,6 +3,7 @@ package CakeStoreSearch;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.stream.Stream;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -40,7 +41,9 @@ public class CakeStoreInfoServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=Shift_JIS");
 
-		int cakeStoreId = Integer.parseInt(req.getParameter("cakeStoreId"));
+		String[] cakeStoreIdString = req.getParameterValues("cakeStoreId");
+		int[] cakeStoreId = Stream.of(cakeStoreIdString).mapToInt(Integer::parseInt).toArray();
+		System.out.println(cakeStoreId[0]);
 		CakeStoreGetMenuModel csmv = new CakeStoreGetMenuModel();
 		CakeStoreGetModel csgm = new CakeStoreGetModel();
 		CakeStoreGetImgModel csgim = new CakeStoreGetImgModel();
@@ -48,9 +51,9 @@ public class CakeStoreInfoServlet extends HttpServlet {
 
 
 		try {
-			CakeStoreVo cakeStoreInfo = csgm.businessMethod(cakeStoreId);
-			ArrayList<String> cakeStoreImgList = csgim.businessMethod(cakeStoreId);
-			ArrayList<CakeStoreMenuVo> cakeStoreMenuList = csmv.businessMethod(cakeStoreId);
+			CakeStoreVo cakeStoreInfo = csgm.businessMethod(cakeStoreId[0]);
+			ArrayList<String> cakeStoreImgList = csgim.businessMethod(cakeStoreId[0]);
+			ArrayList<CakeStoreMenuVo> cakeStoreMenuList = csmv.businessMethod(cakeStoreId[0]);
 			HttpSession session = req.getSession(true);
 			session.setAttribute("cakeStoreInfo", cakeStoreInfo);
 			session.setAttribute("cakeStoreImgList", cakeStoreImgList);
