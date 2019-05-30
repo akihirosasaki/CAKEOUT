@@ -101,64 +101,65 @@
 						</form>
 					</div>
 					<c:if test="${!empty isPopularCakeStore}">
-					<div class="suggest-show">
-						<c:choose>
-							<c:when test="${isPopularCakeStore==true}">
-								<div class="popular-suggest">
-									<p>
-										<c:out value="${searchErea}" />
-										エリアで人気のお店
-									</p>
-									<hr>
-									<c:set var="count" value="0" scope="page" />
-									<c:forEach var="popularCakeStore" items="${popularCakeStores}"
-										varStatus="status">
-										<form action="CakeStoreInfoServlet" method="POST" name="popularCakeStoreForm">
-											<div class="popular-suggest-block">
-												<input type="hidden" name="cakeStoreId"
-												value="${popularCakeStore.cakeStoreId}">
-												<a href="javascript:popularCakeStoreForm[<c:out value="${count}" />].submit()"></a>
-												<div class="popular-suggest-img-container">
-													<img class="popular-suggest-img"
-														src="images/<c:out value="${popularCakeStore.cakeStorePrimaryImg}" />"
-														alt="">
+						<div class="suggest-show">
+							<c:choose>
+								<c:when test="${isPopularCakeStore==true}">
+									<div class="popular-suggest">
+										<p>
+											<c:out value="${searchErea}" />
+											エリアで人気のお店
+										</p>
+										<hr>
+										<c:set var="count" value="0" scope="page" />
+										<c:forEach var="popularCakeStore" items="${popularCakeStores}"
+											varStatus="status">
+											<form action="CakeStoreInfoServlet" method="POST"
+												name="popularCakeStoreForm">
+												<div class="popular-suggest-block">
+													<input type="hidden" name="cakeStoreId"
+														value="${popularCakeStore.cakeStoreId}"> <a
+														href="javascript:popularCakeStoreForm[<c:out value="${count}" />].submit()"></a>
+													<div class="popular-suggest-img-container">
+														<img class="popular-suggest-img"
+															src="images/<c:out value="${popularCakeStore.cakeStorePrimaryImg}" />"
+															alt="">
+													</div>
+													<div class="popular-suggest-h3">
+														<h3>
+															<c:out value="${popularCakeStore.cakeStoreName}" />
+														</h3>
+													</div>
 												</div>
-												<div class="popular-suggest-h3">
-													<h3>
-														<c:out value="${popularCakeStore.cakeStoreName}" />
-													</h3>
-												</div>
-											</div>
-											<hr>
-										</form>
-										<c:set var="count" value="${count+1}" scope="page" />
-									</c:forEach>
+												<hr>
+											</form>
+											<c:set var="count" value="${count+1}" scope="page" />
+										</c:forEach>
+									</div>
+								</c:when>
+								<c:when test="${isPopularCakeStore==false}">
+									<p>現在このエリアでの人気のお店はありません</p>
+								</c:when>
+							</c:choose>
+							<form action="CakeStoreMapServlet" method="POST">
+								<div class="button-block">
+									<input class="submit-button" type="submit" value="その他の店を探す">
 								</div>
-							</c:when>
-							<c:when test="${isPopularCakeStore==false}">
-								<p>現在このエリアでの人気のお店はありません</p>
-							</c:when>
-						</c:choose>
-						<form action="CakeStoreMapServlet" method="POST">
-							<div class="button-block">
-								<input class="submit-button" type="submit" value="その他の店を探す">
-							</div>
-						</form>
-						<div class="labeled-form-group">
-							<div class="labeled-form-group-labels">
-								<span class="labeled-form-group-main-label">店名で探す</span>
-							</div>
-							<div class="labeled-form-group-input">
-								<input type="text" name="store-name-input"
-									placeholder="ピエール・エルメ・パリ　青山">
-							</div>
+							</form>
+							<form action="CakeStoreListServlet" method="POST">
+								<div class="labeled-form-group">
+									<div class="labeled-form-group-labels">
+										<span class="labeled-form-group-main-label">店名で探す</span>
+									</div>
+									<div class="labeled-form-group-input">
+										<input type="text" name="cakeStoreName"
+											placeholder="ピエール・エルメ・パリ　青山">
+									</div>
+								</div>
+								<div class="button-block">
+									<input class="submit-button" type="submit" value="店名で探す">
+								</div>
+							</form>
 						</div>
-						<form action="P019.html" method="">
-							<div class="button-block">
-								<input class="submit-button" type="submit" value="店名で探す">
-							</div>
-						</form>
-					</div>
 					</c:if>
 				</div>
 			</section>

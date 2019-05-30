@@ -102,4 +102,33 @@ public class CakeStoreDao extends BaseDao{
 		}
 		return cakeStoreMenuList;
 	}
+
+	public static ArrayList<CakeStoreVo> cakeStoreNameSearch(Connection conn, String cakeStoreNameInput) throws SQLException {
+		ArrayList<CakeStoreVo> cakeStoreList = new ArrayList<CakeStoreVo>();
+
+		String sql = "select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,t1.cake_store_lat,t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary from cake_store as t1 left join cake_store_img as t2 on t1.cake_store_id = t2.cake_store_id where is_deleted = 0 and cake_store_img_primary = 1 and cake_store_name like ?";
+
+		try (
+				PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setString(1, "%" + cakeStoreNameInput + "%");
+			ResultSet rs = pstmt.executeQuery();
+			while (rs.next()) {
+				int cakeStoreId = rs.getInt("cake_store_id");
+				String cakeStoreName = rs.getString("cake_store_name");
+				String cakeStoreOpenTime = rs.getString("cake_store_open_time");
+				String cakeStoreCloseTime = rs.getString("cake_store_close_time");
+				String cakeStorePhoneNum = rs.getString("cake_store_phone_num");
+				String cakeStoreAddress = rs.getString("cake_store_address");
+				String cakeStoreStation = rs.getString("cake_store_station");
+				String cakeStoreCloseDays = rs.getString("cake_store_close_days");
+				double cakeStoreLat = rs.getDouble("cake_store_lat");
+				double cakeStoreLon = rs.getDouble("cake_store_lon");
+				String cakeStorePrimaryImg = rs.getString("cake_store_img_url");
+
+				cakeStoreList.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
+				System.out.println(cakeStoreList);
+			}
+		}
+		return cakeStoreList;
+	}
 }
