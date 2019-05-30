@@ -10,13 +10,13 @@ $(function() {
         $(".main-show").css("display", "block")
     })
 });
-
-
-$(function() {
-    $(".suggest-show").css("display", "none");
-
-    $(".top-cakes-search").click(function(){
-        $(".suggest-show").toggle();
-//        $(".top-cakes-search").css("display", "none");
-    })
-})
+//
+//
+//$(function() {
+//    $(".suggest-show").css("display", "none");
+//
+//    $(".top-cakes-search").click(function(){
+//        $(".suggest-show").toggle();
+////        $(".top-cakes-search").css("display", "none");
+//    })
+//})

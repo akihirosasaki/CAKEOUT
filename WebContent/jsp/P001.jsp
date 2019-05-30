@@ -59,7 +59,7 @@
 		<header class="header">
 			<div class="header-frame">
 				<div class="logo">
-					<a href="P001.html">CAKEOUT</a>
+					<a href="IndexServlet">CAKEOUT</a>
 				</div>
 				<c:if test="${isLogin==false}">
 					<div class="login-button-wrapper">
@@ -88,11 +88,11 @@
 						</div>
 						<form action="PopularCakeStoreServlet" method="POST">
 							<div class="labeled-form-group-pull-down">
-								<select name="erea-pull-down" required>
+								<select name="searchErea" required>
 									<option value='' hidden>選択してください</option>
 									<option value="渋谷">渋谷</option>
-									<option value="表参道・青山">表参道・青山</option>
-									<option value="原宿">原宿</option>
+									<option value="代官山">代官山</option>
+									<option value="恵比寿">原宿</option>
 								</select>
 							</div>
 							<div class="button-block top-cakes-search">
@@ -100,32 +100,44 @@
 							</div>
 						</form>
 					</div>
+					<c:if test="${!empty isPopularCakeStore}">
 					<div class="suggest-show">
-						<div class="popular-suggest">
-							<p>表参道・青山エリアで人気のお店</p>
-							<hr>
-							<div class="popular-suggest-block">
-								<div class="popular-suggest-img-container">
-									<img class="popular-suggest-img" src="images/eyeCatch.jpeg"
-										alt="">
+						<c:choose>
+							<c:when test="${isPopularCakeStore==true}">
+								<div class="popular-suggest">
+									<p>
+										<c:out value="${searchErea}" />
+										エリアで人気のお店
+									</p>
+									<hr>
+									<c:forEach var="popularCakeStore" items="${popularCakeStores}"
+										varStatus="status">
+										<form action="CakeStoreInfoServlet" method="POST" name="popularCakeStoreForm">
+											<div class="popular-suggest-block">
+												<input type="hidden" name="cakeStoreId"
+												value="${popularCakeStore.cakeStoreId}">
+												<a href="javascript:document.forms.popularCakeStoreForm.submit();"></a>
+												<div class="popular-suggest-img-container">
+													<img class="popular-suggest-img"
+														src="images/<c:out value="${popularCakeStore.cakeStorePrimaryImg}" />"
+														alt="">
+												</div>
+												<div class="popular-suggest-h3">
+													<h3>
+														<c:out value="${popularCakeStore.cakeStoreName}" />
+													</h3>
+												</div>
+											</div>
+											<hr>
+										</form>
+									</c:forEach>
 								</div>
-								<div class="popular-suggest-h3">
-									<h3>ピエール・エルメ・パリ 青山</h3>
-								</div>
-							</div>
-							<hr>
-							<div class="popular-suggest-block">
-								<div class="popular-suggest-img-container">
-									<img class="popular-suggest-img" src="images/eyeCatch.jpeg"
-										alt="">
-								</div>
-								<div class="popular-suggest-h3">
-									<h3>ピエール・エルメ・パリ 青山</h3>
-								</div>
-							</div>
-							<hr>
-						</div>
-						<form action="P006.html" method="">
+							</c:when>
+							<c:when test="${isPopularCakeStore==false}">
+								<p>現在このエリアでの人気のお店はありません</p>
+							</c:when>
+						</c:choose>
+						<form action="CakeStoreMapServlet" method="POST">
 							<div class="button-block">
 								<input class="submit-button" type="submit" value="その他の店を探す">
 							</div>
@@ -145,6 +157,7 @@
 							</div>
 						</form>
 					</div>
+					</c:if>
 				</div>
 			</section>
 		</section>
