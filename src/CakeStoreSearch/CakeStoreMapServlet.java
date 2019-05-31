@@ -1,6 +1,7 @@
 package CakeStoreSearch;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -14,19 +15,22 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.google.gson.Gson;
+import com.google.gson.stream.JsonWriter;
+
 import Vo.CakeStoreVo;
 
 /**
- * Servlet implementation class PopularCakeStoreServlet
+ * Servlet implementation class CakeStoreMapServlet
  */
-@WebServlet("/PopularCakeStoreServlet")
-public class PopularCakeStoreServlet extends HttpServlet {
+@WebServlet("/CakeStoreMapServlet")
+public class CakeStoreMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public PopularCakeStoreServlet() {
+    public CakeStoreMapServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -39,19 +43,30 @@ public class PopularCakeStoreServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 		res.setContentType("text/html;charset=Shift_JIS");
 
-		String searchArea = req.getParameter("searchArea");
-		System.out.println(searchArea);
-	 	ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
-	 	String isPopularCakeStore = "true";
+		String cakeStoreArea = req.getParameter("cakeStoreArea");
+		System.out.println(cakeStoreArea);
+		ArrayList<CakeStoreVo> cakeStoreList = null;
+		String isCakeStore = "true";
+
+		CakeStoreAreaSearchModel csasm = new CakeStoreAreaSearchModel();
+
+		try {
+			cakeStoreList = csasm.businessMethod(cakeStoreArea);
+			if(cakeStoreList.isEmpty()) {
+				 isCakeStore = "false";
+			}
+			System.out.println(cakeStoreList);
+			Gson gson = new Gson();
+			System.out.println(gson.toJson(cakeStoreList, ArrayList.class));
+			PrintWriter out = res.getWriter();
+			JsonWriter writer = new JsonWriter(out);
+			writer.setIndent(" ");
+			gson.toJson(cakeStoreList, ArrayList.class,writer);
+			writer.flush();
+			out.flush();
+			writer.close();
 
 
-
-		popularCakeStoreSearchModel pcsm = new popularCakeStoreSearchModel();
-		 try {
-			 popularCakeStores = pcsm.businessMethod(searchArea);
-			 if(popularCakeStores.isEmpty()) {
-				 isPopularCakeStore = "false";
-			 }
 
 		} catch (SQLException | NamingException e) {
 			System.out.println("SQLの実行に失敗しました");
@@ -60,12 +75,13 @@ public class PopularCakeStoreServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
+
 		HttpSession session = req.getSession(true);
-		session.setAttribute("searchArea",searchArea);
-		session.setAttribute("popularCakeStores", popularCakeStores);
-		session.setAttribute("isPopularCakeStore", isPopularCakeStore);
+		session.setAttribute("cakeStoreArea",cakeStoreArea);
+		session.setAttribute("cakeStoreList", cakeStoreList);
+		session.setAttribute("isCakeStore", isCakeStore);
 		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P001.jsp");
+		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P006.jsp");
 		rd.forward(req, res);
 		return;
 

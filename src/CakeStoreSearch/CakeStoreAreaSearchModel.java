@@ -9,17 +9,16 @@ import javax.naming.NamingException;
 import Dao.CakeStoreDao;
 import Vo.CakeStoreVo;
 
-public class popularCakeStoreSearchModel {
-	public ArrayList<CakeStoreVo> businessMethod(String searchArea) throws SQLException, NamingException {
+public class CakeStoreAreaSearchModel {
+	public ArrayList<CakeStoreVo> businessMethod(String cakeStoreArea) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		CakeStoreDao cakeStoreDao = new CakeStoreDao();
-		ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
+		ArrayList<CakeStoreVo> cakeStoreList = new ArrayList<CakeStoreVo>();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = cakeStoreDao.connect()) {
-			popularCakeStores = cakeStoreDao.selectPopularCakeStore(conn, searchArea);
+			cakeStoreList = cakeStoreDao.selectCakeStoreByArea(conn, cakeStoreArea);
 		}
-		return popularCakeStores;
+		return cakeStoreList;
 	}
-
 }

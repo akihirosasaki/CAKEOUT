@@ -88,7 +88,7 @@
 						</div>
 						<form action="PopularCakeStoreServlet" method="POST">
 							<div class="labeled-form-group-pull-down">
-								<select name="searchErea" required>
+								<select name="searchArea" required>
 									<option value='' hidden>選択してください</option>
 									<option value="渋谷">渋谷</option>
 									<option value="代官山">代官山</option>
@@ -142,6 +142,7 @@
 							</c:choose>
 							<form action="CakeStoreMapServlet" method="POST">
 								<div class="button-block">
+									<input type="hidden" name="cakeStoreArea" value="${searchArea}">
 									<input class="submit-button" type="submit" value="その他の店を探す">
 								</div>
 							</form>
