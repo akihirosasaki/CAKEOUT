@@ -1,4 +1,6 @@
-function makeMap(lat, lng) {    
+
+
+function makeMap(lat, lng) {
     var canvas = document.getElementById('map-canvas'); // 地図を表示する要素を取得
 
     var latlng = new google.maps.LatLng(lat, lng);  // 中心の位置（緯度、経度）
@@ -8,7 +10,7 @@ function makeMap(lat, lng) {
         center: latlng,
     };
     var map = new google.maps.Map(canvas, mapOptions); //作成
-	
+
 	google.maps.event.addListener(map, 'click', function() {
 		$(".shop-modal").slideDown();
 	});
@@ -35,17 +37,17 @@ $(function() {
     $('.close').on('click', function() {
       $('#overlay, #modal-win').fadeOut();
     });
-    
+
     locateCenter();
     $(window).resize(locateCenter);
-  
+
     function locateCenter() {
       let w = $(window).width();
       let h = $(window).height();
-      
+
       let cw = $('#modal-win').outerWidth();
       let ch = $('#modal-win').outerHeight();
-     
+
       $('#modal-win').css({
         'left': ((w - cw) / 2) + 'px',
         'top': ((h - ch) / 2) + 'px'

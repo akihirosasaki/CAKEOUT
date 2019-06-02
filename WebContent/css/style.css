@@ -134,7 +134,7 @@ body {
     display: inline-block;
 
 }
-.labeled-form-group-input input[type=text] {
+.labeled-form-group-input input {
 	font: 15px/24px sans-serif;
 	box-sizing: border-box;
 	width: 100%;
