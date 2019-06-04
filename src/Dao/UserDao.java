@@ -17,11 +17,11 @@ public class UserDao extends BaseDao{
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, mailAdd);
 			ResultSet rs = pstmt.executeQuery();
-//			System.out.println(pstmt.toString());
 			if (rs.next()) {
-//				String userMailAdd = rs.getString("user_mail_address");
 				mailCheck=false;
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return mailCheck;
 	}
@@ -46,6 +46,8 @@ public class UserDao extends BaseDao{
 
 				loginUser = new UserVo(userId, userName, userMailAdd, userPassword, userRole);
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return loginUser;
 	}
@@ -63,6 +65,8 @@ public class UserDao extends BaseDao{
 			if (rs != 1) {
 				System.out.println("挿入の失敗");
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 	}
 }

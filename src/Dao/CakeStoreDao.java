@@ -43,6 +43,8 @@ public class CakeStoreDao extends BaseDao{
 
 				popularCakeStores.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return popularCakeStores;
 	}
@@ -69,6 +71,8 @@ public class CakeStoreDao extends BaseDao{
 
 				cakeStoreInfo = new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, "");
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return cakeStoreInfo;
 	}
@@ -109,6 +113,8 @@ public class CakeStoreDao extends BaseDao{
 
 				cakeStoreMenuList.add(new CakeStoreMenuVo(cakeMenuId, cakeMenuName, cakeMenuImgUrl, cakeStock));
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return cakeStoreMenuList;
 	}
@@ -142,6 +148,8 @@ public class CakeStoreDao extends BaseDao{
 				cakeStoreList.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
 				System.out.println(cakeStoreList);
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return cakeStoreList;
 	}
@@ -186,6 +194,8 @@ public class CakeStoreDao extends BaseDao{
 
 				cakeStoreList.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return cakeStoreList;
 	}
@@ -207,6 +217,8 @@ public class CakeStoreDao extends BaseDao{
 				stationPosition.add(stationLat);
 				stationPosition.add(stationLon);
 			}
+		}catch (Exception e) {
+			// TODO: handle exception
 		}
 		return stationPosition;
 	}
