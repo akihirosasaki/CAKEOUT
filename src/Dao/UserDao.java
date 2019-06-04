@@ -29,7 +29,8 @@ public class UserDao extends BaseDao{
 	public UserVo selectLoginUser(Connection conn, String mailAdd, String password) throws SQLException {
 		UserVo loginUser = null;
 
-		String sql = "select user_id, user_name, user_mail_address, user_password, user_role from user where user_mail_address=? and user_password=?";
+		String sql = "select user_id, user_name, user_mail_address, user_password, user_role from user where user_mail_address=?"
+				+ " and user_password=?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {

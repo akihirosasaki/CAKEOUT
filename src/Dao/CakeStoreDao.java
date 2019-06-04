@@ -15,7 +15,14 @@ public class CakeStoreDao extends BaseDao{
 	public static ArrayList<CakeStoreVo> selectPopularCakeStore(Connection conn, String searchArea) throws SQLException {
 		ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
 
-		String sql = "select * from (select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,t1.cake_store_lat,t1.cake_store_lon,t2.order_times, t1.is_deleted, t3.cake_store_img_url, t3.cake_store_img_primary from cake_store as t1 left join (select cake_store_id, count(cake_store_id) as order_times from order_info group by cake_store_id) as t2 on t1.cake_store_id = t2.cake_store_id left join cake_store_img as t3 on t1.cake_store_id = t3.cake_store_id) as t4 where cake_store_station = ? and is_deleted = 0 and cake_store_img_primary = 1 order by order_times desc limit 3";
+		String sql = "select * from (select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,"
+				+ "t1.cake_store_close_time,t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,"
+				+ "t1.cake_store_station,t1.cake_store_lat,t1.cake_store_lon,t2.order_times, t1.is_deleted, "
+				+ "t3.cake_store_img_url, t3.cake_store_img_primary from cake_store as t1 left join "
+				+ "(select cake_store_id, count(cake_store_id) as order_times from order_info group by cake_store_id) "
+				+ "as t2 on t1.cake_store_id = t2.cake_store_id left join cake_store_img as t3 on "
+				+ "t1.cake_store_id = t3.cake_store_id) as t4 where cake_store_station = ? and is_deleted = 0 "
+				+ "and cake_store_img_primary = 1 order by order_times desc limit 3";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -87,7 +94,8 @@ public class CakeStoreDao extends BaseDao{
 	public static ArrayList<CakeStoreMenuVo> getCakeStoreMenu(Connection conn, int cakeStoreId) throws SQLException {
 		ArrayList<CakeStoreMenuVo> cakeStoreMenuList = new ArrayList<CakeStoreMenuVo>();
 
-		String sql = "select t1.cake_menu_id, t1.cake_menu_name, t1.cake_menu_img_url, t2.stock_num from cake_menu as t1 left join cake_stock as t2 on t1.cake_menu_id = t2.cake_menu_id where cake_store_id = ? and is_deleted = 0";
+		String sql = "select t1.cake_menu_id, t1.cake_menu_name, t1.cake_menu_img_url, t2.stock_num from cake_menu as t1 "
+				+ "left join cake_stock as t2 on t1.cake_menu_id = t2.cake_menu_id where cake_store_id = ? and is_deleted = 0";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -108,7 +116,11 @@ public class CakeStoreDao extends BaseDao{
 	public static ArrayList<CakeStoreVo> cakeStoreNameSearch(Connection conn, String cakeStoreNameInput) throws SQLException {
 		ArrayList<CakeStoreVo> cakeStoreList = new ArrayList<CakeStoreVo>();
 
-		String sql = "select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,t1.cake_store_lat,t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary from cake_store as t1 left join cake_store_img as t2 on t1.cake_store_id = t2.cake_store_id where is_deleted = 0 and cake_store_img_primary = 1 and cake_store_name like ?";
+		String sql = "select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
+				+ "t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,"
+				+ "t1.cake_store_lat,t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary from cake_store as t1 "
+				+ "left join cake_store_img as t2 on t1.cake_store_id = t2.cake_store_id where is_deleted = 0 and "
+				+ "cake_store_img_primary = 1 and cake_store_name like ?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -137,7 +149,11 @@ public class CakeStoreDao extends BaseDao{
 	public static ArrayList<CakeStoreVo> selectCakeStoreByArea(Connection conn, String cakeStoreArea, String[] statusList) throws SQLException {
 		ArrayList<CakeStoreVo> cakeStoreList = new ArrayList<CakeStoreVo>();
 
-		String sql = "select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,t1.cake_store_lat,t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary from cake_store as t1 left join cake_store_img as t2 on t1.cake_store_id = t2.cake_store_id  where is_deleted = 0 and cake_store_img_primary = 1 and cake_store_station = ?";
+		String sql = "select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
+				+ "t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,t1.cake_store_lat,"
+				+ "t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary from cake_store as t1 "
+				+ "left join cake_store_img as t2 on t1.cake_store_id = t2.cake_store_id  where is_deleted = 0 and "
+				+ "cake_store_img_primary = 1 and cake_store_station = ?";
 
 		if(statusList!=null) {
 			if(Arrays.asList(statusList).contains("open")) {

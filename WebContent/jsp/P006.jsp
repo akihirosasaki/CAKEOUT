@@ -34,54 +34,12 @@ var cakeStoreArea = "<%=cakeStoreArea%>";
 
 </head>
 <body>
-	<div class="account-show">
-		<header class="header">
-			<div class="header-frame-account">
-				<div class="header-account-text">
-					<p>アカウント</p>
-				</div>
-				<div class="cancel">
-					<span></span>
-				</div>
-			</div>
-		</header>
-		<section id="main">
-			<section class="content">
-				<div class="account-content-box">
-					<div class="account-text-box">
-						<p>
-							<a href="">チケットを確認する</a>
-						</p>
-						<p>
-							<a href="">予約をキャンセルする</a>
-						</p>
-						<p>
-							<a href="">内容を変更する</a>
-						</p>
-						<p>
-							<a href="">ログアウトする</a>
-						</p>
-					</div>
-				</div>
-			</section>
-		</section>
-	</div>
 	<div class="main-show">
 		<header class="header">
 			<div class="header-frame-search">
 				<div class="logo">
 					<a href="index.html">CAKEOUT</a>
 				</div>
-				<c:if test="${isLogin==false}">
-					<div class="login-button-wrapper">
-						<a class="login-button" href="login.html">ログイン</a>
-					</div>
-				</c:if>
-				<c:if test="${isLogin==true}">
-					<div class="account-button-wrapper">
-						<img class="account-button" src="../images/account.gif">
-					</div>
-				</c:if>
 			</div>
 		</header>
 		<section id="main">
