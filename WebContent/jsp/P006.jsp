@@ -1,6 +1,10 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=utf-8"
+	pageEncoding="utf-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%
+	String cakeStoreArea;
+	cakeStoreArea = (String) session.getAttribute("cakeStoreArea");
+%>
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -23,7 +27,11 @@
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkVaV9oexHW-Mg302lv4S7AUIa_icr554"></script>
 <script type="text/javascript" src="js/script.js"></script>
-<script type="text/javascript" src="js/map.js"></script>
+<script type="text/javascript" charset="utf-8">
+var cakeStoreArea = "<%=cakeStoreArea%>";
+</script>
+<script type="text/javascript" src="js/map.js" charset="utf-8"></script>
+
 </head>
 <body>
 	<div class="account-show">
@@ -79,19 +87,24 @@
 		<section id="main">
 			<section class="content">
 				<div class="form-group-input">
-					<input id="pac-input" class="controls" type="text"
-						name="store-name-input" placeholder="Search Box">
+					<div class="form-group-pull-down">
+						<select name="area-pull-down">
+							<option value='' hidden>選択してください</option>
+							<option value="渋谷">渋谷</option>
+							<option value="代官山">代官山</option>
+							<option value="原宿">原宿</option>
+						</select>
+					</div>
 				</div>
 				<article id="map-canvas"></article>
 				<div class="select-condition-box">
 					<button class="select-condition-button open">条件追加</button>
 					<div class="select-condition-detail-box">
-						<button class="condition-status">条件1</button>
-						<button class="condition-status">条件2</button>
+						<!-- <button class="condition-status">営業中</button> -->
 					</div>
 					<div id="overlay"></div>
 					<div id="modal-win">
-						<form class="modal-form" action="CakeStoreMapServlet"
+						<form class="modal-form" action="#"
 							method="POST">
 							<div class="modal-header">
 								<div class="modal-header-text">
@@ -104,14 +117,13 @@
 							<div class="modal-contents-container">
 								<div class="modal-contents-status-container">
 									<input type="checkbox" class="condition-status-check"
-										id="status1"> <label class="select-condition-label"
-										for="status1">条件１</label> <input type="checkbox"
-										class="condition-status-check" id="status2"> <label
-										class="select-condition-label" for="status2">条件２</label> <input
-										type="checkbox" class="condition-status-check" id="status3">
-									<label class="select-condition-label" for="status3">条件３</label>
+										id="open" name="open" value="open"> <label class="select-condition-label"
+										for="open">営業中</label>
+									<input type="checkbox" class="condition-status-check"
+									id="test" name="test" value="test"> <label class="select-condition-label"
+									for="test">テスト</label>
 								</div>
-								<input class="submit-button" type="submit" value="絞り込む">
+								<input class="submit-button" type="button" value="絞り込む" id="select-button">
 							</div>
 						</form>
 					</div>
@@ -120,15 +132,21 @@
 					<p>行きたいケーキ屋さんを選択してください</p>
 				</div>
 				<article class="shop-modal">
-					<div class="shop-modal-img">
+					<!-- <div class="shop-modal-img">
 						<img src="images/shortcake.jpeg"> <img
 							src="images/cheezecake.jpeg">
-					</div>
-					<p>ピエール・エルメ・パリ 青山</p>
-					<a href="CakeStoreInfoServlet"><span class="shop-modal-a"></span></a>
-					<form action="CafeStoreMapServlet" method="POST">
-						<input class="btn-search" type="submit" value="決定">
+					</div> -->
+					<form action="CakeStoreInfoServlet" method="POST"
+						name="CafeStoreInfoForm">
+						<p></p>
+						<input type="hidden" name="cakeStoreId"> <a
+							href="javascript:CafeStoreInfoForm.submit()"><span
+							class="shop-modal-a"></span></a>
 					</form>
+
+					<!-- <form action="CafeStoreMapServlet" method="POST">
+						<input class="btn-search" type="submit" value="決定">
+					</form> -->
 				</article>
 			</section>
 		</section>

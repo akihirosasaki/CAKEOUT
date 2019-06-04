@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="ja">
     <head>
@@ -43,6 +44,9 @@
                                     <input type="password" name="password" placeholder="パスワード" required>
                                 </div>
                         </div>
+                        <c:if test="${isUserNull==true}">
+							<p>メールアドレスかパスワードが間違っています</p>
+						</c:if>
                         <div class="button-block form-inline">
                                 <input class="submit-button" type="submit" value="ログイン">
                         </div>

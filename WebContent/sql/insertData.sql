@@ -63,3 +63,7 @@ insert into order_info (order_id, user_id, cake_store_id, cafe_store_id, order_n
 insert into order_info (order_id, user_id, cake_store_id, cafe_store_id, order_num, is_checked) values (3, 1, 1, 1, 1, 0);
 insert into order_info (order_id, user_id, cake_store_id, cafe_store_id, order_num, is_checked) values (4, 1, 1, 1, 1, 0);
 insert into order_info (order_id, user_id, cake_store_id, cafe_store_id, order_num, is_checked) values (5, 1, 1, 1, 1, 0);
+
+insert into station_location (station_id, station_name, station_lat, station_lon) values (1, "渋谷", 35.658034, 139.701636);
+insert into station_location (station_id, station_name, station_lat, station_lon) values (2, "代官山", 35.650547, 139.704221);
+insert into station_location (station_id, station_name, station_lat, station_lon) values (3, "原宿", 35.669968, 139.709008);

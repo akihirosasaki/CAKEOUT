@@ -35,6 +35,7 @@
                                     <div class="labeled-form-group-labels">
                                         <span class="labeled-form-group-main-label">ユーザーネーム</span>
                                     </div>
+                                    <c:if test="${userLengthCheck==false}"><p>ユーザー名は16文字以内にしてください</p></c:if>
                                     <div class="labeled-form-group-input">
                                         <input type="text" name="userName" placeholder="user" class="validate[required,maxSize[16]] text-input" required>
                                     </div>
@@ -43,7 +44,8 @@
                                 <div class="labeled-form-group-labels">
                                     <span class="labeled-form-group-main-label">メールアドレス</span>
                                 </div>
-                                <c:if test="${mailCheck==false}"><p>このメールアドレスはすでに使われています</p></c:if>
+                                <c:if test="${mailDuplicateCheck==false}"><p>このメールアドレスはすでに使われています</p></c:if>
+                                <c:if test="${mailFormatCheck==false}"><p>メールアドレスの表記が不正です</p></c:if>
                                 <div class="labeled-form-group-input">
                                     <input type="text" name="mailAdd" placeholder="メールアドレス" class="validate[required,maxSize[16]] text-input" required>
                                 </div>
@@ -52,6 +54,7 @@
                                 <div class="labeled-form-group-labels">
                                     <span class="labeled-form-group-main-label">パスワード</span>
                                 </div>
+                                <c:if test="${passLengthCheck==false}"><p>パスワードは16文字以内にしてください</p></c:if>
                                 <div class="labeled-form-group-input">
                                     <input type="password" name="password" placeholder="パスワード" class="validate[required,maxSize[16]] text-input" required>
                                 </div>
