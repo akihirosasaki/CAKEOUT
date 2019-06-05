@@ -9,6 +9,7 @@ drop table if exists cafe_menu;
 drop table if exists cake_store_img;
 drop table if exists cafe_store_img;
 drop table if exists cake_stock;
+drop table if exists station_location;
 
 commit;
 
@@ -28,7 +29,7 @@ create table if not exists user(
     user_id int(5) auto_increment not null,
     user_name varchar(16) not null,
     user_mail_address varchar(32) not null,
-    user_password  varchar(16) not null,
+    user_password  varchar(256) not null,
     user_status int(1) not null,
     user_role int(1) not null,
     primary key (user_id)
@@ -105,4 +106,12 @@ create table if not exists cake_stock (
     cake_menu_id int(3) not null,
     stock_num int(3) not null,
     primary key (cake_menu_id)
+);
+
+create table if not exists station_location (
+	station_id int(3) not null,
+	station_name varchar(10) not null,
+	station_lat double(9,6) not null,
+	station_lon double(9,6) not null,
+	primary key(station_id)
 );
