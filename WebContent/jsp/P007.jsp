@@ -31,7 +31,7 @@
 		<header class="header">
 			<div class="header-frame">
 				<div class="logo">
-					<a href="index.html">CAKEOUT</a>
+					<a href="IndexServlet">CAKEOUT</a>
 				</div>
 			</div>
 		</header>
@@ -132,9 +132,13 @@
 						</div>
 					</div>
 				</div>
-				<div class="btn-fixed">
-					<button class="submit-button" onclick="location.href='CafeStoreMapServlet'">決定する</button>
-				</div>
+				<form action="CafeStoreMapViewServlet" method="POST">
+					<div class="btn-fixed">
+						<input type="hidden" name="selectedCakeStoreId" value="<c:out value="${cakeStoreInfo.cakeStoreId}"/>" >
+						<input type="hidden" name="selectedCakeStoreArea" value="<c:out value="${cakeStoreInfo.cakeStoreStation}"/>" >
+						<input type="submit" class="submit-button" value="決定する">
+					</div>
+				</form>
 			</section>
 		</section>
 		<footer class="footer">

@@ -15,19 +15,20 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
-import model.CakeStoreSearchModel;
+import Vo.CafeStoreVo;
+import model.CafeStoreSearchModel;
 
 /**
- * Servlet implementation class GetCenterPositionServlet
+ * Servlet implementation class CafeStoreMapServlet
  */
-@WebServlet("/GetCenterPositionServlet")
-public class GetCenterPositionServlet extends HttpServlet {
+@WebServlet("/CafeStoreMapServlet")
+public class CafeStoreMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public GetCenterPositionServlet() {
+    public CafeStoreMapServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -40,16 +41,25 @@ public class GetCenterPositionServlet extends HttpServlet {
 		res.setCharacterEncoding("UTF-8");
 
 		String cakeStoreArea = req.getParameter("cakeStoreArea");
-		ArrayList<Double> stationPosition = new ArrayList<Double>();
-		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
-		try {
-			stationPosition = cssm.getCakeStationPosition(cakeStoreArea);
+		String[] statusList = req.getParameterValues("statusList[]");
+		System.out.println(cakeStoreArea);
 
+		ArrayList<CafeStoreVo> cafeStoreList = null;
+		String isCafeStore = "true";
+
+		CafeStoreSearchModel cssm = new CafeStoreSearchModel();
+
+		try {
+			cafeStoreList = cssm.selectCafeStoreByArea(cakeStoreArea, statusList);
+			System.out.println(cafeStoreList);
+			if(cafeStoreList.isEmpty()) {
+				 isCafeStore = "false";
+			}
 			Gson gson = new Gson();
 			PrintWriter out = res.getWriter();
 			JsonWriter writer = new JsonWriter(out);
 			writer.setIndent(" ");
-			gson.toJson(stationPosition, ArrayList.class,writer);
+			gson.toJson(cafeStoreList, ArrayList.class,writer);
 			writer.flush();
 			out.flush();
 			writer.close();
@@ -66,9 +76,9 @@ public class GetCenterPositionServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(req, res);
+		doGet(request, response);
 	}
 
 }

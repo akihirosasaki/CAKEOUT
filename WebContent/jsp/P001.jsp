@@ -151,6 +151,9 @@
 									<div class="labeled-form-group-labels">
 										<span class="labeled-form-group-main-label">店名で探す</span>
 									</div>
+									<c:if test="${isInputCheck==false}">
+										<p>店名が入力されていません</p>
+									</c:if>
 									<div class="labeled-form-group-input">
 										<input type="text" name="cakeStoreName"
 											placeholder="ピエール・エルメ・パリ　青山">

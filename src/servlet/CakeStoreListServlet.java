@@ -39,20 +39,29 @@ public class CakeStoreListServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
-
+		String isInputCheck="true";
 		String cakeStoreNameInput = req.getParameter("cakeStoreName");
 
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 		try {
-			ArrayList<CakeStoreVo> cakeStoreList = cssm.cakeStoreNameSearch(cakeStoreNameInput);
-			HttpSession session = req.getSession(true);
-			System.out.println(cakeStoreList);
-			session.setAttribute("cakeStoreNameInput", cakeStoreNameInput);
-			session.setAttribute("cakeStoreList", cakeStoreList);
-			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P019.jsp");
-			rd.forward(req, res);
-			return;
+			if(cakeStoreNameInput==null || cakeStoreNameInput.equals("")) {
+				isInputCheck="false";
+				req.setAttribute("isInputCheck", isInputCheck);
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P001.jsp");
+				rd.forward(req, res);
+				return;
+			}else {
+				ArrayList<CakeStoreVo> cakeStoreList = cssm.cakeStoreNameSearch(cakeStoreNameInput);
+				HttpSession session = req.getSession(true);
+				System.out.println(cakeStoreList);
+				session.setAttribute("cakeStoreNameInput", cakeStoreNameInput);
+				session.setAttribute("cakeStoreList", cakeStoreList);
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P019.jsp");
+				rd.forward(req, res);
+				return;
+			}
 		} catch (SQLException | NamingException e) {
 			System.out.println("SQLの実行に失敗しました");
 			System.out.println("SQLException:" + e.getMessage());

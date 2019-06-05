@@ -54,7 +54,7 @@ public class CakeStoreSearchModel {
 		ArrayList<CakeStoreMenuVo> cakeStoreMenuList = new ArrayList<CakeStoreMenuVo>();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = cakeStoreDao.connect()) {
-			cakeStoreMenuList = CakeStoreDao.getCakeStoreMenu(conn, cakeStoreId);
+			cakeStoreMenuList = cakeStoreDao.getCakeStoreMenu(conn, cakeStoreId);
 		}
 		return cakeStoreMenuList;
 	}
@@ -66,7 +66,7 @@ public class CakeStoreSearchModel {
 		CakeStoreVo cakeStoreInfo = null;
 		//		コネクション管理はこのレベルで
 		try (Connection conn = cakeStoreDao.connect()) {
-			cakeStoreInfo = CakeStoreDao.getCakeStoreInfo(conn, cakeStoreId);
+			cakeStoreInfo = cakeStoreDao.getCakeStoreInfo(conn, cakeStoreId);
 		}
 		return cakeStoreInfo;
 	}
@@ -78,7 +78,7 @@ public class CakeStoreSearchModel {
 		ArrayList<String> cakeStoreImg;
 		//		コネクション管理はこのレベルで
 		try (Connection conn = cakeStoreDao.connect()) {
-			cakeStoreImg = CakeStoreDao.getCakeStoreImg(conn, cakeStoreId);
+			cakeStoreImg = cakeStoreDao.getCakeStoreImg(conn, cakeStoreId);
 		}
 		return cakeStoreImg;
 	}

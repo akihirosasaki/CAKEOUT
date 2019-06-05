@@ -28,7 +28,7 @@ public class UserModel {
 		boolean mailCheck;
 		//		コネクション管理はこのレベルで
 		try (Connection conn = userDao.connect()) {
-			mailCheck = UserDao.accountCheck(conn, mailAdd);
+			mailCheck = userDao.accountCheck(conn, mailAdd);
 		}
 		return mailCheck;
 	}

@@ -9,7 +9,7 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 public class BaseDao {
-	public static Connection connect() throws SQLException, NamingException {
+	public Connection connect() throws SQLException, NamingException {
 		DataSource ds = null;
 		Connection con = null;
 		Context context = null;

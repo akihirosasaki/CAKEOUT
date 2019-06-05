@@ -63,7 +63,7 @@
 			<div class="header-frame">
 				<c:if test="${isLogin==false}">
 					<div class="logo">
-						<a href="index.html">CAKEOUT</a>
+						<a href="IndexServlet">CAKEOUT</a>
 					</div>
 				</c:if>
 				<c:if test="${isLogin==true}">
