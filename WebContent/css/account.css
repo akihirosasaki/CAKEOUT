@@ -23,10 +23,8 @@
     font-size: 20px;
     line-height: 3.0em;
     font-weight: 700;
-}
-.account-text-box a {
-    text-decoration: none;
     color: #707070;
+    
 }
 .cancel {
     display: inline-block;

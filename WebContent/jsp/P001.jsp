@@ -1,4 +1,5 @@
-  <%@ page language="java" contentType="text/html; charset=UTF-8"
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
@@ -37,18 +38,29 @@
 			<section class="content">
 				<div class="account-content-box">
 					<div class="account-text-box">
-						<p>
-							<a href="TicketCheckServlet">チケットを確認する</a>
-						</p>
-						<p>
-							<a href="OrderCancelServlet">予約をキャンセルする</a>
-						</p>
-						<p>
-							<a href="OrderAlterServlet">内容を変更する</a>
-						</p>
-						<p>
-							<a href="LogoutServlet">ログアウトする</a>
-						</p>
+						<form action="OrderListServlet" method="POST">
+							<input type="hidden" name="accountLink" value="ticket">
+							<p>
+								<input type="submit" name="submit" value="チケットを確認する">
+							</p>
+						</form>
+						<form action="OrderListServlet" method="POST">
+							<input type="hidden" name="accountLink" value="cancel">
+							<p>
+								<input type="submit" name="submit" value="予約をキャンセルする">
+							</p>
+						</form>
+						<form action="OrderListServlet" method="POST">
+							<input type="hidden" name="accountLink" value="change">
+							<p>
+								<input type="submit" name="submit" value="人数を変更する">
+							</p>
+						</form>
+						<form action="LogoutServlet" method="GET">
+							<p>
+								<input type="submit" name="submit" value="ログアウトする">
+							</p>
+						</form>
 					</div>
 				</div>
 			</section>

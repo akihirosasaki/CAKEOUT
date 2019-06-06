@@ -113,17 +113,28 @@ public class LoginServlet extends HttpServlet {
 			ServletContext sc = this.getServletContext();
 			if (isAdmin.equals("false")) {
 				String isOrdered = (String) session.getAttribute("isOrdered");
-				if(isOrdered.equals("true")) {
-					RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
-					rd.forward(req, res);
-					System.out.println("注文後顧客ログイン成功");
-					return;
-				}else {
+				if(isOrdered==null) {
 					RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 					rd.forward(req, res);
 					System.out.println("注文前顧客ログイン成功");
 					return;
+				}else {
+					RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
+					rd.forward(req, res);
+					System.out.println("注文後顧客ログイン成功");
+					return;
 				}
+//				if(isOrdered.equals("true")) {
+//					RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
+//					rd.forward(req, res);
+//					System.out.println("注文後顧客ログイン成功");
+//					return;
+//				}else {
+//					RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+//					rd.forward(req, res);
+//					System.out.println("注文前顧客ログイン成功");
+//					return;
+//				}
 			} else {
 				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 				rd.forward(req, res);

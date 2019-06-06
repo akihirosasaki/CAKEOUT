@@ -79,12 +79,13 @@ public class TicketServlet extends HttpServlet {
  				orderNum =Integer.parseInt(orderNumString);
  			}
  			Date date = new Date();
+ 			java.sql.Date dateSQL = new java.sql.Date(date.getTime());
  			DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
  			String dateString = df.format(date).toString();
  			OrderModel om = new OrderModel();
 
  			try {
- 				boolean isOrderCheck = om.checkOrderDuplicate(userId, selectedCakeStoreId, selectedCafeStoreId, date);
+ 				boolean isOrderCheck = om.checkOrderDuplicate(userId, selectedCakeStoreId, selectedCafeStoreId, dateSQL);
  				if(isOrderCheck==false) {
  					req.setAttribute("isOrderCheck", isOrderCheck);
  					ServletContext sc = this.getServletContext();
@@ -93,7 +94,7 @@ public class TicketServlet extends HttpServlet {
  					return;
  				}else {
  					om.insertOrder(userId, selectedCakeStoreId, selectedCafeStoreId, orderNum);
- 					orderId = om.getOrderId(userId, selectedCakeStoreId, selectedCafeStoreId, date);
+ 					orderId = om.getOrderId(userId, selectedCakeStoreId, selectedCafeStoreId, dateSQL);
  				}
 
  			} catch (SQLException | NamingException e) {
