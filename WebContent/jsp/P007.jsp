@@ -135,6 +135,7 @@
 				<form action="CafeStoreMapViewServlet" method="POST">
 					<div class="btn-fixed">
 						<input type="hidden" name="selectedCakeStoreId" value="<c:out value="${cakeStoreInfo.cakeStoreId}"/>" >
+						<input type="hidden" name="selectedCakeStoreName" value="<c:out value="${cakeStoreInfo.cakeStoreName}"/>" >
 						<input type="hidden" name="selectedCakeStoreArea" value="<c:out value="${cakeStoreInfo.cakeStoreStation}"/>" >
 						<input type="submit" class="submit-button" value="決定する">
 					</div>

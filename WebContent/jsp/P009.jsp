@@ -104,6 +104,7 @@
                     <form action="CakeCafeConfirmServlet" method="POST">
 						<div class="btn-fixed">
 							<input type="hidden" name="selectedCafeStoreId" value="<c:out value="${cafeStoreInfo.cafeStoreId}"/>" >
+							<input type="hidden" name="selectedCafeStoreName" value="<c:out value="${cafeStoreInfo.cafeStoreName}"/>" >
 							<input type="submit" class="submit-button" value="決定する">
 						</div>
 					</form>

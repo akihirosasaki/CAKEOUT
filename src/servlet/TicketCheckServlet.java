@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -11,17 +13,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import model.OrderModel;
+
 /**
- * Servlet implementation class CafeStoreMapViewServlet
+ * Servlet implementation class TicketCheckServlet
  */
-@WebServlet("/CafeStoreMapViewServlet")
-public class CafeStoreMapViewServlet extends HttpServlet {
+@WebServlet("/TicketCheckServlet")
+public class TicketCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public CafeStoreMapViewServlet() {
+    public TicketCheckServlet() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,25 +37,34 @@ public class CafeStoreMapViewServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
-		String selectedCakeStoreId = req.getParameter("selectedCakeStoreId");
-		String selectedCakeStoreName = req.getParameter("selectedCakeStoreName");
-		String selectedCakeStoreArea = req.getParameter("selectedCakeStoreArea");
-		HttpSession session = req.getSession();
-		session.setAttribute("selectedCakeStoreId",selectedCakeStoreId);
-		session.setAttribute("selectedCakeStoreName",selectedCakeStoreName);
-		session.setAttribute("selectedCakeStoreArea",selectedCakeStoreArea);
-		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P008.jsp");
+		HttpSession session = req.getSession(true);
+
+		int orderId = (Integer) session.getAttribute("orderId");
+
+   		OrderModel om = new OrderModel();
+
+   		try {
+			om.ticketCheck(orderId);
+		} catch (SQLException | NamingException e) {
+			System.out.println("SQLの実行に失敗しました");
+			System.out.println("SQLException:" + e.getMessage());
+			System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
+			e.printStackTrace();
+			throw new ServletException(e);
+		}
+   		ServletContext sc = this.getServletContext();
+   		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P018.jsp");
 		rd.forward(req, res);
 		return;
+
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+		doGet(req, res);
 	}
 
 }
