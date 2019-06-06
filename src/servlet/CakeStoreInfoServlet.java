@@ -19,24 +19,14 @@ import Vo.CakeStoreMenuVo;
 import Vo.CakeStoreVo;
 import model.CakeStoreSearchModel;
 
-/**
- * Servlet implementation class CakeStoreInfoServlet
- */
 @WebServlet("/CakeStoreInfoServlet")
 public class CakeStoreInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CakeStoreInfoServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public CakeStoreInfoServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -65,17 +55,9 @@ public class CakeStoreInfoServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-
-
-
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

@@ -11,24 +11,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- * Servlet implementation class OrderSelectServlet
- */
 @WebServlet("/OrderSelectServlet")
 public class OrderSelectServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrderSelectServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public OrderSelectServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -36,9 +26,9 @@ public class OrderSelectServlet extends HttpServlet {
 		HttpSession session = req.getSession(true);
 		int orderId;
 		String orderIdJsp = req.getParameter("orderId");
-		if(orderIdJsp==null) {
+		if (orderIdJsp == null) {
 			orderId = (Integer) session.getAttribute("orderId");
-		}else {
+		} else {
 			orderId = Integer.parseInt(orderIdJsp);
 		}
 
@@ -46,20 +36,19 @@ public class OrderSelectServlet extends HttpServlet {
 
 		String orderStatus = (String) session.getAttribute("orderStatus");
 
-
-		if(orderStatus.equals("ticket")) {
+		if (orderStatus.equals("ticket")) {
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
 			System.out.println("ticket");
 			rd.forward(req, res);
 			return;
-		}else if (orderStatus.equals("cancel")) {
+		} else if (orderStatus.equals("cancel")) {
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P013.jsp");
 			System.out.println("cancel");
 			rd.forward(req, res);
 			return;
-		}else {
+		} else {
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P015.jsp");
 			System.out.println("change");
@@ -68,11 +57,7 @@ public class OrderSelectServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

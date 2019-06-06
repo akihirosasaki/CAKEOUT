@@ -15,24 +15,14 @@ import javax.servlet.http.HttpSession;
 
 import model.OrderModel;
 
-/**
- * Servlet implementation class TicketCheckServlet
- */
 @WebServlet("/TicketCheckServlet")
 public class TicketCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public TicketCheckServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public TicketCheckServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -41,9 +31,9 @@ public class TicketCheckServlet extends HttpServlet {
 
 		int orderId = (Integer) session.getAttribute("orderId");
 
-   		OrderModel om = new OrderModel();
+		OrderModel om = new OrderModel();
 
-   		try {
+		try {
 			om.ticketCheck(orderId);
 		} catch (SQLException | NamingException e) {
 			System.out.println("SQLの実行に失敗しました");
@@ -52,18 +42,14 @@ public class TicketCheckServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-   		ServletContext sc = this.getServletContext();
-   		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P018.jsp");
+		ServletContext sc = this.getServletContext();
+		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P018.jsp");
 		rd.forward(req, res);
 		return;
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

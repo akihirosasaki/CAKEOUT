@@ -1,6 +1,13 @@
 package Vo;
 
-public class UserVo {
+import java.io.Serializable;
+
+public class UserVo implements Serializable{
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String userName;
 	private String userMailAddress;

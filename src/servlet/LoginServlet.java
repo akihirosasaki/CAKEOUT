@@ -19,16 +19,12 @@ import Vo.UserVo;
 import model.UserModel;
 import util.Digest;
 
-/**
- * Servlet implementation class LoginServlet
- */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doPost(req, res);
 	}
 
@@ -45,7 +41,6 @@ public class LoginServlet extends HttpServlet {
 		String isAdmin = "false";
 		String isUserNull = "false";
 
-
 		Digest digest = new Digest(Digest.SHA512);
 		String hashPass = digest.hex(password);
 		System.out.println(hashPass);
@@ -53,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 		Pattern p = Pattern.compile(exceptPattern);
 		Matcher m = p.matcher(mailAdd);
 		String isExceptionString = "false";
-		if(m.find()) {
+		if (m.find()) {
 			isExceptionString = "true";
 			req.setAttribute("isExceptionString", isExceptionString);
 			final String url = "IndexServlet";
@@ -66,10 +61,10 @@ public class LoginServlet extends HttpServlet {
 			loginUser = um.selectLoginUser(mailAdd, hashPass);
 			if (loginUser != null) {
 				isLogin = "true";
-				if (loginUser.getUserRole()==1) {
+				if (loginUser.getUserRole() == 1) {
 					isAdmin = "true";
 				}
-			}else {
+			} else {
 				isUserNull = "true";
 			}
 
@@ -81,92 +76,91 @@ public class LoginServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 
-//		String ip = req.getHeader("x-forwarded-for");
-//		if (ip == null) {
-//			ip = req.getRemoteAddr();
-//		}
-//		String ips[] = ip.split(",");
-//		ip = ips[0];
-//		LocalDateTime ldt = LocalDateTime.now();
-//		LoggingLogin ll = new LoggingLogin();
-//
-//		if (isLogin.equals("true")) {
-//			String logType = "login";
-//			try {
-//				System.out.println(loginUser.getUserId());
-//				System.out.println(logType);
-//				ll.businessMethod(loginUser.getUserId(), ip, ldt, logType);
-//			} catch (SQLException | NamingException e) {
-//				System.out.println("SQLの実行に失敗しました");
-//				System.out.println("SQLException:" + e.getMessage());
-//				System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-//				e.printStackTrace();
-//				throw new ServletException(e);
-//			}
+		//		String ip = req.getHeader("x-forwarded-for");
+		//		if (ip == null) {
+		//			ip = req.getRemoteAddr();
+		//		}
+		//		String ips[] = ip.split(",");
+		//		ip = ips[0];
+		//		LocalDateTime ldt = LocalDateTime.now();
+		//		LoggingLogin ll = new LoggingLogin();
+		//
+		//		if (isLogin.equals("true")) {
+		//			String logType = "login";
+		//			try {
+		//				System.out.println(loginUser.getUserId());
+		//				System.out.println(logType);
+		//				ll.businessMethod(loginUser.getUserId(), ip, ldt, logType);
+		//			} catch (SQLException | NamingException e) {
+		//				System.out.println("SQLの実行に失敗しました");
+		//				System.out.println("SQLException:" + e.getMessage());
+		//				System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
+		//				e.printStackTrace();
+		//				throw new ServletException(e);
+		//			}
 		HttpSession session = req.getSession(true);
 		session.setAttribute("isLogin", isLogin);
 		req.setAttribute("isUserNull", isUserNull);
-		if(isLogin.equals("true")) {
+		if (isLogin.equals("true")) {
 			session.setAttribute("userId", loginUser.getUserId());
 			session.setAttribute("userRole", loginUser.getUserRole());
 			session.setAttribute("userName", loginUser.getUserName());
 			ServletContext sc = this.getServletContext();
 			if (isAdmin.equals("false")) {
 				String isOrdered = (String) session.getAttribute("isOrdered");
-				if(isOrdered==null) {
+				if (isOrdered == null) {
 					RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 					rd.forward(req, res);
 					System.out.println("注文前顧客ログイン成功");
 					return;
-				}else {
+				} else {
 					RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
 					rd.forward(req, res);
 					System.out.println("注文後顧客ログイン成功");
 					return;
 				}
-//				if(isOrdered.equals("true")) {
-//					RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
-//					rd.forward(req, res);
-//					System.out.println("注文後顧客ログイン成功");
-//					return;
-//				}else {
-//					RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
-//					rd.forward(req, res);
-//					System.out.println("注文前顧客ログイン成功");
-//					return;
-//				}
+				//				if(isOrdered.equals("true")) {
+				//					RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
+				//					rd.forward(req, res);
+				//					System.out.println("注文後顧客ログイン成功");
+				//					return;
+				//				}else {
+				//					RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				//					rd.forward(req, res);
+				//					System.out.println("注文前顧客ログイン成功");
+				//					return;
+				//				}
 			} else {
 				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 				rd.forward(req, res);
 				System.out.println("管理者ログイン成功");
 				return;
 			}
-		}else {
+		} else {
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P002.jsp");
 			rd.forward(req, res);
 			return;
 		}
 
-//		} else {
-//			String logType = "failed";
-//			int failedId;
-//			int userId = loginUser.getUserId();
-//			failedId = userId;
-//			try {
-//				ll.businessMethod(failedId, ip, ldt, logType);
-//			} catch (SQLException | NamingException e) {
-//				System.out.println("SQLの実行に失敗しました");
-//				System.out.println("SQLException:" + e.getMessage());
-//				System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-//				e.printStackTrace();
-//				throw new ServletException(e);
-//			}
-//			ServletContext sc = this.getServletContext();
-//			RequestDispatcher rd = sc.getRequestDispatcher("/login/loginError.jsp");
-//			rd.forward(req, res);
-//			return;
-//		}
-
+		//		} else {
+		//			String logType = "failed";
+		//			int failedId;
+		//			int userId = loginUser.getUserId();
+		//			failedId = userId;
+		//			try {
+		//				ll.businessMethod(failedId, ip, ldt, logType);
+		//			} catch (SQLException | NamingException e) {
+		//				System.out.println("SQLの実行に失敗しました");
+		//				System.out.println("SQLException:" + e.getMessage());
+		//				System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
+		//				e.printStackTrace();
+		//				throw new ServletException(e);
+		//			}
+		//			ServletContext sc = this.getServletContext();
+		//			RequestDispatcher rd = sc.getRequestDispatcher("/login/loginError.jsp");
+		//			rd.forward(req, res);
+		//			return;
+		//		}
 	}
 }

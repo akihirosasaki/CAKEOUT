@@ -17,24 +17,14 @@ import javax.servlet.http.HttpSession;
 import Vo.OrderVo;
 import model.OrderModel;
 
-/**
- * Servlet implementation class OrderListServlet
- */
 @WebServlet("/OrderListServlet")
 public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrderListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public OrderListServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -57,33 +47,29 @@ public class OrderListServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-		if(orderList.size()>1) {
+		if (orderList.size() > 1) {
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P012.jsp");
 			rd.forward(req, res);
 			return;
-		}else if (orderList.size()==1) {
+		} else if (orderList.size() == 1) {
 			int orderId = orderList.get(0).getOrderId();
 			session.setAttribute("orderId", orderId);
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/OrderSelectServlet");
 			rd.forward(req, res);
 			return;
-		}else{
+		} else {
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 			rd.forward(req, res);
 			return;
 		}
 
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

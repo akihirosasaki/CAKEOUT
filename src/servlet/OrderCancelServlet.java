@@ -15,24 +15,14 @@ import javax.servlet.http.HttpSession;
 
 import model.OrderModel;
 
-/**
- * Servlet implementation class OrderCancelServlet
- */
 @WebServlet("/OrderCancelServlet")
 public class OrderCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public OrderCancelServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public OrderCancelServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -59,11 +49,7 @@ public class OrderCancelServlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

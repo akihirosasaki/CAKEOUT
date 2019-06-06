@@ -1,8 +1,13 @@
 package Vo;
 
+import java.io.Serializable;
 import java.sql.Date;
 
-public class OrderVo {
+public class OrderVo implements Serializable {
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private int orderId;
 	private int userId;
 	private int cakeStoreId;

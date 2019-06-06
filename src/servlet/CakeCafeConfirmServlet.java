@@ -18,24 +18,14 @@ import Vo.CakeStoreVo;
 import model.CafeStoreSearchModel;
 import model.CakeStoreSearchModel;
 
-/**
- * Servlet implementation class CakeCafeConfirmServlet
- */
 @WebServlet("/CakeCafeConfirmServlet")
 public class CakeCafeConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CakeCafeConfirmServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public CakeCafeConfirmServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -43,7 +33,6 @@ public class CakeCafeConfirmServlet extends HttpServlet {
 		HttpSession session = req.getSession(true);
 		int selectedCakeStoreId = Integer.parseInt((String) session.getAttribute("selectedCakeStoreId"));
 		int selectedCafeStoreId = Integer.parseInt(req.getParameter("selectedCafeStoreId"));
-
 
 		CakeStoreSearchModel cksm = new CakeStoreSearchModel();
 		CafeStoreSearchModel cfsm = new CafeStoreSearchModel();
@@ -68,19 +57,9 @@ public class CakeCafeConfirmServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-
-
-
-
-
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

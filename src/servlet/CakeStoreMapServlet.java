@@ -18,33 +18,20 @@ import com.google.gson.stream.JsonWriter;
 import Vo.CakeStoreVo;
 import model.CakeStoreSearchModel;
 
-
-
-/**
- * Servlet implementation class CakeStoreMapServlet
- */
 @WebServlet("/CakeStoreMapServlet")
 public class CakeStoreMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CakeStoreMapServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public CakeStoreMapServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
 		String cakeStoreArea = req.getParameter("cakeStoreArea");
 		String[] statusList = req.getParameterValues("statusList[]");
-
 
 		ArrayList<CakeStoreVo> cakeStoreList = null;
 		String isCakeStore = "true";
@@ -53,14 +40,14 @@ public class CakeStoreMapServlet extends HttpServlet {
 
 		try {
 			cakeStoreList = cssm.selectCakeStoreByArea(cakeStoreArea, statusList);
-			if(cakeStoreList.isEmpty()) {
-				 isCakeStore = "false";
+			if (cakeStoreList.isEmpty()) {
+				isCakeStore = "false";
 			}
 			Gson gson = new Gson();
 			PrintWriter out = res.getWriter();
 			JsonWriter writer = new JsonWriter(out);
 			writer.setIndent(" ");
-			gson.toJson(cakeStoreList, ArrayList.class,writer);
+			gson.toJson(cakeStoreList, ArrayList.class, writer);
 			writer.flush();
 			out.flush();
 			writer.close();
@@ -74,11 +61,7 @@ public class CakeStoreMapServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

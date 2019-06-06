@@ -17,40 +17,29 @@ import javax.servlet.http.HttpSession;
 import Vo.CakeStoreVo;
 import model.CakeStoreSearchModel;
 
-/**
- * Servlet implementation class PopularCakeStoreServlet
- */
 @WebServlet("/PopularCakeStoreServlet")
 public class PopularCakeStoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public PopularCakeStoreServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public PopularCakeStoreServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
 		String searchArea = req.getParameter("searchArea");
 
-	 	ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
-	 	String isPopularCakeStore = "true";
+		ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
+		String isPopularCakeStore = "true";
 
-
-	 	CakeStoreSearchModel cssm = new CakeStoreSearchModel();
-		 try {
-			 popularCakeStores = cssm.selectPopularCakeStore(searchArea);
-			 if(popularCakeStores.isEmpty()) {
-				 isPopularCakeStore = "false";
-			 }
+		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
+		try {
+			popularCakeStores = cssm.selectPopularCakeStore(searchArea);
+			if (popularCakeStores.isEmpty()) {
+				isPopularCakeStore = "false";
+			}
 
 		} catch (SQLException | NamingException e) {
 			System.out.println("SQLの実行に失敗しました");
@@ -60,7 +49,7 @@ public class PopularCakeStoreServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		HttpSession session = req.getSession(true);
-		session.setAttribute("searchArea",searchArea);
+		session.setAttribute("searchArea", searchArea);
 		session.setAttribute("popularCakeStores", popularCakeStores);
 		session.setAttribute("isPopularCakeStore", isPopularCakeStore);
 		ServletContext sc = this.getServletContext();
@@ -70,11 +59,7 @@ public class PopularCakeStoreServlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

@@ -57,6 +57,7 @@ insert into cake_stock (cake_menu_id, stock_num) values (9, 000);
 insert into user (user_id, user_name, user_mail_address, user_password, user_status, user_role) values (1, "admin", "admin@r.recruit.co.jp", "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", 0, 1);
 insert into user (user_id, user_name, user_mail_address, user_password, user_status, user_role) values (2, "user1", "user1@r.recruit.co.jp", "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", 0, 2);
 insert into user (user_id, user_name, user_mail_address, user_password, user_status, user_role) values (3, "user2", "user2@r.recruit.co.jp", "b109f3bbbc244eb82441917ed06d618b9008dd09b3befd1b5e07394c706a8bb980b1d7785e5976ec049b46df5f1326af5a2ea6d103fd07c95385ffab0cacbc86", 0, 2);
+insert into user (user_id, user_name, user_mail_address, user_password, user_status, user_role) values (4, "boot", "boot@ml.cocorou.jpp", "D5FB5A0D4D4245F8C2E322C6ABBE18D471A0CD6294E21BFC837E99E3D0D31C200B496169A6F30D7E40129373DA1E495725915A8EBB3A3FB0FACC99A11B5997EF", 0, 2);
 
 insert into order_info (order_id, user_id, cake_store_id, cafe_store_id, order_num, is_checked) values (1, 1, 1, 1, 1, 0);
 insert into order_info (order_id, user_id, cake_store_id, cafe_store_id, order_num, is_checked) values (2, 1, 1, 1, 1, 0);

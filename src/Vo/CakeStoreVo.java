@@ -1,6 +1,12 @@
 package Vo;
 
-public class CakeStoreVo {
+import java.io.Serializable;
+
+public class CakeStoreVo implements Serializable{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cakeStoreId;
 	private String cakeStoreName;
 	private String cakeStoreOpenTime;
