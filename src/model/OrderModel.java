@@ -77,4 +77,17 @@ public class OrderModel {
 			orderDao.cancelOrder(conn, orderId);
 		}
 	}
+
+
+	public OrderVo getOrder(int orderId) throws SQLException, NamingException {
+		//		問い合わせ開始
+		System.out.println("問い合わせ開始");
+		OrderDao orderDao = new OrderDao();
+		OrderVo orderItem = null;
+		//		コネクション管理はこのレベルで
+		try (Connection conn = orderDao.connect()) {
+			orderItem = orderDao.getOrder(conn, orderId);
+		}
+		return orderItem;
+	}
 }

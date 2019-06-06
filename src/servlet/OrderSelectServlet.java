@@ -38,7 +38,7 @@ public class OrderSelectServlet extends HttpServlet {
 
 		if (orderStatus.equals("ticket")) {
 			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
+			RequestDispatcher rd = sc.getRequestDispatcher("/TicketConfirmServlet");
 			System.out.println("ticket");
 			rd.forward(req, res);
 			return;

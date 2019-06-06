@@ -142,4 +142,34 @@ public class OrderDao extends BaseDao {
 			}
 		}
 	}
+
+	public OrderVo getOrder(Connection conn, int orderId)
+			throws SQLException {
+		OrderVo orderItem = null;
+
+		String sql = "select t1.user_id, t1.cake_store_id, t2.cake_store_name, t1.cafe_store_id, t3.cafe_store_name, "
+				+ "t1.order_num, t1.created_at "
+				+ "from order_info as t1 left join cake_store as t2 on t1.cake_store_id = t2.cake_store_id left join "
+				+ "cafe_store as t3 on t1.cafe_store_id = t3.cafe_store_id where order_id = ?";
+
+		try (
+				PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setInt(1, orderId);
+			try (ResultSet rs = pstmt.executeQuery();) {
+				if (rs.next()) {
+					int userId = rs.getInt("user_id");
+					int cakeStoreId = rs.getInt("cake_store_id");
+					String cakeStoreName = rs.getString("cake_store_name");
+					int cafeStoreId = rs.getInt("cafe_store_id");
+					String cafeStoreName = rs.getString("cafe_store_name");
+					int orderNum = rs.getInt("order_num");
+					Date createdAt = rs.getDate("created_at");
+
+					orderItem = new OrderVo(orderId, userId, cakeStoreId, cakeStoreName, cafeStoreId, cafeStoreName, orderNum, createdAt,
+							createdAt, "", "");
+				}
+			}
+			return orderItem;
+		}
+	}
 }
