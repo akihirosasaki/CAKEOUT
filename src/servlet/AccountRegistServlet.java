@@ -38,7 +38,6 @@ public class AccountRegistServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
-		res.setContentType("text/html;charset=Shift_JIS");
 
 		String userName = req.getParameter("userName");
 		String mailAdd = req.getParameter("mailAdd");
@@ -50,6 +49,18 @@ public class AccountRegistServlet extends HttpServlet {
 		if(!mailAdd.matches(mailFormat)) {
 			mailFormatCheck = "false";
 		}
+		String isPassCheck = "true";
+		Pattern passPettern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@[-`{-~])[!-~]{8,48}$");
+        Matcher passMatch = passPettern.matcher("aA1!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~");
+        Boolean result = passMatch.matches();
+        if(result) {
+        	isPassCheck = "false";
+        	req.setAttribute("isPassCheck", isPassCheck);
+        	final String url = "/jsp/P001.jsp";
+			req.getRequestDispatcher(url).forward(req, res);
+			return;
+        }
+
 		String userLengthCheck = "true";
 		String passLengthCheck = "true";
 		if(userName.length()>16) {

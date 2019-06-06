@@ -25,7 +25,7 @@ public class LogDao extends BaseDao {
 		}
 	}
 
-	public static String toStr(LocalDateTime localDateTime, String format) {
+	public String toStr(LocalDateTime localDateTime, String format) {
 
 		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(format);
 		return localDateTime.format(dateTimeFormatter);

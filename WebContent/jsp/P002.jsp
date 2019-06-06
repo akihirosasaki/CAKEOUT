@@ -19,7 +19,7 @@
         <header class="header">
             <div class="header-frame-form">
                 <div class="logo-form">
-                    <a href="index.html">CAKEOUT</a>
+                    <a href="IndexServlet">CAKEOUT</a>
                 </div>
             </div>
         </header>

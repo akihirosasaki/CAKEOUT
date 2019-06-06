@@ -56,7 +56,7 @@
                                 </div>
                                 <c:if test="${passLengthCheck==false}"><p>パスワードは16文字以内にしてください</p></c:if>
                                 <div class="labeled-form-group-input">
-                                    <input type="password" name="password" placeholder="パスワード" class="validate[required,maxSize[16]] text-input" required>
+                                    <input type="password" name="password" required pattern="^(?=.*[0-9])(?=.*[A-Za-z])(?=.*[!\x22\#$%&@'()*+,-./_])[\w!\x22\#$%&@'()*+,-./]{8,}$" placeholder="パスワード" class="validate[required,maxSize[16]] text-input" required>
                                 </div>
                         </div>
                         <div class="button-block form-inline">

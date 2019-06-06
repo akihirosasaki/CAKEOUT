@@ -19,8 +19,8 @@ user_id int(5) not null,
 cake_store_id int(5) not null,
 cafe_store_id int(5) not null,
 order_num int(2) not null,
-crate_timestamp timestamp  not null,
-update_timestamp timestamp not null,
+created_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 is_checked int(1) not null,
 primary key (order_id)
 );

@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import Vo.UserVo;
 
 public class UserDao extends BaseDao{
-	public static boolean accountCheck(Connection conn, String mailAdd) throws SQLException {
+	public boolean accountCheck(Connection conn, String mailAdd) throws SQLException {
 		boolean mailCheck = true;
 
 		String sql = "select user_mail_address from user where user_mail_address=?";
@@ -20,8 +20,6 @@ public class UserDao extends BaseDao{
 			if (rs.next()) {
 				mailCheck=false;
 			}
-		}catch (Exception e) {
-			// TODO: handle exception
 		}
 		return mailCheck;
 	}
@@ -46,8 +44,6 @@ public class UserDao extends BaseDao{
 
 				loginUser = new UserVo(userId, userName, userMailAdd, userPassword, userRole);
 			}
-		}catch (Exception e) {
-			// TODO: handle exception
 		}
 		return loginUser;
 	}
@@ -65,8 +61,6 @@ public class UserDao extends BaseDao{
 			if (rs != 1) {
 				System.out.println("挿入の失敗");
 			}
-		}catch (Exception e) {
-			// TODO: handle exception
 		}
 	}
 }

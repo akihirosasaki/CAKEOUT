@@ -11,9 +11,9 @@ public class CakeStoreVo {
 	private String cakeStoreCloseDays;
 	private double cakeStoreLat;
 	private double cakeStoreLon;
-	String cakeStorePrimaryImg;
+	private String cakeStorePrimaryImg;
 
-	private CakeStoreVo() {
+	public CakeStoreVo() {
 
 	}
 
