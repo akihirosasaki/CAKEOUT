@@ -51,7 +51,11 @@ public class CakeStoreDao extends BaseDao{
 	public CakeStoreVo getCakeStoreInfo(Connection conn, int cakeStoreId) throws SQLException {
 		CakeStoreVo cakeStoreInfo = null;
 
-		String sql = "select * from cake_store where cake_store_id = ? and is_deleted = 0";
+		String sql = "select t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
+				+ "t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,"
+				+ "t1.cake_store_lat,t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary from cake_store as t1 "
+				+ "left join cake_store_img as t2 on t1.cake_store_id = t2.cake_store_id where is_deleted = 0 and "
+				+ "cake_store_img_primary = 1 and t1.cake_store_id = ?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -67,8 +71,9 @@ public class CakeStoreDao extends BaseDao{
 					String cakeStoreCloseDays = rs.getString("cake_store_close_days");
 					double cakeStoreLat = rs.getDouble("cake_store_lat");
 					double cakeStoreLon = rs.getDouble("cake_store_lon");
+					String cakeStorePrimaryImg = rs.getString("cake_store_img_url");
 
-					cakeStoreInfo = new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, "");
+					cakeStoreInfo = new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg);
 				}
 			}
 		}

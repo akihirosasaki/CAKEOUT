@@ -15,6 +15,7 @@ $(document).ready(function(){
 			statusList.push("test");
 			$(".select-condition-detail-box").append('<button class="condition-status">テスト</button>');
 		}
+		console.log(statusList);
 		ajaxCenter(cakeStoreArea).done(function(result){
 			//地図作成
 			makeMap(result[0], result[1], cakeStoreArea);

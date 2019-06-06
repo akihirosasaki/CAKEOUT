@@ -21,7 +21,7 @@ cafe_store_id int(5) not null,
 order_num int(2) not null,
 created_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 updated_at timestamp DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-is_checked int(1) not null,
+is_checked int(1) not null DEFAULT 0,
 primary key (order_id)
 );
 
