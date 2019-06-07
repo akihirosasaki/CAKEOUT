@@ -47,7 +47,7 @@ public class CafeStoreDao extends BaseDao {
 	public ArrayList<String> getCafeStoreImg(Connection conn, int cafeStoreId) throws SQLException {
 		ArrayList<String> cafeStoreImgs = new ArrayList<String>();
 
-		String sql = "select * from cafe_store_img where cafe_store_id = ?";
+		String sql = "select cafe_store_img_url from cafe_store_img where cafe_store_id = ?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -138,7 +138,7 @@ public class CafeStoreDao extends BaseDao {
 	public ArrayList<Double> getCafeStationPosition(Connection conn, String cafeStoreArea) throws SQLException {
 		ArrayList<Double> stationPosition = new ArrayList<Double>();
 
-		String sql = "select * from station_location where station_name = ?";
+		String sql = "select station_lat, station_lon from station_location where station_name = ?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {

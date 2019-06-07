@@ -1,6 +1,13 @@
 package Vo;
 
-public class CafeStoreMenuVo {
+import java.io.Serializable;
+
+public class CafeStoreMenuVo implements Serializable {
+
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cafeMenuId;
 	private String cafeMenuName;
 	private String cafeMenuImgUrl;

@@ -19,24 +19,14 @@ import Vo.CafeStoreMenuVo;
 import Vo.CafeStoreVo;
 import model.CafeStoreSearchModel;
 
-/**
- * Servlet implementation class cafeStoreInfoServlet
- */
 @WebServlet("/CafeStoreInfoServlet")
 public class CafeStoreInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CafeStoreInfoServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public CafeStoreInfoServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -50,7 +40,7 @@ public class CafeStoreInfoServlet extends HttpServlet {
 			CafeStoreVo cafeStoreInfo = cssm.getCafeStoreInfo(cafeStoreId[0]);
 			ArrayList<String> cafeStoreImgList = cssm.getCafeStoreImg(cafeStoreId[0]);
 			ArrayList<CafeStoreMenuVo> cafeStoreMenuList = cssm.getCafeStoreMenu(cafeStoreId[0]);
-			System.out.println("cafeStoreMenuList:"+cafeStoreMenuList);
+			System.out.println("cafeStoreMenuList:" + cafeStoreMenuList);
 			HttpSession session = req.getSession(true);
 			session.setAttribute("cafeStoreInfo", cafeStoreInfo);
 			session.setAttribute("cafeStoreImgList", cafeStoreImgList);
@@ -66,17 +56,9 @@ public class CafeStoreInfoServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-
-
-
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

@@ -1,6 +1,12 @@
 package Vo;
 
-public class CafeStoreVo {
+import java.io.Serializable;
+
+public class CafeStoreVo implements Serializable{
+	/**
+	 *
+	 */
+	private static final long serialVersionUID = 1L;
 	private int cafeStoreId;
 	private String cafeStoreName;
 	private String cafeStoreOpenTime;

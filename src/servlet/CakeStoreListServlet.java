@@ -17,41 +17,31 @@ import javax.servlet.http.HttpSession;
 import Vo.CakeStoreVo;
 import model.CakeStoreSearchModel;
 
-/**
- * Servlet implementation class CakeStoreListServlet
- */
 @WebServlet("/CakeStoreListServlet")
 public class CakeStoreListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CakeStoreListServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public CakeStoreListServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
-		String isInputCheck="true";
+		String isInputCheck = "true";
 		String cakeStoreNameInput = req.getParameter("cakeStoreName");
 
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 		try {
-			if(cakeStoreNameInput==null || cakeStoreNameInput.equals("")) {
-				isInputCheck="false";
+			if (cakeStoreNameInput == null || cakeStoreNameInput.equals("")) {
+				isInputCheck = "false";
 				req.setAttribute("isInputCheck", isInputCheck);
 				ServletContext sc = this.getServletContext();
 				RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P001.jsp");
 				rd.forward(req, res);
 				return;
-			}else {
+			} else {
 				ArrayList<CakeStoreVo> cakeStoreList = cssm.cakeStoreNameSearch(cakeStoreNameInput);
 				HttpSession session = req.getSession(true);
 				System.out.println(cakeStoreList);
@@ -69,15 +59,9 @@ public class CakeStoreListServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-
-
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

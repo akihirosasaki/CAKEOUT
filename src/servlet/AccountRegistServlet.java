@@ -17,24 +17,15 @@ import javax.servlet.http.HttpSession;
 
 import model.UserModel;
 
-/**
- * Servlet implementation class AccountRegistServlet
- */
+
 @WebServlet("/AccountRegistServlet")
 public class AccountRegistServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
     public AccountRegistServlet() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -50,7 +41,7 @@ public class AccountRegistServlet extends HttpServlet {
 			mailFormatCheck = "false";
 		}
 		String isPassCheck = "true";
-		Pattern passPettern = Pattern.compile("^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!-/:-@[-`{-~])[!-~]{8,48}$");
+		Pattern passPettern = Pattern.compile("/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,100}$/i");
         Matcher passMatch = passPettern.matcher("aA1!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~");
         Boolean result = passMatch.matches();
         if(result) {
@@ -115,11 +106,7 @@ public class AccountRegistServlet extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(req, res);
 	}
 

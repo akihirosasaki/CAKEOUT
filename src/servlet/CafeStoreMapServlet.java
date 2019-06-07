@@ -18,24 +18,14 @@ import com.google.gson.stream.JsonWriter;
 import Vo.CafeStoreVo;
 import model.CafeStoreSearchModel;
 
-/**
- * Servlet implementation class CafeStoreMapServlet
- */
 @WebServlet("/CafeStoreMapServlet")
 public class CafeStoreMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CafeStoreMapServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	public CafeStoreMapServlet() {
+		super();
+	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
@@ -52,14 +42,14 @@ public class CafeStoreMapServlet extends HttpServlet {
 		try {
 			cafeStoreList = cssm.selectCafeStoreByArea(cakeStoreArea, statusList);
 			System.out.println(cafeStoreList);
-			if(cafeStoreList.isEmpty()) {
-				 isCafeStore = "false";
+			if (cafeStoreList.isEmpty()) {
+				isCafeStore = "false";
 			}
 			Gson gson = new Gson();
 			PrintWriter out = res.getWriter();
 			JsonWriter writer = new JsonWriter(out);
 			writer.setIndent(" ");
-			gson.toJson(cafeStoreList, ArrayList.class,writer);
+			gson.toJson(cafeStoreList, ArrayList.class, writer);
 			writer.flush();
 			out.flush();
 			writer.close();
@@ -73,11 +63,8 @@ public class CafeStoreMapServlet extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

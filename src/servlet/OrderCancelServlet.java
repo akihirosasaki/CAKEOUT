@@ -2,7 +2,6 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -14,14 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Vo.CakeStoreVo;
-import model.CakeStoreSearchModel;
+import model.OrderModel;
 
-@WebServlet("/PopularCakeStoreServlet")
-public class PopularCakeStoreServlet extends HttpServlet {
+@WebServlet("/OrderCancelServlet")
+public class OrderCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	public PopularCakeStoreServlet() {
+	public OrderCancelServlet() {
 		super();
 	}
 
@@ -29,18 +27,13 @@ public class PopularCakeStoreServlet extends HttpServlet {
 		req.setCharacterEncoding("UTF-8");
 		res.setCharacterEncoding("UTF-8");
 
-		String searchArea = req.getParameter("searchArea");
+		HttpSession session = req.getSession(true);
+		int orderId = (Integer) session.getAttribute("orderId");
 
-		ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
-		String isPopularCakeStore = "true";
+		OrderModel om = new OrderModel();
 
-		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 		try {
-			popularCakeStores = cssm.selectPopularCakeStore(searchArea);
-			if (popularCakeStores.isEmpty()) {
-				isPopularCakeStore = "false";
-			}
-
+			om.cancelOrder(orderId);
 		} catch (SQLException | NamingException e) {
 			System.out.println("SQLの実行に失敗しました");
 			System.out.println("SQLException:" + e.getMessage());
@@ -48,12 +41,9 @@ public class PopularCakeStoreServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-		HttpSession session = req.getSession(true);
-		session.setAttribute("searchArea", searchArea);
-		session.setAttribute("popularCakeStores", popularCakeStores);
-		session.setAttribute("isPopularCakeStore", isPopularCakeStore);
+
 		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P001.jsp");
+		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P014.jsp");
 		rd.forward(req, res);
 		return;
 
