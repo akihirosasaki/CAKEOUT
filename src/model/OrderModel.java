@@ -90,4 +90,14 @@ public class OrderModel {
 		}
 		return orderItem;
 	}
+
+	public void changeOrderNum(int orderId, int orderNum) throws SQLException, NamingException {
+		//		問い合わせ開始
+		System.out.println("問い合わせ開始");
+		OrderDao orderDao = new OrderDao();
+		//		コネクション管理はこのレベルで
+		try (Connection conn = orderDao.connect()) {
+			orderDao.changeOrderNum(conn, orderId, orderNum);
+		}
+	}
 }

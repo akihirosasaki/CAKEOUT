@@ -172,4 +172,20 @@ public class OrderDao extends BaseDao {
 			return orderItem;
 		}
 	}
+
+	public void changeOrderNum(Connection conn, int orderId, int orderNum) throws SQLException {
+		int rs = 0;
+
+		String sql = "update order_info set order_num = ? where order_id = ?";
+
+		try (
+				PreparedStatement pstmt = conn.prepareStatement(sql);) {
+			pstmt.setInt(1, orderNum);
+			pstmt.setInt(2, orderId);
+			rs = pstmt.executeUpdate();
+			if (rs != 1) {
+				System.out.println("挿入の失敗");
+			}
+		}
+	}
 }
