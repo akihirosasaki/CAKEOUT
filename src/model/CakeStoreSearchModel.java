@@ -6,24 +6,40 @@ import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
-import Dao.CakeStoreDao;
-import Vo.CakeStoreMenuVo;
-import Vo.CakeStoreVo;
+import dao.CakeStoreDao;
+import vo.CakeStoreMenuVo;
+import vo.CakeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * CakeStoreDaoを扱うモデル
+ */
 public class CakeStoreSearchModel {
-	public ArrayList<CakeStoreVo> selectPopularCakeStore(String searchArea) throws SQLException, NamingException {
+	/**
+	 * @param searchArea
+	 * @return popularCakeStores
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public ArrayList<CakeStoreVo> getPopularCakeStore(String searchArea) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		CakeStoreDao cakeStoreDao = new CakeStoreDao();
 		ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = cakeStoreDao.connect()) {
-			popularCakeStores = cakeStoreDao.selectPopularCakeStore(conn, searchArea);
+			popularCakeStores = cakeStoreDao.getPopularCakeStore(conn, searchArea);
 		}
 		return popularCakeStores;
 	}
 
-	public ArrayList<CakeStoreVo> cakeStoreNameSearch(String cakeStoreNameInput) throws SQLException, NamingException {
+	/**
+	 * @param cakeStoreNameInput
+	 * @return cakeStoreList
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public ArrayList<CakeStoreVo> searchCakeStoreName(String cakeStoreNameInput) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		CakeStoreDao cakeStoreDao = new CakeStoreDao();
@@ -35,18 +51,31 @@ public class CakeStoreSearchModel {
 		return cakeStoreList;
 	}
 
-	public ArrayList<CakeStoreVo> selectCakeStoreByArea(String cakeStoreArea, String[] statusList) throws SQLException, NamingException {
+	/**
+	 * @param cakeStoreArea
+	 * @param statusList
+	 * @return cakeStoreList
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public ArrayList<CakeStoreVo> getCakeStoreByArea(String cakeStoreArea, String[] statusList) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		CakeStoreDao cakeStoreDao = new CakeStoreDao();
 		ArrayList<CakeStoreVo> cakeStoreList = new ArrayList<CakeStoreVo>();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = cakeStoreDao.connect()) {
-			cakeStoreList = cakeStoreDao.selectCakeStoreByArea(conn, cakeStoreArea, statusList);
+			cakeStoreList = cakeStoreDao.getCakeStoreByArea(conn, cakeStoreArea, statusList);
 		}
 		return cakeStoreList;
 	}
 
+	/**
+	 * @param cakeStoreId
+	 * @return cakeStoreMenuList
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public ArrayList<CakeStoreMenuVo> getCakeStoreMenu(int cakeStoreId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -59,6 +88,12 @@ public class CakeStoreSearchModel {
 		return cakeStoreMenuList;
 	}
 
+	/**
+	 * @param cakeStoreId
+	 * @return cakeStoreInfo
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public CakeStoreVo getCakeStoreInfo(int cakeStoreId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -71,6 +106,12 @@ public class CakeStoreSearchModel {
 		return cakeStoreInfo;
 	}
 
+	/**
+	 * @param cakeStoreId
+	 * @return cakeStoreImg
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public ArrayList<String> getCakeStoreImg(int cakeStoreId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -83,6 +124,12 @@ public class CakeStoreSearchModel {
 		return cakeStoreImg;
 	}
 
+	/**
+	 * @param cakeStoreArea
+	 * @return stationPosition
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public ArrayList<Double> getCakeStationPosition(String cakeStoreArea) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");

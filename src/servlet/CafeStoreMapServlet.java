@@ -15,9 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
-import Vo.CafeStoreVo;
 import model.CafeStoreSearchModel;
+import vo.CafeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * CafeStoreMap.jsから取得した駅情報をもとに、DBからその最寄駅内のカフェを取得し、CafeStoreMap.jsに送り返す
+ */
 @WebServlet("/CafeStoreMapServlet")
 public class CafeStoreMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,24 +31,17 @@ public class CafeStoreMapServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String cakeStoreArea = req.getParameter("cakeStoreArea");
 		String[] statusList = req.getParameterValues("statusList[]");
 		System.out.println(cakeStoreArea);
 
 		ArrayList<CafeStoreVo> cafeStoreList = null;
-		String isCafeStore = "true";
 
 		CafeStoreSearchModel cssm = new CafeStoreSearchModel();
 
 		try {
-			cafeStoreList = cssm.selectCafeStoreByArea(cakeStoreArea, statusList);
-			System.out.println(cafeStoreList);
-			if (cafeStoreList.isEmpty()) {
-				isCafeStore = "false";
-			}
+			cafeStoreList = cssm.getCafeStoreByArea(cakeStoreArea, statusList);
 			Gson gson = new Gson();
 			PrintWriter out = res.getWriter();
 			JsonWriter writer = new JsonWriter(out);

@@ -13,9 +13,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Vo.OrderVo;
 import model.OrderModel;
+import vo.OrderVo;
 
+/**
+ * @author Akihiro Sasaki
+ * アカウントページからユーザーがチケット確認アクションを起こした時に、取得したOrderIdをもとに、チケットページを表示するサーブレット
+ */
 @WebServlet("/TicketConfirmServlet")
 public class TicketConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,10 +30,8 @@ public class TicketConfirmServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession(false);
 
 		int orderId = (Integer) session.getAttribute("orderId");
 

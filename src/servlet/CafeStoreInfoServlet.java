@@ -15,10 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Vo.CafeStoreMenuVo;
-import Vo.CafeStoreVo;
 import model.CafeStoreSearchModel;
+import vo.CafeStoreMenuVo;
+import vo.CafeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * カフェの詳細ページを表示するサーブレット
+ */
 @WebServlet("/CafeStoreInfoServlet")
 public class CafeStoreInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,12 +32,9 @@ public class CafeStoreInfoServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String[] cafeStoreIdString = req.getParameterValues("cafeStoreId");
 		int[] cafeStoreId = Stream.of(cafeStoreIdString).mapToInt(Integer::parseInt).toArray();
-		System.out.println(cafeStoreId[0]);
 		CafeStoreSearchModel cssm = new CafeStoreSearchModel();
 
 		try {
@@ -41,7 +42,7 @@ public class CafeStoreInfoServlet extends HttpServlet {
 			ArrayList<String> cafeStoreImgList = cssm.getCafeStoreImg(cafeStoreId[0]);
 			ArrayList<CafeStoreMenuVo> cafeStoreMenuList = cssm.getCafeStoreMenu(cafeStoreId[0]);
 			System.out.println("cafeStoreMenuList:" + cafeStoreMenuList);
-			HttpSession session = req.getSession(true);
+			HttpSession session = req.getSession(false);
 			session.setAttribute("cafeStoreInfo", cafeStoreInfo);
 			session.setAttribute("cafeStoreImgList", cafeStoreImgList);
 			session.setAttribute("cafeStoreMenuList", cafeStoreMenuList);

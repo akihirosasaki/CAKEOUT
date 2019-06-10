@@ -25,58 +25,7 @@
 <script src="js/script.js"></script>
 </head>
 <body>
-	<div class="account-show">
-		<header class="header">
-			<div class="header-frame-account">
-				<div class="header-account-text">
-					<p>アカウント</p>
-				</div>
-				<div class="cancel">
-					<span></span>
-				</div>
-			</div>
-		</header>
-		<section id="main">
-			<section class="content">
-				<div class="account-content-box">
-					<div class="account-text-box">
-						<form action="OrderListServlet" method="POST">
-							<input type="hidden" name="accountLink" value="ticket">
-							<p>
-								<input type="submit" name="submit" value="チケットを確認する">
-							</p>
-						</form>
-						<form action="OrderListServlet" method="POST">
-							<input type="hidden" name="accountLink" value="cancel">
-							<p>
-								<input type="submit" name="submit" value="予約をキャンセルする">
-							</p>
-						</form>
-						<form action="OrderListServlet" method="POST">
-							<input type="hidden" name="accountLink" value="change">
-							<p>
-								<input type="submit" name="submit" value="人数を変更する">
-							</p>
-						</form>
-						<p>
-							<a href="LogoutServlet">ログアウトする</a>
-						</p>
-					</div>
-				</div>
-			</section>
-		</section>
-	</div>
-	<div class="main-show">
-		<header class="header">
-			<div class="header-frame">
-				<div class="logo">
-					<a href="IndexServlet">CAKEOUT</a>
-				</div>
-				<div class="account-button-wrapper">
-					<img class="account-button" src="images/account.gif">
-				</div>
-			</div>
-		</header>
+	<jsp:include page="/jsp/header-top.jsp" flush="true" />
 		<section id="main">
 			<section class="content">
 				<div class="content-block">
@@ -102,13 +51,7 @@
 				</div>
 			</section>
 		</section>
-		<footer class="footer">
-			<div class="footer-logo-box">
-				<div class="logo-footer">
-					<a href="index.html">CAKEOUT</a>
-				</div>
-			</div>
-		</footer>
+		<jsp:include page="/jsp/footer.jsp" flush="true" />
 	</div>
 </body>
 </html>

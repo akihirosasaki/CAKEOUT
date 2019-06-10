@@ -3,6 +3,10 @@ package util;
 import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 
+/**
+ * @author Akihiro Sasaki
+ * トークンを発行するクラス
+ */
 public class CsrfTokenManager {
 	private static int TOKEN_LENGTH =16;
 

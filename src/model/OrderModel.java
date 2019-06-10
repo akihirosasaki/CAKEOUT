@@ -1,16 +1,27 @@
 package model;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
-import Dao.OrderDao;
-import Vo.OrderVo;
+import dao.OrderDao;
+import vo.OrderVo;
 
+/**
+ * @author Akihiro Sasaki
+ * OrderDaoを扱うモデル
+ */
 public class OrderModel {
+	/**
+	 * @param userId
+	 * @param cakeStoreId
+	 * @param cafeStoreId
+	 * @param orderNum
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public void insertOrder(int userId, int cakeStoreId, int cafeStoreId, int orderNum) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -18,11 +29,25 @@ public class OrderModel {
 
 		//		コネクション管理はこのレベルで
 		try (Connection conn = orderDao.connect()) {
-			orderDao.insertOrder(conn, userId, cakeStoreId, cafeStoreId, orderNum);
+			try {
+				orderDao.insertOrder(conn, userId, cakeStoreId, cafeStoreId, orderNum);
+			} catch (Exception e) {
+				conn.rollback();
+			}
+
 		}
 	}
 
-	public int getOrderId(int userId, int cakeStoreId, int cafeStoreId, Date date) throws SQLException, NamingException {
+	/**
+	 * @param userId
+	 * @param cakeStoreId
+	 * @param cafeStoreId
+	 * @param date
+	 * @return orderId
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public int getOrderId(int userId, int cakeStoreId, int cafeStoreId, String date) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
@@ -34,7 +59,16 @@ public class OrderModel {
 		return orderId;
 	}
 
-	public boolean checkOrderDuplicate(int userId, int cakeStoreId, int cafeStoreId, Date date) throws SQLException, NamingException {
+	/**
+	 * @param userId
+	 * @param cakeStoreId
+	 * @param cafeStoreId
+	 * @param date
+	 * @return isOrderCheck
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public boolean checkOrderDuplicate(int userId, int cakeStoreId, int cafeStoreId, String date) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
@@ -46,6 +80,11 @@ public class OrderModel {
 		return isOrderCheck;
 	}
 
+	/**
+	 * @param orderId
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public void ticketCheck(int orderId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -56,6 +95,12 @@ public class OrderModel {
 		}
 	}
 
+	/**
+	 * @param userId
+	 * @return orderList
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public ArrayList<OrderVo> getOrderList(int userId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -68,17 +113,35 @@ public class OrderModel {
 		return orderList;
 	}
 
+	/**
+	 * @param orderId
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public void cancelOrder(int orderId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = orderDao.connect()) {
-			orderDao.cancelOrder(conn, orderId);
+			conn.setAutoCommit(false);
+			try {
+				orderDao.lock(conn, orderId);
+				orderDao.cancelOrder(conn, orderId);
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+			}
 		}
 	}
 
 
+	/**
+	 * @param orderId
+	 * @return orderItem
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public OrderVo getOrder(int orderId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -91,13 +154,26 @@ public class OrderModel {
 		return orderItem;
 	}
 
+	/**
+	 * @param orderId
+	 * @param orderNum
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public void changeOrderNum(int orderId, int orderNum) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = orderDao.connect()) {
-			orderDao.changeOrderNum(conn, orderId, orderNum);
+			conn.setAutoCommit(false);
+			try {
+				orderDao.lock(conn, orderId);
+				orderDao.changeOrderNum(conn, orderId, orderNum);
+				conn.commit();
+			} catch (Exception e) {
+				conn.rollback();
+			}
 		}
 	}
 }

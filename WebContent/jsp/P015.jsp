@@ -18,39 +18,7 @@
         <script src="js/script.js"></script>
     </head>
     <body>
-        <div class="account-show">
-            <header class="header">
-                <div class="header-frame-account">
-                    <div class="header-account-text">
-                        <p>アカウント</p>
-                    </div>
-                    <div class="cancel"><span></span></div>
-                </div>
-            </header>
-            <section id="main">
-                <section class="content">
-                    <div class="account-content-box">
-                        <div class="account-text-box">
-                            <p><a href="">チケットを確認する</a></p>
-                            <p><a href="">予約をキャンセルする</a></p>
-                            <p><a href="">内容を変更する</a></p>
-                            <p><a href="">ログアウトする</a></p>
-                        </div>
-                    </div>
-                </section>
-            </section>
-        </div>
-        <div class="main-show">
-            <header class="header">
-                <div class="header-frame">
-                    <div class="logo">
-                        <a href="IndexServlet">CAKEOUT</a>
-                    </div>
-                    <div class="account-button-wrapper">
-                        <img class="account-button" src="images/account.gif">
-                    </div>
-                </div>
-            </header>
+        <jsp:include page="/jsp/header-top.jsp" flush="true" />
             <section id="main">
                 <section class="content">
                     <div class="content-block">
@@ -86,13 +54,7 @@
                     </div>
                 </section>
             </section>
-            <footer class="footer">
-                <div class="footer-logo-box">
-                    <div class="logo-footer">
-                        <a href="IndexServlet">CAKEOUT</a>
-                    </div>
-                </div>
-            </footer>
+            <jsp:include page="/jsp/footer.jsp" flush="true" />
         </div>
     </body>
 </html>

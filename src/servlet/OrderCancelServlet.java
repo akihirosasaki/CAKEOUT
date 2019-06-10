@@ -15,6 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import model.OrderModel;
 
+/**
+ * @author Akihiro Sasaki
+ * キャンセルされた注文をDBから削除するサーブレット
+ */
 @WebServlet("/OrderCancelServlet")
 public class OrderCancelServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,10 +28,8 @@ public class OrderCancelServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession(false);
 		int orderId = (Integer) session.getAttribute("orderId");
 
 		OrderModel om = new OrderModel();

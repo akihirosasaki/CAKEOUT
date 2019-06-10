@@ -2,9 +2,8 @@ package servlet;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import model.OrderModel;
 
+/**
+ * @author Akihiro Sasaki
+ * ユーザーが選択したケーキ屋、カフェ、人数をもとに、チケットを生成するサーブレット
+ */
 @WebServlet("/TicketServlet")
 public class TicketServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,23 +30,31 @@ public class TicketServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession(false);
 		String cakeStoreName = req.getParameter("cakeStoreName");
 		String cafeStoreName = req.getParameter("cafeStoreName");
 		String orderNumString = req.getParameter("orderNum");
 		String isOrdered = "true";
+		String isNumCheck = "true";
 		if (cakeStoreName != null && cafeStoreName != null && orderNumString != null) {
 			session.setAttribute("cakeStoreName", cakeStoreName);
 			session.setAttribute("cafeStoreName", cafeStoreName);
 			session.setAttribute("orderNum", orderNumString);
 			session.setAttribute("isOrdered", isOrdered);
+			if (orderNumString.matches("[-_@+*;:#$%&A-Za-z]+") || orderNumString.length() > 2) {
+				isNumCheck = "false";
+				req.setAttribute("isNumCheck", isNumCheck);
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P010.jsp");
+				rd.forward(req, res);
+				return;
+			}
 		}
 
 		String isLogin = (String) session.getAttribute("isLogin");
-		if (isLogin.equals("false")) {
+		if ("false".equals(isLogin)) {
+
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/LoginViewServlet");
 			rd.forward(req, res);
@@ -58,7 +69,7 @@ public class TicketServlet extends HttpServlet {
 			orderNumString = (String) session.getAttribute("orderNum");
 			String isInputCheck = "true";
 			int orderNum;
-			if (orderNumString == null || orderNumString.equals("")) {
+			if (orderNumString == null || "".equals(orderNumString)) {
 				isInputCheck = "false";
 				req.setAttribute("isInputCheck", isInputCheck);
 				ServletContext sc = this.getServletContext();
@@ -68,10 +79,8 @@ public class TicketServlet extends HttpServlet {
 			} else {
 				orderNum = Integer.parseInt(orderNumString);
 			}
-			Date date = new Date();
-			java.sql.Date dateSQL = new java.sql.Date(date.getTime());
-			DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-			String dateString = df.format(date).toString();
+
+			String dateSQL = toStr(LocalDateTime.now(), "yyyy/MM/dd");
 			OrderModel om = new OrderModel();
 
 			try {
@@ -98,7 +107,7 @@ public class TicketServlet extends HttpServlet {
 			session.setAttribute("cakeStoreName", cakeStoreName);
 			session.setAttribute("cafeStoreName", cafeStoreName);
 			session.setAttribute("orderNum", orderNum);
-			session.setAttribute("date", dateString);
+			session.setAttribute("date", dateSQL);
 			session.setAttribute("orderId", orderId);
 			session.setAttribute("selectedCafeStoreId", selectedCafeStoreId);
 			ServletContext sc = this.getServletContext();
@@ -107,6 +116,13 @@ public class TicketServlet extends HttpServlet {
 			return;
 
 		}
+
+	}
+
+	public static String toStr(LocalDateTime localDateTime, String format) {
+
+		DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern(format);
+		return localDateTime.format(dateTimeFormatter);
 
 	}
 

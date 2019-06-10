@@ -11,6 +11,6 @@
   </resource-ref>
   <error-page>
     <exception-type>javax.servlet.ServletException</exception-type>
-    <location>/jsp/exception.jsp</location>
+    <location>/jsp/P020.jsp</location>
   </error-page>
 </web-app>
