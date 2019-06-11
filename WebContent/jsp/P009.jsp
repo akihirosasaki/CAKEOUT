@@ -6,8 +6,8 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-        <meta name="description" content="">
-        <meta name="keywords" content="">
+        <meta name="description" content="カフェの詳細ページを表示します。">
+        <meta name="keywords" content="ケーキ テイクアウト, ケーキ カフェ 持ち込み, カフェ 詳細">
         <title>カフェ詳細</title>
         <link rel="stylesheet" href="css/normalize.css" type="text/css" media="screen">
         <link rel="stylesheet" href="css/style.css" type="text/css" media="screen">
@@ -25,12 +25,12 @@
             <section id="main">
                 <section class="content">
                     <div class="c-container">
-                        <div class="sample sample01">
+                        <div class="swipe-img">
                             <div class="swiper-container">
                                 <div class="swiper-wrapper">
                                     <c:forEach var="cafeStoreImg" items="${cafeStoreImgList}" varStatus="status1">
 										<div class="swiper-slide info-img">
-											<img src="images/<c:out value="${cafeStoreImg}"/>">
+											<img src="images/<c:out value="${cafeStoreImg}"/>" alt="カフェ">
 										</div>
 									</c:forEach>
                                 </div>
@@ -83,7 +83,7 @@
                                     <div class="tab-content"  id="cakes-menu-content">
                                     	<c:forEach var="cafeStoreMenu" items="${cafeStoreMenuList}" varStatus="status2">
 	                                        <div class="menu-block">
-	                                            <img class="menu-img" src="images/<c:out value="${cafeStoreMenu.cafeMenuImgUrl}" />" alt="">
+	                                            <img class="menu-img" src="images/<c:out value="${cafeStoreMenu.cafeMenuImgUrl}" />" alt="カフェメニュー">
 	                                            <div class="cafe-menu-text-container">
 	                                                <div class="menu-item-name"><h3><c:out value="${cafeStoreMenu.cafeMenuName}" /></h3></div>
 	                                                <div class="menu-item-price"><p>¥<c:out value="${cafeStoreMenu.cafeMenuPrice}" /></p></div>

@@ -9,8 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * @author Akihiro Sasaki
+ * ログイン画面表示サーブレット
  * ログイン画面を入力するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/LoginViewServlet")
 public class LoginViewServlet extends HttpServlet {
@@ -20,11 +21,13 @@ public class LoginViewServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		final String url = "/jsp/P002.jsp";
 		req.getRequestDispatcher(url).forward(req, res);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

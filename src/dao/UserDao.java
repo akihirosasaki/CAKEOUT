@@ -8,43 +8,44 @@ import java.sql.SQLException;
 import vo.UserVo;
 
 /**
- * @author Akihiro Sasaki
+ * ユーザーDao
  * Userテーブルを扱うDaoです
+ * @author Akihiro Sasaki
  */
-public class UserDao extends BaseDao{
+public class UserDao extends BaseDao {
 	/**
-	 * @param conn
-	 * @param mailAdd
-	 * @return mailCheck
+	 * @param conn コネクション
+	 * @param mailAdd メールアドレス
+	 * @return mailCheck メールの重複チェック結果
 	 * @throws SQLException
 	 */
 	public boolean accountCheck(Connection conn, String mailAdd) throws SQLException {
 		boolean mailCheck = true;
 
-		String sql = "SELECT user_mail_address FROM user WHERE user_mail_address=?";
+		final String sql = "SELECT user_mail_address FROM user WHERE user_mail_address=?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, mailAdd);
 			ResultSet rs = pstmt.executeQuery();
 			if (rs.next()) {
-				mailCheck=false;
+				mailCheck = false;
 			}
 		}
 		return mailCheck;
 	}
 
 	/**
-	 * @param conn
-	 * @param mailAdd
-	 * @param password
-	 * @return loginUser
+	 * @param conn コネクション
+	 * @param mailAdd メールアドレス
+	 * @param password パスワード
+	 * @return loginUser ユーザー情報をもつVo
 	 * @throws SQLException
 	 */
 	public UserVo getLoginUser(Connection conn, String mailAdd, String password) throws SQLException {
 		UserVo loginUser = null;
 
-		String sql = "SELECT user_id, user_name, user_mail_address, user_password, user_role FROM user WHERE user_mail_address=?"
+		final String sql = "SELECT user_id, user_name, user_mail_address, user_password, user_role FROM user WHERE user_mail_address=?"
 				+ " AND user_password=?";
 
 		try (
@@ -66,25 +67,21 @@ public class UserDao extends BaseDao{
 	}
 
 	/**
-	 * @param conn
-	 * @param userName
-	 * @param mailAdd
-	 * @param password
+	 * @param conn コネクション
+	 * @param userName ユーザーネーム
+	 * @param mailAdd メールアドレス
+	 * @param password パスワード
 	 * @throws SQLException
 	 */
 	public void accountRegist(Connection conn, String userName, String mailAdd, String password) throws SQLException {
-		int rs = 0;
 
-		String sql = "INSERT INTO user (user_name, user_mail_address, user_password, user_status, user_role) VALUES (?,?,?,0,2)";
+		final String sql = "INSERT INTO user (user_name, user_mail_address, user_password, user_status, user_role) VALUES (?,?,?,0,2)";
 
 		try (PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, userName);
 			pstmt.setString(2, mailAdd);
 			pstmt.setString(3, password);
-			rs = pstmt.executeUpdate();
-			if (rs != 1) {
-				System.out.println("挿入の失敗");
-			}
+			pstmt.executeUpdate();
 		}
 	}
 }

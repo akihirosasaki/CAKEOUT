@@ -7,8 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-<meta name="description" content="">
-<meta name="keywords" content="">
+<meta name="description" content="ケーキ屋の詳細画面を表示します。">
+<meta name="keywords" content="ケーキ テイクアウト, ケーキ カフェ 持ち込み, ケーキ屋 詳細">
 <title>ケーキ屋詳細</title>
 <link rel="stylesheet" href="css/normalize.css" type="text/css"
 	media="screen">
@@ -32,12 +32,12 @@
 		<section id="main">
 			<section class="content">
 				<div class="c-container">
-					<div class="sample sample01">
+					<div class="swipe-img">
 						<div class="swiper-container">
 							<div class="swiper-wrapper">
 								<c:forEach var="cakeStoreImg" items="${cakeStoreImgList}" varStatus="status1">
 									<div class="swiper-slide info-img">
-										<img src="images/<c:out value="${cakeStoreImg}"/>">
+										<img src="images/<c:out value="${cakeStoreImg}"/>" alt="ケーキ屋">
 									</div>
 								</c:forEach>
 							</div>
@@ -101,7 +101,7 @@
 								<c:forEach var="cakeStoreMenu" items="${cakeStoreMenuList}" varStatus="status2">
 									<div class="menu-block">
 										<img class="menu-img"
-											src="images/<c:out value="${cakeStoreMenu.cakeMenuImgUrl}" />" alt="">
+											src="images/<c:out value="${cakeStoreMenu.cakeMenuImgUrl}" />" alt="ケーキ屋メニュー">
 										<div class="menu-text-container">
 											<div class="menu-item-name">
 												<h3><c:out value="${cakeStoreMenu.cakeMenuName}" /></h3>
@@ -109,13 +109,13 @@
 											<div class="menu-item-stock">
 												<p>在庫</p>
 												<c:if test="${cakeStoreMenu.cakeStock > 10}">
-													<img class="stock-icon" src="images/stock-many.gif">
+													<img class="stock-icon" src="images/stock-many.gif" alt="在庫多数">
 												</c:if>
 												<c:if test="${cakeStoreMenu.cakeStock <= 10 and cakeStoreMenu.cakeStock > 0}">
-													<img class="stock-icon" src="images/stock-little.gif">
+													<img class="stock-icon" src="images/stock-little.gif" alt="在庫少数">
 												</c:if>
 												<c:if test="${cakeStoreMenu.cakeStock == 0}">
-													<img class="stock-icon" src="images/stock-zero.gif">
+													<img class="stock-icon" src="images/stock-zero.gif" alt="在庫なし">
 												</c:if>
 											</div>
 										</div>

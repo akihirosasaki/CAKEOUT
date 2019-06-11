@@ -18,8 +18,9 @@ import model.CakeStoreSearchModel;
 import vo.CakeStoreVo;
 
 /**
- * @author Akihiro Sasaki
+ * ケーキ屋名前検索結果表示サーブレット
  * TOPページで名前検索した後に、該当のケーキ屋リストを表示するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/CakeStoreListServlet")
 public class CakeStoreListServlet extends HttpServlet {
@@ -29,10 +30,18 @@ public class CakeStoreListServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+		HttpSession session = req.getSession(false);
 		String isInputCheck = "true";
 		String cakeStoreNameInput = req.getParameter("cakeStoreName");
+		if (session == null || cakeStoreNameInput == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
 
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 		try {
@@ -45,7 +54,6 @@ public class CakeStoreListServlet extends HttpServlet {
 				return;
 			} else {
 				ArrayList<CakeStoreVo> cakeStoreList = cssm.searchCakeStoreName(cakeStoreNameInput);
-				HttpSession session = req.getSession(false);
 				session.setAttribute("cakeStoreNameInput", cakeStoreNameInput);
 				session.setAttribute("cakeStoreList", cakeStoreList);
 				ServletContext sc = this.getServletContext();
@@ -62,6 +70,7 @@ public class CakeStoreListServlet extends HttpServlet {
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

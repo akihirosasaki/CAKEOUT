@@ -2,11 +2,13 @@ package vo;
 
 import java.io.Serializable;
 
-public class UserVo implements Serializable{
+/**
+ * ユーザーVo
+ * ユーザー情報を格納するVo
+ * @author 01027756
+ */
+public class UserVo implements Serializable {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 	private int userId;
 	private String userName;
@@ -17,6 +19,7 @@ public class UserVo implements Serializable{
 	public UserVo() {
 
 	}
+
 	public UserVo(int userId, String userName, String userMailAddress, String userPassword, int userRole) {
 		super();
 		this.userId = userId;
@@ -25,37 +28,45 @@ public class UserVo implements Serializable{
 		this.userPassword = userPassword;
 		this.userRole = userRole;
 	}
+
 	public int getUserId() {
 		return userId;
 	}
+
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
+
 	public String getUserName() {
 		return userName;
 	}
+
 	public void setUserName(String userName) {
 		this.userName = userName;
 	}
+
 	public String getUserMailAddress() {
 		return userMailAddress;
 	}
+
 	public void setUserMailAddress(String userMailAddress) {
 		this.userMailAddress = userMailAddress;
 	}
+
 	public String getUserPassword() {
 		return userPassword;
 	}
+
 	public void setUserPassword(String userPassword) {
 		this.userPassword = userPassword;
 	}
+
 	public int getUserRole() {
 		return userRole;
 	}
+
 	public void setUserRole(int userRole) {
 		this.userRole = userRole;
 	}
-
-
 
 }
