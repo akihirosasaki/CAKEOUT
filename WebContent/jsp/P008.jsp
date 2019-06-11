@@ -34,13 +34,7 @@
 </head>
 <body>
 	<div class="main-show">
-		<header class="header">
-			<div class="header-frame-search">
-				<div class="logo">
-					<a href="IndexServlet">CAKEOUT</a>
-				</div>
-			</div>
-		</header>
+		<jsp:include page="/jsp/header-map.jsp" flush="true" />
 		<section id="main">
 			<section class="content">
 				<div class="form-group-input">

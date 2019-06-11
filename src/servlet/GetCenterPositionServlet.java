@@ -17,6 +17,10 @@ import com.google.gson.stream.JsonWriter;
 
 import model.CakeStoreSearchModel;
 
+/**
+ * @author Akihiro Sasaki
+ * cakeStoreMap.js、cafeStoreMap.jsと連携し、ユーザーが選択した駅の緯度経度をjsに返すサーブレット
+ */
 @WebServlet("/GetCenterPositionServlet")
 public class GetCenterPositionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,8 +30,6 @@ public class GetCenterPositionServlet extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String cakeStoreArea = req.getParameter("cakeStoreArea");
 		ArrayList<Double> stationPosition = new ArrayList<Double>();

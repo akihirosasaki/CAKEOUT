@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+/**
+ * @author Akihiro Sasaki
+ * カフェの検索地図を表示するサーブレット
+ */
 @WebServlet("/CafeStoreMapViewServlet")
 public class CafeStoreMapViewServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -20,16 +24,17 @@ public class CafeStoreMapViewServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String selectedCakeStoreId = req.getParameter("selectedCakeStoreId");
 		String selectedCakeStoreName = req.getParameter("selectedCakeStoreName");
 		String selectedCakeStoreArea = req.getParameter("selectedCakeStoreArea");
-		HttpSession session = req.getSession();
-		session.setAttribute("selectedCakeStoreId", selectedCakeStoreId);
-		session.setAttribute("selectedCakeStoreName", selectedCakeStoreName);
-		session.setAttribute("selectedCakeStoreArea", selectedCakeStoreArea);
+		System.out.println("cafeStoreMapView:"+selectedCakeStoreId);
+		HttpSession session = req.getSession(false);
+		if(selectedCakeStoreId!=null && selectedCakeStoreName!=null && selectedCakeStoreArea!=null) {
+			session.setAttribute("selectedCakeStoreId", selectedCakeStoreId);
+			session.setAttribute("selectedCakeStoreName", selectedCakeStoreName);
+			session.setAttribute("selectedCakeStoreArea", selectedCakeStoreArea);
+		}
 		ServletContext sc = this.getServletContext();
 		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P008.jsp");
 		rd.forward(req, res);

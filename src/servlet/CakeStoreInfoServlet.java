@@ -15,10 +15,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Vo.CakeStoreMenuVo;
-import Vo.CakeStoreVo;
 import model.CakeStoreSearchModel;
+import vo.CakeStoreMenuVo;
+import vo.CakeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * ケーキ屋の詳細ページを表示するサーブレット
+ */
 @WebServlet("/CakeStoreInfoServlet")
 public class CakeStoreInfoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -28,19 +32,16 @@ public class CakeStoreInfoServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String[] cakeStoreIdString = req.getParameterValues("cakeStoreId");
 		int[] cakeStoreId = Stream.of(cakeStoreIdString).mapToInt(Integer::parseInt).toArray();
-		System.out.println(cakeStoreId[0]);
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 
 		try {
 			CakeStoreVo cakeStoreInfo = cssm.getCakeStoreInfo(cakeStoreId[0]);
 			ArrayList<String> cakeStoreImgList = cssm.getCakeStoreImg(cakeStoreId[0]);
 			ArrayList<CakeStoreMenuVo> cakeStoreMenuList = cssm.getCakeStoreMenu(cakeStoreId[0]);
-			HttpSession session = req.getSession(true);
+			HttpSession session = req.getSession(false);
 			session.setAttribute("cakeStoreInfo", cakeStoreInfo);
 			session.setAttribute("cakeStoreImgList", cakeStoreImgList);
 			session.setAttribute("cakeStoreMenuList", cakeStoreMenuList);

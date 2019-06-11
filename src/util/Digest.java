@@ -4,6 +4,10 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
+/**
+ * @author Akihiro Sasaki
+ * 文字列をSHA-512でハッシュ化するクラス
+ */
 public class Digest {
 	public static final String SHA512 = "SHA-512";
 	private MessageDigest messageDigest;

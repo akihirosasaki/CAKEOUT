@@ -15,6 +15,10 @@ import javax.servlet.http.HttpSession;
 
 import model.OrderModel;
 
+/**
+ * @author Akihiro Sasaki
+ * 入店が確認された注文のDBを更新するサーブレット
+ */
 @WebServlet("/TicketCheckServlet")
 public class TicketCheckServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -24,10 +28,8 @@ public class TicketCheckServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession(false);
 
 		int orderId = (Integer) session.getAttribute("orderId");
 

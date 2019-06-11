@@ -14,9 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Vo.CakeStoreVo;
 import model.CakeStoreSearchModel;
+import vo.CakeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * TOPページでユーザーが選択したエリア情報をもとに、人気ケーキ屋をDBから取得し、ページに表示させるサーブレット
+ */
 @WebServlet("/PopularCakeStoreServlet")
 public class PopularCakeStoreServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,8 +30,6 @@ public class PopularCakeStoreServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String searchArea = req.getParameter("searchArea");
 
@@ -36,7 +38,7 @@ public class PopularCakeStoreServlet extends HttpServlet {
 
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 		try {
-			popularCakeStores = cssm.selectPopularCakeStore(searchArea);
+			popularCakeStores = cssm.getPopularCakeStore(searchArea);
 			if (popularCakeStores.isEmpty()) {
 				isPopularCakeStore = "false";
 			}
@@ -48,7 +50,7 @@ public class PopularCakeStoreServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession(false);
 		session.setAttribute("searchArea", searchArea);
 		session.setAttribute("popularCakeStores", popularCakeStores);
 		session.setAttribute("isPopularCakeStore", isPopularCakeStore);

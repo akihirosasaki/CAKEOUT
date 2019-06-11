@@ -15,9 +15,13 @@ import javax.servlet.http.HttpServletResponse;
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
 
-import Vo.CakeStoreVo;
 import model.CakeStoreSearchModel;
+import vo.CakeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * cakeStoreMap.jsから投げられたケーキ屋の駅情報をもとに、DBから最寄り駅県内のケーキ情報を取得し、cakeStoreMap.jsに返すサーブレット
+ */
 @WebServlet("/CakeStoreMapServlet")
 public class CakeStoreMapServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,22 +31,16 @@ public class CakeStoreMapServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String cakeStoreArea = req.getParameter("cakeStoreArea");
 		String[] statusList = req.getParameterValues("statusList[]");
 
 		ArrayList<CakeStoreVo> cakeStoreList = null;
-		String isCakeStore = "true";
 
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 
 		try {
-			cakeStoreList = cssm.selectCakeStoreByArea(cakeStoreArea, statusList);
-			if (cakeStoreList.isEmpty()) {
-				isCakeStore = "false";
-			}
+			cakeStoreList = cssm.getCakeStoreByArea(cakeStoreArea, statusList);
 			Gson gson = new Gson();
 			PrintWriter out = res.getWriter();
 			JsonWriter writer = new JsonWriter(out);

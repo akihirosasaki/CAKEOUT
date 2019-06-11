@@ -5,23 +5,40 @@ import java.sql.SQLException;
 
 import javax.naming.NamingException;
 
-import Dao.UserDao;
-import Vo.UserVo;
+import dao.UserDao;
+import vo.UserVo;
 
+/**
+ * @author Akihiro Sasaki
+ * UserDaoを扱うモデル
+ */
 public class UserModel {
-	public UserVo selectLoginUser(String mailAdd, String password) throws SQLException, NamingException {
+	/**
+	 * @param mailAdd
+	 * @param password
+	 * @return loginUser
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public UserVo getLoginUser(String mailAdd, String password) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		UserDao userDao = new UserDao();
 		UserVo loginUser = null;
 		//		コネクション管理はこのレベルで
 		try (Connection conn = userDao.connect()) {
-			loginUser = userDao.selectLoginUser(conn, mailAdd, password);
+			loginUser = userDao.getLoginUser(conn, mailAdd, password);
 		}
 		return loginUser;
 	}
 
-	public boolean accountCheck(String mailAdd) throws SQLException, NamingException {
+	/**
+	 * @param mailAdd
+	 * @return mailCheck
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public boolean checkAccount(String mailAdd) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		UserDao userDao = new UserDao();
@@ -33,13 +50,24 @@ public class UserModel {
 		return mailCheck;
 	}
 
-	public void accountRegist(String userName, String mailAdd, String password) throws SQLException, NamingException {
+	/**
+	 * @param userName
+	 * @param mailAdd
+	 * @param password
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public void insertAccount(String userName, String mailAdd, String password) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		UserDao userDao = new UserDao();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = userDao.connect()) {
-			userDao.accountRegist(conn, userName, mailAdd, password);
+			try {
+				userDao.accountRegist(conn, userName, mailAdd, password);
+			} catch (Exception e) {
+				conn.rollback();
+			}
 		}
 	}
 }

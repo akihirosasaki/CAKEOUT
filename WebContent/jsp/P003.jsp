@@ -19,13 +19,7 @@
         <script src="js/script.js"></script>
     </head>
     <body>
-        <header class="header">
-            <div class="header-frame-form">
-                <div class="logo-form">
-                    <a href="IndexServlet">CAKEOUT</a>
-                </div>
-            </div>
-        </header>
+        <jsp:include page="/jsp/header-form.jsp" flush="true" />
         <section id="main">
             <section class="content">
                 <div class="form-box">
@@ -70,12 +64,6 @@
                 </div>
             </section>
         </section>
-        <footer class="footer">
-            <div class="footer-logo-box">
-                <div class="logo-footer">
-                    <a href="IndexServlet">CAKEOUT</a>
-                </div>
-            </div>
-        </footer>
+        <jsp:include page="/jsp/footer.jsp" flush="true" />
     </body>
 </html>

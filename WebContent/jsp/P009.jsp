@@ -21,13 +21,7 @@
     </head>
     <body>
         <div class="main-show">
-            <header class="header">
-                <div class="header-frame">
-                    <div class="logo">
-                        <a href="IndexServlet">CAKEOUT</a>
-                    </div>
-                </div>
-            </header>
+            <jsp:include page="/jsp/header-map.jsp" flush="true" />
             <section id="main">
                 <section class="content">
                     <div class="c-container">
@@ -110,13 +104,7 @@
 					</form>
                 </section>
             </section>
-        <footer class="footer">
-            <div class="footer-logo-box">
-                <div class="logo-footer">
-                    <a href="index.html">CAKEOUT</a>
-                </div>
-            </div>
-        </footer>
+        <jsp:include page="/jsp/footer.jsp" flush="true" />
     </div>
     </body>
 </html>

@@ -6,23 +6,40 @@ import java.util.ArrayList;
 
 import javax.naming.NamingException;
 
-import Dao.CafeStoreDao;
-import Vo.CafeStoreMenuVo;
-import Vo.CafeStoreVo;
+import dao.CafeStoreDao;
+import vo.CafeStoreMenuVo;
+import vo.CafeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * CafeStoreDaoを扱うモデル
+ */
 public class CafeStoreSearchModel {
-	public ArrayList<CafeStoreVo> selectCafeStoreByArea(String cafeStoreArea, String[] statusList) throws SQLException, NamingException {
+	/**
+	 * @param cafeStoreArea
+	 * @param statusList
+	 * @return cafeStoreList
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
+	public ArrayList<CafeStoreVo> getCafeStoreByArea(String cafeStoreArea, String[] statusList) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
 		CafeStoreDao cafeStoreDao = new CafeStoreDao();
 		ArrayList<CafeStoreVo> cafeStoreList = new ArrayList<CafeStoreVo>();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = cafeStoreDao.connect()) {
-			cafeStoreList = cafeStoreDao.selectCafeStoreByArea(conn, cafeStoreArea, statusList);
+			cafeStoreList = cafeStoreDao.getCafeStoreByArea(conn, cafeStoreArea, statusList);
 		}
 		return cafeStoreList;
 	}
 
+	/**
+	 * @param cafeStoreId
+	 * @return cafeStoreMenuList
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public ArrayList<CafeStoreMenuVo> getCafeStoreMenu(int cafeStoreId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -35,6 +52,12 @@ public class CafeStoreSearchModel {
 		return cafeStoreMenuList;
 	}
 
+	/**
+	 * @param cafeStoreId
+	 * @return cafeStoreInfo
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public CafeStoreVo getCafeStoreInfo(int cafeStoreId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -47,6 +70,12 @@ public class CafeStoreSearchModel {
 		return cafeStoreInfo;
 	}
 
+	/**
+	 * @param cafeStoreId
+	 * @return cafeStoreImg
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public ArrayList<String> getCafeStoreImg(int cafeStoreId) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");
@@ -59,6 +88,12 @@ public class CafeStoreSearchModel {
 		return cafeStoreImg;
 	}
 
+	/**
+	 * @param cafeStoreArea
+	 * @return stationPosition
+	 * @throws SQLException
+	 * @throws NamingException
+	 */
 	public ArrayList<Double> getCafeStationPosition(String cafeStoreArea) throws SQLException, NamingException {
 		//		問い合わせ開始
 		System.out.println("問い合わせ開始");

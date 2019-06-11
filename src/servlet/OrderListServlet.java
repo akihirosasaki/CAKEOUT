@@ -14,9 +14,13 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Vo.OrderVo;
 import model.OrderModel;
+import vo.OrderVo;
 
+/**
+ * @author Akihiro Sasaki
+ * ユーザーの注文情報を取得し、未入店の注文数をもとに、遷移先を分岐させるサーブレット
+ */
 @WebServlet("/OrderListServlet")
 public class OrderListServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -26,12 +30,10 @@ public class OrderListServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
 		String orderStatus = req.getParameter("accountLink");
 
-		HttpSession session = req.getSession(true);
+		HttpSession session = req.getSession(false);
 		session.setAttribute("orderStatus", orderStatus);
 		int userId = (Integer) session.getAttribute("userId");
 		ArrayList<OrderVo> orderList = new ArrayList<OrderVo>();
@@ -47,24 +49,20 @@ public class OrderListServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
+		final String url;
 		if (orderList.size() > 1) {
-			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P012.jsp");
-			rd.forward(req, res);
-			return;
+			url = "/jsp/P012.jsp";
 		} else if (orderList.size() == 1) {
 			int orderId = orderList.get(0).getOrderId();
 			session.setAttribute("orderId", orderId);
-			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/OrderSelectServlet");
-			rd.forward(req, res);
-			return;
+			url = "/OrderSelectServlet";
 		} else {
-			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
-			rd.forward(req, res);
-			return;
+			url = "/IndexServlet";
 		}
+		ServletContext sc = this.getServletContext();
+		RequestDispatcher rd = sc.getRequestDispatcher(url);
+		rd.forward(req, res);
+		return;
 
 	}
 

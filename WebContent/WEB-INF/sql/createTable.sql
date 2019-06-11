@@ -10,6 +10,8 @@ drop table if exists cake_store_img;
 drop table if exists cafe_store_img;
 drop table if exists cake_stock;
 drop table if exists station_location;
+drop table if exists loginlog;
+drop table if exists log;
 
 commit;
 
@@ -114,4 +116,20 @@ create table if not exists station_location (
 	station_lat double(9,6) not null,
 	station_lon double(9,6) not null,
 	primary key(station_id)
+);
+
+create table if not exists loginlog (
+	log_id int(11) not null auto_increment,
+    user_id char(5) not null,
+    ip_address varchar(16) not null,
+    login_date timestamp not null,
+    log_type varchar(10) not null,
+    primary key(log_id)
+);
+
+create table if not exists log (
+		log_time varchar(30) not null,
+        requestUrl varchar(255) not null,
+        referer varchar(255) not null,
+        userAgent varchar(255) not null
 );

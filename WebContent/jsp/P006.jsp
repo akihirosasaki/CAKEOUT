@@ -35,13 +35,7 @@ var cakeStoreArea = "<%=cakeStoreArea%>";
 </head>
 <body>
 	<div class="main-show">
-		<header class="header">
-			<div class="header-frame-search">
-				<div class="logo">
-					<a href="IndexServlet">CAKEOUT</a>
-				</div>
-			</div>
-		</header>
+		<jsp:include page="/jsp/header-map.jsp" flush="true" />
 		<section id="main">
 			<section class="content">
 				<div class="form-group-input">
@@ -60,8 +54,7 @@ var cakeStoreArea = "<%=cakeStoreArea%>";
 					<div class="select-condition-detail-box"></div>
 					<div id="overlay"></div>
 					<div id="modal-win">
-						<form class="modal-form" action="#"
-							method="POST">
+						<form class="modal-form" action="#" method="POST">
 							<div class="modal-header">
 								<div class="modal-header-text">
 									<p>条件を指定してください</p>
@@ -72,14 +65,15 @@ var cakeStoreArea = "<%=cakeStoreArea%>";
 							</div>
 							<div class="modal-contents-container">
 								<div class="modal-contents-status-container">
-									<input type="checkbox" class="condition-status-check"
-										id="open" name="open" value="open"> <label class="select-condition-label"
-										for="open">営業中</label>
-									<input type="checkbox" class="condition-status-check"
-									id="test" name="test" value="test"> <label class="select-condition-label"
-									for="test">テスト</label>
+									<input type="checkbox" class="condition-status-check" id="open"
+										name="open" value="open"> <label
+										class="select-condition-label" for="open">営業中</label> <input
+										type="checkbox" class="condition-status-check" id="test"
+										name="test" value="test"> <label
+										class="select-condition-label" for="test">テスト</label>
 								</div>
-								<input class="submit-button" type="button" value="絞り込む" id="select-button">
+								<input class="submit-button" type="button" value="絞り込む"
+									id="select-button">
 							</div>
 						</form>
 					</div>

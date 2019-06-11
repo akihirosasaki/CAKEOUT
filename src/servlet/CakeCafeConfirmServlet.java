@@ -13,11 +13,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import Vo.CafeStoreVo;
-import Vo.CakeStoreVo;
 import model.CafeStoreSearchModel;
 import model.CakeStoreSearchModel;
+import vo.CafeStoreVo;
+import vo.CakeStoreVo;
 
+/**
+ * @author Akihiro Sasaki
+ * ユーザーが選択したケーキ屋とカフェの情報をもとに、注文確認画面を生成するサーブレット
+ */
 @WebServlet("/CakeCafeConfirmServlet")
 public class CakeCafeConfirmServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -27,13 +31,10 @@ public class CakeCafeConfirmServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-		req.setCharacterEncoding("UTF-8");
-		res.setCharacterEncoding("UTF-8");
 
-		HttpSession session = req.getSession(true);
-		int selectedCakeStoreId = Integer.parseInt((String) session.getAttribute("selectedCakeStoreId"));
+		HttpSession session = req.getSession(false);
+		int selectedCakeStoreId = Integer.parseInt(session.getAttribute("selectedCakeStoreId").toString());
 		int selectedCafeStoreId = Integer.parseInt(req.getParameter("selectedCafeStoreId"));
-
 		CakeStoreSearchModel cksm = new CakeStoreSearchModel();
 		CafeStoreSearchModel cfsm = new CafeStoreSearchModel();
 
