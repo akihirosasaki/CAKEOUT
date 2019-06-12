@@ -15,12 +15,16 @@ html, body { height: 100%; }
 }
 .shop-modal {
     height: 100px;
-    width: 100%;
+    width: 98%;
     background-color: #707070;
     position: absolute;
     display: none;
     bottom: 0;
     z-index: 3;
+	border-radius: 5px;
+	margin-left: 1%;
+	margin-bottom: 1%;
+	box-shadow: 1px 1px 5px 2px rgba(0,0,0,.3);
 }
 .shop-modal-a {
     position: absolute;
@@ -51,7 +55,7 @@ html, body { height: 100%; }
     margin-top: -80px;
 }
 .btn-search {
-    position: relative;
+    position: fixed;
     display: flex;
     -webkit-box-align: center;
     align-items: center;
@@ -64,10 +68,11 @@ html, body { height: 100%; }
     box-shadow: 0 0 16px 0 tgba(0,0,0,.24);
     color: #ffffff;
     font-weight: 700;
-    margin: -100px 20px auto auto;
     text-decoration: none;
     font-size: 20px;
-    text-decolatio
+    bottom: 80px;
+    right: 20px;
+
 }
 .form-group-input {
     width: 80%;
@@ -303,4 +308,11 @@ html, body { height: 100%; }
     background-color: #f19860;
     border-color: #f19860;
     color: #ffffff;
+}
+
+.CakeStoreInfoForm {
+	z-index: 2;
+}
+.CafeStoreMapViewForm {
+	z-index : 3;
 }

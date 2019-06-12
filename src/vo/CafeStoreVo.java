@@ -2,10 +2,13 @@ package vo;
 
 import java.io.Serializable;
 
-public class CafeStoreVo implements Serializable{
-	/**
-	 *
-	 */
+/**
+ * カフェVO
+ * カフェ情報を格納するVo
+ * @author 01027756
+ */
+public class CafeStoreVo implements Serializable {
+
 	private static final long serialVersionUID = 1L;
 	private int cafeStoreId;
 	private String cafeStoreName;
@@ -127,10 +130,5 @@ public class CafeStoreVo implements Serializable{
 	public void setcafeStorePrimaryImg(String cafeStorePrimaryImg) {
 		this.cafeStorePrimaryImg = cafeStorePrimaryImg;
 	}
-
-
-
-
-
 
 }

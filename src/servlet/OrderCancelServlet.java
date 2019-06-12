@@ -16,8 +16,9 @@ import javax.servlet.http.HttpSession;
 import model.OrderModel;
 
 /**
- * @author Akihiro Sasaki
+ * 注文キャンセルサーブレット
  * キャンセルされた注文をDBから削除するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/OrderCancelServlet")
 public class OrderCancelServlet extends HttpServlet {
@@ -27,9 +28,24 @@ public class OrderCancelServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
+		String isNullCheck = req.getParameter("isNullCheck");
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		} else {
+			if(!("true".equals(isNullCheck))) {
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				rd.forward(req, res);
+				return;
+			}
+		}
 		int orderId = (Integer) session.getAttribute("orderId");
 
 		OrderModel om = new OrderModel();
@@ -43,14 +59,14 @@ public class OrderCancelServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-
-		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P014.jsp");
-		rd.forward(req, res);
+		session.setAttribute("isNullCheck", isNullCheck);
+		final String url = "OrderCancelViewServlet";
+		res.setStatus(HttpServletResponse.SC_SEE_OTHER);
+		res.sendRedirect(url);
 		return;
-
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

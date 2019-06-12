@@ -3,10 +3,13 @@ package vo;
 import java.io.Serializable;
 import java.sql.Date;
 
+/**
+ * 注文Vo
+ * 注文情報を格納するVo
+ * @author 01027756
+ */
 public class OrderVo implements Serializable {
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int orderId;
 	private int userId;
@@ -128,6 +131,5 @@ public class OrderVo implements Serializable {
 	public void setCafeStorePrimaryImg(String cafeStorePrimaryImg) {
 		this.cafeStorePrimaryImg = cafeStorePrimaryImg;
 	}
-
 
 }

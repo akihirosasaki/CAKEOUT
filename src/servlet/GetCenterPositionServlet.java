@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
@@ -18,20 +21,29 @@ import com.google.gson.stream.JsonWriter;
 import model.CakeStoreSearchModel;
 
 /**
- * @author Akihiro Sasaki
+ * 駅の位置情報取得サーブレット
  * cakeStoreMap.js、cafeStoreMap.jsと連携し、ユーザーが選択した駅の緯度経度をjsに返すサーブレット
+ * @author Akihiro Sasaki
+ *
  */
 @WebServlet("/GetCenterPositionServlet")
 public class GetCenterPositionServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-    public GetCenterPositionServlet() {
-        super();
-    }
+	public GetCenterPositionServlet() {
+		super();
+	}
 
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+		HttpSession session = req.getSession(false);
 		String cakeStoreArea = req.getParameter("cakeStoreArea");
+		if (session == null || cakeStoreArea == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
 		ArrayList<Double> stationPosition = new ArrayList<Double>();
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 		try {
@@ -41,7 +53,7 @@ public class GetCenterPositionServlet extends HttpServlet {
 			PrintWriter out = res.getWriter();
 			JsonWriter writer = new JsonWriter(out);
 			writer.setIndent(" ");
-			gson.toJson(stationPosition, ArrayList.class,writer);
+			gson.toJson(stationPosition, ArrayList.class, writer);
 			writer.flush();
 			out.flush();
 			writer.close();
@@ -55,6 +67,7 @@ public class GetCenterPositionServlet extends HttpServlet {
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

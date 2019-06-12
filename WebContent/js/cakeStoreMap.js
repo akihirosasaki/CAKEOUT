@@ -1,39 +1,51 @@
 var map;
 var marker = [];
 var infoWindow = [];
-var statusList =[];
+var statusList = [];
 
-$(document).ready(function(){
-	$('#select-button').click(function(){
-		statusList = [];
-		$(".select-condition-detail-box").empty();
-		if($("#open").prop("checked")==true){
-			statusList.push("open");
-			$(".select-condition-detail-box").append('<button class="condition-status">営業中</button>');
-		}
-		if($("#test").prop("checked")==true){
-			statusList.push("test");
-			$(".select-condition-detail-box").append('<button class="condition-status">テスト</button>');
-		}
-		console.log(statusList);
-		ajaxCenter(cakeStoreArea).done(function(result){
-			//地図作成
-			makeMap(result[0], result[1], cakeStoreArea);
-			$('#overlay, #modal-win').fadeOut();
-		}).fail(function(result){
-			console.log("error");
-		});
-	});
-});
+$(document)
+		.ready(
+				function() {
+					$('#select-button')
+							.click(
+									function() {
+										var statusList = [];
+										$(".select-condition-detail-box")
+												.empty();
+										if ($("#open").prop("checked") == true) {
+											statusList.push("open");
+											$(".select-condition-detail-box")
+													.append(
+															'<button class="condition-status">営業中</button>');
+										}
+										if ($("#test").prop("checked") == true) {
+											statusList.push("test");
+											$(".select-condition-detail-box")
+													.append(
+															'<button class="condition-status">テスト</button>');
+										}
+										ajaxCenter(cakeStoreArea).done(
+												function(result) {
+													// 地図作成
+													makeMap(result[0],
+															result[1],
+															cakeStoreArea);
+													$('#overlay, #modal-win')
+															.fadeOut();
+												}).fail(function(result) {
+											alert("位置情報の取得に失敗しました");
+										});
+									});
+				});
 
 // ページのロードが完了したら地図を読み込む
 window.onload = function() {
-	//中心点を取得
-	ajaxCenter(cakeStoreArea).done(function(result){
-		//地図作成
+	// 中心点を取得
+	ajaxCenter(cakeStoreArea).done(function(result) {
+		// 地図作成
 		makeMap(result[0], result[1], cakeStoreArea);
-	}).fail(function(result){
-		console.log("error");
+	}).fail(function(result) {
+		alert("位置情報の取得に失敗しました");
 	});
 	$('#nav-text').fadeIn(700);
 	setTimeout(closeBox, 3000);
@@ -41,7 +53,7 @@ window.onload = function() {
 
 function ajaxCenter(place) {
 	var request = {
-			cakeStoreArea : place
+		cakeStoreArea : place
 	};
 
 	return $.ajax({
@@ -52,7 +64,6 @@ function ajaxCenter(place) {
 		dataType : "json"
 	});
 }
-
 
 function makeMap(lat, lng, cakeStoreArea) {
 
@@ -67,18 +78,16 @@ function makeMap(lat, lng, cakeStoreArea) {
 
 	map = new google.maps.Map(canvas, mapOptions); // 作成
 
-	//検索情報をもとに、店舗データのリストを取得
-	ajaxStore(cakeStoreArea, statusList).done(function(result){
-		console.log(result);
-		//ピン作成
+	// 検索情報をもとに、店舗データのリストを取得
+	ajaxStore(cakeStoreArea, statusList).done(function(result) {
+		// ピン作成
 		add_marker(result, map);
 
 		return map;
-	}).fail(function(result){
-		console.log("error");
+	}).fail(function(result) {
+		alert("店舗情報の取得に失敗しました");
 	});
 }
-
 
 function ajaxStore(place, statusList) {
 	var request = {
@@ -96,11 +105,12 @@ function ajaxStore(place, statusList) {
 }
 
 function add_marker(mapData, map) {
-	for (var i=0; i< mapData.length; i++) {
+	for (var i = 0; i < mapData.length; i++) {
 		var item = mapData[i];
 		marker[i] = new google.maps.Marker({
-			position:new google.maps.LatLng(item["cakeStoreLat"], item["cakeStoreLon"]),
-			map: map
+			position : new google.maps.LatLng(item["cakeStoreLat"],
+					item["cakeStoreLon"]),
+			map : map
 		});
 
 		attachMessage(marker[i], item);
@@ -108,13 +118,25 @@ function add_marker(mapData, map) {
 }
 
 function attachMessage(marker, item) {
-	google.maps.event.addListener(marker, 'click', function(){
+	google.maps.event.addListener(marker, 'click', function() {
 		$(".shop-modal p").empty();
 		$(".shop-modal input").remove('value');
 		$(".shop-modal").slideDown();
-		$(".shop-modal p").append(item["cakeStoreName"]);
-		$(".shop-modal input").attr({
-			'value': item["cakeStoreId"]
+		$(".CakeStoreInfoForm p").append(item["cakeStoreName"]);
+		$(".CakeStoreInfoForm input").attr({
+			'value' : item["cakeStoreId"]
+		});
+		$(".CafeStoreMapViewForm input:nth-child(1)").attr({
+			'value' : item["cakeStoreId"]
+		});
+		$(".CafeStoreMapViewForm input:nth-child(2)").attr({
+			'value' : item["cakeStoreName"]
+		});
+		$(".CafeStoreMapViewForm input:nth-child(3)").attr({
+			'value' : item["cakeStoreStation"]
+		});
+		$(".CafeStoreMapViewForm input:nth-child(4)").attr({
+			'value' : "決定"
 		});
 	});
 }
@@ -122,7 +144,6 @@ function attachMessage(marker, item) {
 function closeBox() {
 	$("#nav-text").fadeOut('slow');
 }
-
 
 $(function() {
 	$('.open').on('click', function() {
@@ -150,43 +171,42 @@ $(function() {
 	}
 });
 
-$(function(){
-	$('select').change(function(){
+$(function() {
+	$('select').change(function() {
 		cakeStoreArea = $(this).val();
 		console.log(cakeStoreArea);
-		ajaxCenter(cakeStoreArea).done(function(result){
-			//地図作成
+		ajaxCenter(cakeStoreArea).done(function(result) {
+			// 地図作成
 			makeMap(result[0], result[1], cakeStoreArea);
-		}).fail(function(result){
-			console.log("error");
+		}).fail(function(result) {
 		});
 	});
 });
 
 $(function() {
-	  $('.shop-modal').on('touchstart', onTouchStart);
-	  $('.shop-modal').on('touchmove', onTouchMove);
-	  $('.shop-modal').on('touchend', onTouchEnd);
-	  var direction, position;
+	$('.shop-modal').on('touchstart', onTouchStart);
+	$('.shop-modal').on('touchmove', onTouchMove);
+	$('.shop-modal').on('touchend', onTouchEnd);
+	var direction, position;
 
-	  function onTouchStart(event) {
-	    position = getPosition(event);
-	    direction = '';
-	  }
+	function onTouchStart(event) {
+		position = getPosition(event);
+		direction = '';
+	}
 
-	  function onTouchMove(event) {
-	    if(position - getPosition(event) < -70){
-	      direction = 'down';
-	    }
-	  }
+	function onTouchMove(event) {
+		if (position - getPosition(event) < -70) {
+			direction = 'down';
+		}
+	}
 
-	  function onTouchEnd(event) {
-	    if (direction == 'down'){
-	    	$(".shop-modal").slideUp();
-	    }
-	  }
+	function onTouchEnd(event) {
+		if (direction == 'down') {
+			$(".shop-modal").slideUp();
+		}
+	}
 
-	  function getPosition(event) {
-	    return event.originalEvent.touches[0].pageY;
-	  }
+	function getPosition(event) {
+		return event.originalEvent.touches[0].pageY;
+	}
 });

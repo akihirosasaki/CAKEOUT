@@ -2,10 +2,13 @@ package vo;
 
 import java.io.Serializable;
 
+/**
+ * ケーキ屋Vo
+ * ケーキ屋情報を格納するVo
+ * @author 01027756
+ */
 public class CakeStoreVo implements Serializable{
-	/**
-	 *
-	 */
+
 	private static final long serialVersionUID = 1L;
 	private int cakeStoreId;
 	private String cakeStoreName;

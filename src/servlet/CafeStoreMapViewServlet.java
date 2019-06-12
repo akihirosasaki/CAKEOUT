@@ -12,8 +12,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 /**
- * @author Akihiro Sasaki
+ * カフェ検索地図表示サーブレット
  * カフェの検索地図を表示するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/CafeStoreMapViewServlet")
 public class CafeStoreMapViewServlet extends HttpServlet {
@@ -23,14 +24,20 @@ public class CafeStoreMapViewServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		String selectedCakeStoreId = req.getParameter("selectedCakeStoreId");
 		String selectedCakeStoreName = req.getParameter("selectedCakeStoreName");
 		String selectedCakeStoreArea = req.getParameter("selectedCakeStoreArea");
-		System.out.println("cafeStoreMapView:"+selectedCakeStoreId);
 		HttpSession session = req.getSession(false);
-		if(selectedCakeStoreId!=null && selectedCakeStoreName!=null && selectedCakeStoreArea!=null) {
+		if (session == null || selectedCakeStoreArea == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
+		if (selectedCakeStoreId != null && selectedCakeStoreName != null && selectedCakeStoreArea != null) {
 			session.setAttribute("selectedCakeStoreId", selectedCakeStoreId);
 			session.setAttribute("selectedCakeStoreName", selectedCakeStoreName);
 			session.setAttribute("selectedCakeStoreArea", selectedCakeStoreArea);
@@ -41,6 +48,7 @@ public class CafeStoreMapViewServlet extends HttpServlet {
 		return;
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

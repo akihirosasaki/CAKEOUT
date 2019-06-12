@@ -18,8 +18,9 @@ import javax.servlet.http.HttpSession;
 import model.OrderModel;
 
 /**
- * @author Akihiro Sasaki
+ * チケット生成サーブレット
  * ユーザーが選択したケーキ屋、カフェ、人数をもとに、チケットを生成するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/TicketServlet")
 public class TicketServlet extends HttpServlet {
@@ -29,14 +30,45 @@ public class TicketServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
 		String cakeStoreName = req.getParameter("cakeStoreName");
 		String cafeStoreName = req.getParameter("cafeStoreName");
 		String orderNumString = req.getParameter("orderNum");
 		String isOrdered = "true";
 		String isNumCheck = "true";
+		String sendPageToken = req.getParameter("pageToken");
+		String sessionPageToken = (String) session.getAttribute("token");
+		String errorReason;
+		if (cakeStoreName == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
+		if (sessionPageToken == null || sendPageToken == null) {
+			errorReason = "正規の順序でアクセスしていません";
+			req.setAttribute("errorReason", errorReason);
+			final String url = "/jsp/P020.jsp";
+			req.getRequestDispatcher(url).forward(req, res);
+			return;
+		} else {
+			if (!(sendPageToken.equals(sessionPageToken))) {
+				errorReason = "正規の順序でアクセスしていません";
+				req.setAttribute("errorReason", errorReason);
+				final String url = "/jsp/p020.jsp";
+				req.getRequestDispatcher(url).forward(req, res);
+				return;
+			}
+		}
 		if (cakeStoreName != null && cafeStoreName != null && orderNumString != null) {
 			session.setAttribute("cakeStoreName", cakeStoreName);
 			session.setAttribute("cafeStoreName", cafeStoreName);
@@ -104,19 +136,19 @@ public class TicketServlet extends HttpServlet {
 				e.printStackTrace();
 				throw new ServletException(e);
 			}
+			String isNullCheck = "true";
+			session.setAttribute("isNullCheck", isNullCheck);
 			session.setAttribute("cakeStoreName", cakeStoreName);
 			session.setAttribute("cafeStoreName", cafeStoreName);
 			session.setAttribute("orderNum", orderNum);
 			session.setAttribute("date", dateSQL);
 			session.setAttribute("orderId", orderId);
 			session.setAttribute("selectedCafeStoreId", selectedCafeStoreId);
-			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P011.jsp");
-			rd.forward(req, res);
+			final String url = "TicketViewServlet";
+			res.setStatus(HttpServletResponse.SC_SEE_OTHER);
+			res.sendRedirect(url);
 			return;
-
 		}
-
 	}
 
 	public static String toStr(LocalDateTime localDateTime, String format) {
@@ -126,6 +158,7 @@ public class TicketServlet extends HttpServlet {
 
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

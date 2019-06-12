@@ -10,21 +10,23 @@ import dao.OrderDao;
 import vo.OrderVo;
 
 /**
- * @author Akihiro Sasaki
+ * 注文Dao
  * OrderDaoを扱うモデル
+ * @author Akihiro Sasaki
+ *
  */
 public class OrderModel {
 	/**
-	 * @param userId
-	 * @param cakeStoreId
-	 * @param cafeStoreId
-	 * @param orderNum
+	 * @param userId ユーザーID
+	 * @param cakeStoreId ケーキ屋ID
+	 * @param cafeStoreId カフェID
+	 * @param orderNum 注文人数
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
-	public void insertOrder(int userId, int cakeStoreId, int cafeStoreId, int orderNum) throws SQLException, NamingException {
+	public void insertOrder(int userId, int cakeStoreId, int cafeStoreId, int orderNum)
+			throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 
 		//		コネクション管理はこのレベルで
@@ -39,17 +41,17 @@ public class OrderModel {
 	}
 
 	/**
-	 * @param userId
-	 * @param cakeStoreId
-	 * @param cafeStoreId
-	 * @param date
-	 * @return orderId
+	 * @param userId ユーザーID
+	 * @param cakeStoreId ケーキ屋ID
+	 * @param cafeStoreId カフェID
+	 * @param date 注文日時
+	 * @return orderId 注文ID
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
-	public int getOrderId(int userId, int cakeStoreId, int cafeStoreId, String date) throws SQLException, NamingException {
+	public int getOrderId(int userId, int cakeStoreId, int cafeStoreId, String date)
+			throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		int orderId;
 		//		コネクション管理はこのレベルで
@@ -60,17 +62,17 @@ public class OrderModel {
 	}
 
 	/**
-	 * @param userId
-	 * @param cakeStoreId
-	 * @param cafeStoreId
-	 * @param date
-	 * @return isOrderCheck
+	 * @param userId ユーザーID
+	 * @param cakeStoreId ケーキ屋ID
+	 * @param cafeStoreId カフェID
+	 * @param date 注文日時
+	 * @return isOrderCheck　入店ステータス
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
-	public boolean checkOrderDuplicate(int userId, int cakeStoreId, int cafeStoreId, String date) throws SQLException, NamingException {
+	public boolean checkOrderDuplicate(int userId, int cakeStoreId, int cafeStoreId, String date)
+			throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		boolean isOrderCheck;
 		//		コネクション管理はこのレベルで
@@ -81,13 +83,12 @@ public class OrderModel {
 	}
 
 	/**
-	 * @param orderId
+	 * @param orderId 注文ID
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public void ticketCheck(int orderId) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = orderDao.connect()) {
@@ -96,14 +97,13 @@ public class OrderModel {
 	}
 
 	/**
-	 * @param userId
-	 * @return orderList
+	 * @param userId ユーザーID
+	 * @return orderList 注文情報を持つVoのリスト
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public ArrayList<OrderVo> getOrderList(int userId) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		ArrayList<OrderVo> orderList = null;
 		//		コネクション管理はこのレベルで
@@ -114,13 +114,12 @@ public class OrderModel {
 	}
 
 	/**
-	 * @param orderId
+	 * @param orderId 注文ID
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public void cancelOrder(int orderId) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = orderDao.connect()) {
@@ -135,16 +134,14 @@ public class OrderModel {
 		}
 	}
 
-
 	/**
-	 * @param orderId
-	 * @return orderItem
+	 * @param orderId 注文ID
+	 * @return orderItem 注文情報をもつVo
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public OrderVo getOrder(int orderId) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		OrderVo orderItem = null;
 		//		コネクション管理はこのレベルで
@@ -155,14 +152,13 @@ public class OrderModel {
 	}
 
 	/**
-	 * @param orderId
-	 * @param orderNum
+	 * @param orderId 注文ID
+	 * @param orderNum 注文人数
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public void changeOrderNum(int orderId, int orderNum) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		OrderDao orderDao = new OrderDao();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = orderDao.connect()) {

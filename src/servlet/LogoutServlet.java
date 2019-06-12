@@ -5,6 +5,8 @@ import java.sql.SQLException;
 import java.time.LocalDateTime;
 
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -15,16 +17,31 @@ import javax.servlet.http.HttpSession;
 import model.LoggingModel;
 
 /**
- * @author Akihiro Sasaki
+ * ログアウトサーブレット
  * セッションを破棄し、ログアウト画面を表示するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/LogoutServlet")
 public class LogoutServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		HttpSession session = req.getSession(false);
-		System.out.println("invalidateした");
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		} else {
+			String isLogin = (String) session.getAttribute("isLogin");
+			if (!("true".equals(isLogin))) {
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				rd.forward(req, res);
+				return;
+			}
+		}
 		String ip = req.getHeader("x-forwarded-for");
 		if (ip == null) {
 			ip = req.getRemoteAddr();

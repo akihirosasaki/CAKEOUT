@@ -20,8 +20,9 @@ import vo.CakeStoreMenuVo;
 import vo.CakeStoreVo;
 
 /**
- * @author Akihiro Sasaki
+ * ケーキ屋詳細ページ表示サーブレット
  * ケーキ屋の詳細ページを表示するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/CakeStoreInfoServlet")
 public class CakeStoreInfoServlet extends HttpServlet {
@@ -31,9 +32,17 @@ public class CakeStoreInfoServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
+		HttpSession session = req.getSession(false);
 		String[] cakeStoreIdString = req.getParameterValues("cakeStoreId");
+		if (session == null || cakeStoreIdString == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
 		int[] cakeStoreId = Stream.of(cakeStoreIdString).mapToInt(Integer::parseInt).toArray();
 		CakeStoreSearchModel cssm = new CakeStoreSearchModel();
 
@@ -41,7 +50,6 @@ public class CakeStoreInfoServlet extends HttpServlet {
 			CakeStoreVo cakeStoreInfo = cssm.getCakeStoreInfo(cakeStoreId[0]);
 			ArrayList<String> cakeStoreImgList = cssm.getCakeStoreImg(cakeStoreId[0]);
 			ArrayList<CakeStoreMenuVo> cakeStoreMenuList = cssm.getCakeStoreMenu(cakeStoreId[0]);
-			HttpSession session = req.getSession(false);
 			session.setAttribute("cakeStoreInfo", cakeStoreInfo);
 			session.setAttribute("cakeStoreImgList", cakeStoreImgList);
 			session.setAttribute("cakeStoreMenuList", cakeStoreMenuList);
@@ -58,6 +66,7 @@ public class CakeStoreInfoServlet extends HttpServlet {
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

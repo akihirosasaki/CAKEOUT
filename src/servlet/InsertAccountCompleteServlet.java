@@ -17,12 +17,12 @@ import model.UserModel;
 import util.Digest;
 import vo.UserVo;
 
-
 /**
+ * アカウント登録完了画面表示サーブレット
+ * ユーザーが登録確認したユーザーネーム、メールアドレス、パスワードの情報をDBに格納するサーブレット
  * @author Akihiro Sasaki
- * ユーザーが登録確認したユーザーネーム、メールアドレス、パスワードの情報をDBに格納し、完了画面を表示するサーブレット
  */
-@WebServlet("/AccountRegistCompleteServlet")
+@WebServlet("/InsertAccountCompleteServlet")
 public class InsertAccountCompleteServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -30,14 +30,46 @@ public class InsertAccountCompleteServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		} else {
+			if (!(session.getAttribute("userName") == null)) {
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				rd.forward(req, res);
+				return;
+			}
+		}
 		String userName = (String) session.getAttribute("userName");
 		String mailAdd = (String) session.getAttribute("mailAdd");
 		String password = (String) session.getAttribute("password");
 		Digest digest = new Digest(Digest.SHA512);
 		String hashPass = digest.hex(password);
+		String sendPageToken = req.getParameter("pageToken");
+		String sessionPageToken = (String) session.getAttribute("token");
+		String errorReason;
+		if (sessionPageToken == null || sendPageToken == null) {
+			errorReason = "正規の順序でアクセスしていません";
+			req.setAttribute("errorReason", errorReason);
+			final String url = "/jsp/P020.jsp";
+			req.getRequestDispatcher(url).forward(req, res);
+			return;
+		} else {
+			if (!(sendPageToken.equals(sessionPageToken))) {
+				errorReason = "正規の順序でアクセスしていません";
+				req.setAttribute("errorReason", errorReason);
+				final String url = "/jsp/p020.jsp";
+				req.getRequestDispatcher(url).forward(req, res);
+				return;
+			}
+		}
 
 		UserModel lm = new UserModel();
 		try {
@@ -61,15 +93,21 @@ public class InsertAccountCompleteServlet extends HttpServlet {
 			throw new ServletException(e);
 		}
 		String isLogin = "true";
+		String isNullCheck = "true";
+		session.setAttribute("isNullCheck", isNullCheck);
 		session.setAttribute("loginUser", loginUser);
 		session.setAttribute("isLogin", isLogin);
-		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P005.jsp");
-		rd.forward(req, res);
+		session.setAttribute("userId", loginUser.getUserId());
+		session.setAttribute("userRole", loginUser.getUserRole());
+		session.setAttribute("userName", loginUser.getUserName());
+		final String url = "InsertAccountCompleteViewServlet";
+		res.setStatus(HttpServletResponse.SC_SEE_OTHER);
+		res.sendRedirect(url);
 		return;
 
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

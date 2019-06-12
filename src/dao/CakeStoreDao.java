@@ -12,20 +12,21 @@ import vo.CakeStoreMenuVo;
 import vo.CakeStoreVo;
 
 /**
- * @author Akihiro Sasaki
+ * カフェDao
  * CakeStoreテーブルを扱うDaoです
+ * @author Akihiro Sasaki
  */
-public class CakeStoreDao extends BaseDao{
+public class CakeStoreDao extends BaseDao {
 	/**
-	 * @param conn
-	 * @param searchArea
-	 * @return popularCakeStores
+	 * @param conn コネクション
+	 * @param searchArea ユーザーが指定したケーキ屋の検索エリア
+	 * @return popularCakeStores 検索エリアで注文回数が上位三件のケーキ屋の情報リスト
 	 * @throws SQLException
 	 */
 	public ArrayList<CakeStoreVo> getPopularCakeStore(Connection conn, String searchArea) throws SQLException {
 		ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
 
-		String sql = "SELECT t4.cake_store_id, t4.cake_store_name, t4.cake_store_open_time, t4.cake_store_close_time,"
+		final String sql = "SELECT t4.cake_store_id, t4.cake_store_name, t4.cake_store_open_time, t4.cake_store_close_time,"
 				+ " t4.cake_store_phone_num, t4.cake_store_address, t4.cake_store_close_days, t4.cake_store_station,"
 				+ " t4.cake_store_lat, t4.cake_store_lon, t4.cake_store_img_url FROM (SELECT t1.cake_store_id,"
 				+ "t1.cake_store_name,t1.cake_store_open_time," +
@@ -40,7 +41,7 @@ public class CakeStoreDao extends BaseDao{
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, searchArea);
-			try(ResultSet rs = pstmt.executeQuery();){
+			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					int cakeStoreId = rs.getInt("cake_store_id");
 					String cakeStoreName = rs.getString("cake_store_name");
@@ -54,7 +55,9 @@ public class CakeStoreDao extends BaseDao{
 					double cakeStoreLon = rs.getDouble("cake_store_lon");
 					String cakeStorePrimaryImg = rs.getString("cake_store_img_url");
 
-					popularCakeStores.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
+					popularCakeStores.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime,
+							cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation,
+							cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
 				}
 			}
 		}
@@ -62,15 +65,15 @@ public class CakeStoreDao extends BaseDao{
 	}
 
 	/**
-	 * @param conn
-	 * @param cakeStoreId
-	 * @return cakeStoreInfo
+	 * @param conn コネクション
+	 * @param cakeStoreId ケーキ屋ID
+	 * @return cakeStoreInfo ケーキ屋の情報をもつVo
 	 * @throws SQLException
 	 */
 	public CakeStoreVo getCakeStoreInfo(Connection conn, int cakeStoreId) throws SQLException {
 		CakeStoreVo cakeStoreInfo = null;
 
-		String sql = "SELECT t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
+		final String sql = "SELECT t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
 				+ "t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,"
 				+ "t1.cake_store_lat,t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary FROM cake_store AS t1 "
 				+ "LEFT JOIN cake_store_img AS t2 on t1.cake_store_id = t2.cake_store_id WHERE is_deleted = 0 AND "
@@ -79,7 +82,7 @@ public class CakeStoreDao extends BaseDao{
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, cakeStoreId);
-			try(ResultSet rs = pstmt.executeQuery();){
+			try (ResultSet rs = pstmt.executeQuery();) {
 				if (rs.next()) {
 					String cakeStoreName = rs.getString("cake_store_name");
 					String cakeStoreOpenTime = rs.getString("cake_store_open_time");
@@ -92,7 +95,9 @@ public class CakeStoreDao extends BaseDao{
 					double cakeStoreLon = rs.getDouble("cake_store_lon");
 					String cakeStorePrimaryImg = rs.getString("cake_store_img_url");
 
-					cakeStoreInfo = new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg);
+					cakeStoreInfo = new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime,
+							cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat,
+							cakeStoreLon, cakeStorePrimaryImg);
 				}
 			}
 		}
@@ -100,20 +105,20 @@ public class CakeStoreDao extends BaseDao{
 	}
 
 	/**
-	 * @param conn
-	 * @param cakeStoreId
-	 * @return cakeStoreImgs
+	 * @param conn コネクション
+	 * @param cakeStoreId ケーキ屋ID
+	 * @return cakeStoreImgs ケーキ屋の画像
 	 * @throws SQLException
 	 */
 	public ArrayList<String> getCakeStoreImg(Connection conn, int cakeStoreId) throws SQLException {
 		ArrayList<String> cakeStoreImgs = new ArrayList<String>();
 
-		String sql = "SELECT cake_store_img_url FROM cake_store_img WHERE cake_store_id = ?";
+		final String sql = "SELECT cake_store_img_url FROM cake_store_img WHERE cake_store_id = ?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, cakeStoreId);
-			try(ResultSet rs = pstmt.executeQuery();){
+			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					String cakeStoreImgUrl = rs.getString("cake_store_img_url");
 
@@ -125,21 +130,21 @@ public class CakeStoreDao extends BaseDao{
 	}
 
 	/**
-	 * @param conn
-	 * @param cakeStoreId
-	 * @return cakeStoreMenuList
+	 * @param conn コネクション
+	 * @param cakeStoreId ケーキ屋ID
+	 * @return cakeStoreMenuList ケーキ屋のもつメニュー情報
 	 * @throws SQLException
 	 */
 	public ArrayList<CakeStoreMenuVo> getCakeStoreMenu(Connection conn, int cakeStoreId) throws SQLException {
 		ArrayList<CakeStoreMenuVo> cakeStoreMenuList = new ArrayList<CakeStoreMenuVo>();
 
-		String sql = "SELECT t1.cake_menu_id, t1.cake_menu_name, t1.cake_menu_img_url, t2.stock_num FROM cake_menu AS t1 "
+		final String sql = "SELECT t1.cake_menu_id, t1.cake_menu_name, t1.cake_menu_img_url, t2.stock_num FROM cake_menu AS t1 "
 				+ "LEFT JOIN cake_stock AS t2 on t1.cake_menu_id = t2.cake_menu_id WHERE cake_store_id = ? AND is_deleted = 0";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setInt(1, cakeStoreId);
-			try(ResultSet rs = pstmt.executeQuery();){
+			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					int cakeMenuId = rs.getInt("cake_menu_id");
 					String cakeMenuName = rs.getString("cake_menu_name");
@@ -154,15 +159,15 @@ public class CakeStoreDao extends BaseDao{
 	}
 
 	/**
-	 * @param conn
-	 * @param cakeStoreNameInput
-	 * @return cakeStoreList
+	 * @param conn コネクション
+	 * @param cakeStoreNameInput 名前検索でユーザーが入力したケーキ屋の名前
+	 * @return cakeStoreList 名前検索で部分一致したケーキ屋のリスト
 	 * @throws SQLException
 	 */
 	public ArrayList<CakeStoreVo> cakeStoreNameSearch(Connection conn, String cakeStoreNameInput) throws SQLException {
 		ArrayList<CakeStoreVo> cakeStoreList = new ArrayList<CakeStoreVo>();
 
-		String sql = "SELECT t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
+		final String sql = "SELECT t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
 				+ "t1.cake_store_phone_num,t1.cake_store_address,t1.cake_store_close_days,t1.cake_store_station,"
 				+ "t1.cake_store_lat,t1.cake_store_lon, t2.cake_store_img_url, t2.cake_store_img_primary FROM cake_store as t1 "
 				+ "LEFT JOIN cake_store_img as t2 on t1.cake_store_id = t2.cake_store_id WHERE is_deleted = 0 AND "
@@ -171,7 +176,7 @@ public class CakeStoreDao extends BaseDao{
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, "%" + cakeStoreNameInput + "%");
-			try(ResultSet rs = pstmt.executeQuery();){
+			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					int cakeStoreId = rs.getInt("cake_store_id");
 					String cakeStoreName = rs.getString("cake_store_name");
@@ -185,7 +190,9 @@ public class CakeStoreDao extends BaseDao{
 					double cakeStoreLon = rs.getDouble("cake_store_lon");
 					String cakeStorePrimaryImg = rs.getString("cake_store_img_url");
 
-					cakeStoreList.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
+					cakeStoreList.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime,
+							cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat,
+							cakeStoreLon, cakeStorePrimaryImg));
 				}
 			}
 		}
@@ -193,13 +200,14 @@ public class CakeStoreDao extends BaseDao{
 	}
 
 	/**
-	 * @param conn
-	 * @param cakeStoreArea
-	 * @param statusList
-	 * @return cakeStoreList
+	 * @param conn コネクション
+	 * @param cakeStoreArea ケーキ屋の検索エリア
+	 * @param statusList ケーキ屋の地図検索でユーザーが指定した条件リスト
+	 * @return cakeStoreList 条件に一致したケーキ屋Voのリスト
 	 * @throws SQLException
 	 */
-	public ArrayList<CakeStoreVo> getCakeStoreByArea(Connection conn, String cakeStoreArea, String[] statusList) throws SQLException {
+	public ArrayList<CakeStoreVo> getCakeStoreByArea(Connection conn, String cakeStoreArea, String[] statusList)
+			throws SQLException {
 		ArrayList<CakeStoreVo> cakeStoreList = new ArrayList<CakeStoreVo>();
 
 		String sql = "SELECT t1.cake_store_id,t1.cake_store_name,t1.cake_store_open_time,t1.cake_store_close_time,"
@@ -208,22 +216,22 @@ public class CakeStoreDao extends BaseDao{
 				+ "LEFT JOIN cake_store_img AS t2 on t1.cake_store_id = t2.cake_store_id  WHERE is_deleted = 0 AND "
 				+ "cake_store_img_primary = 1 AND cake_store_station = ?";
 
-		if(statusList!=null) {
-			if(Arrays.asList(statusList).contains("open")) {
-				String[] week_name = {"日曜", "月曜", "火曜", "水曜", "木曜", "金曜", "土曜"};
+		if (statusList != null) {
+			if (Arrays.asList(statusList).contains("open")) {
+				String[] week_name = { "日曜", "月曜", "火曜", "水曜", "木曜", "金曜", "土曜" };
 				Calendar calendar = Calendar.getInstance();
 				int hour = calendar.get(Calendar.HOUR_OF_DAY);
 				int week = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-				String open = " AND t1.cake_store_open_time < " + hour + " AND t1.cake_store_close_time > " + hour + " AND t1.cake_store_close_days not like '%" + week_name[week] + "%'";
+				String open = " AND t1.cake_store_open_time < " + hour + " AND t1.cake_store_close_time > " + hour
+						+ " AND t1.cake_store_close_days not like '%" + week_name[week] + "%'";
 				sql = sql + open;
 			}
 		}
 
-
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, cakeStoreArea);
-			try(ResultSet rs = pstmt.executeQuery();){
+			try (ResultSet rs = pstmt.executeQuery();) {
 				while (rs.next()) {
 					int cakeStoreId = rs.getInt("cake_store_id");
 					String cakeStoreName = rs.getString("cake_store_name");
@@ -237,29 +245,30 @@ public class CakeStoreDao extends BaseDao{
 					double cakeStoreLon = rs.getDouble("cake_store_lon");
 					String cakeStorePrimaryImg = rs.getString("cake_store_img_url");
 
-					cakeStoreList.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime, cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat, cakeStoreLon, cakeStorePrimaryImg));
+					cakeStoreList.add(new CakeStoreVo(cakeStoreId, cakeStoreName, cakeStoreOpenTime, cakeStoreCloseTime,
+							cakeStorePhoneNum, cakeStoreAddress, cakeStoreStation, cakeStoreCloseDays, cakeStoreLat,
+							cakeStoreLon, cakeStorePrimaryImg));
 				}
 			}
 		}
 		return cakeStoreList;
 	}
 
-
 	/**
-	 * @param conn
-	 * @param cakeStoreArea
-	 * @return stationPosition
+	 * @param conn コネクション
+	 * @param cakeStoreArea ユーザーが指定した駅名
+	 * @return stationPosition 駅の緯度経度情報
 	 * @throws SQLException
 	 */
 	public ArrayList<Double> getCakeStationPosition(Connection conn, String cakeStoreArea) throws SQLException {
 		ArrayList<Double> stationPosition = new ArrayList<Double>();
 
-		String sql = "SELECT station_lat, station_lon FROM station_location WHERE station_name = ?";
+		final String sql = "SELECT station_lat, station_lon FROM station_location WHERE station_name = ?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
 			pstmt.setString(1, cakeStoreArea);
-			try(ResultSet rs = pstmt.executeQuery();){
+			try (ResultSet rs = pstmt.executeQuery();) {
 				if (rs.next()) {
 					double stationLat = rs.getDouble("station_lat");
 					double stationLon = rs.getDouble("station_lon");

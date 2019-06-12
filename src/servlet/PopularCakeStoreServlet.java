@@ -18,8 +18,9 @@ import model.CakeStoreSearchModel;
 import vo.CakeStoreVo;
 
 /**
- * @author Akihiro Sasaki
+ * 人気ケーキ屋表示サーブレット
  * TOPページでユーザーが選択したエリア情報をもとに、人気ケーキ屋をDBから取得し、ページに表示させるサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/PopularCakeStoreServlet")
 public class PopularCakeStoreServlet extends HttpServlet {
@@ -29,9 +30,16 @@ public class PopularCakeStoreServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		HttpSession session = req.getSession(false);
 		String searchArea = req.getParameter("searchArea");
+		if (session == null || searchArea == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
 
 		ArrayList<CakeStoreVo> popularCakeStores = new ArrayList<CakeStoreVo>();
 		String isPopularCakeStore = "true";
@@ -50,7 +58,7 @@ public class PopularCakeStoreServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-		HttpSession session = req.getSession(false);
+
 		session.setAttribute("searchArea", searchArea);
 		session.setAttribute("popularCakeStores", popularCakeStores);
 		session.setAttribute("isPopularCakeStore", isPopularCakeStore);
@@ -61,6 +69,7 @@ public class PopularCakeStoreServlet extends HttpServlet {
 
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

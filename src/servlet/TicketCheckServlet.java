@@ -16,8 +16,9 @@ import javax.servlet.http.HttpSession;
 import model.OrderModel;
 
 /**
- * @author Akihiro Sasaki
+ * 入店確認サーブレット
  * 入店が確認された注文のDBを更新するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/TicketCheckServlet")
 public class TicketCheckServlet extends HttpServlet {
@@ -27,9 +28,24 @@ public class TicketCheckServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		} else {
+			String isLogin = (String) session.getAttribute("isLogin");
+			if (!("true".equals(isLogin))) {
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				rd.forward(req, res);
+				return;
+			}
+		}
 
 		int orderId = (Integer) session.getAttribute("orderId");
 
@@ -44,13 +60,15 @@ public class TicketCheckServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P018.jsp");
-		rd.forward(req, res);
+		String isNullCheck = "true";
+		session.setAttribute("isNullCheck", isNullCheck);
+		final String url = "TicketCheckViewServlet";
+		res.setStatus(HttpServletResponse.SC_SEE_OTHER);
+		res.sendRedirect(url);
 		return;
-
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

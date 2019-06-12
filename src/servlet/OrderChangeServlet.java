@@ -15,23 +15,37 @@ import javax.servlet.http.HttpSession;
 
 import model.OrderModel;
 
-
 /**
- * @author Akihiro Sasaki
+ * 人数変更サーブレット
  * 注文の人数変更を実行するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/OrderChangeServlet")
 public class OrderChangeServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	public OrderChangeServlet() {
+		super();
+	}
 
-    public OrderChangeServlet() {
-        super();
-    }
-
-    protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
+		String orderNumString = req.getParameter("orderNum");
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		} else {
+			if (orderNumString == null) {
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				rd.forward(req, res);
+				return;
+			}
+		}
 		int orderId = (Integer) session.getAttribute("orderId");
 		int orderNum = Integer.parseInt(req.getParameter("orderNum"));
 		OrderModel om = new OrderModel();
@@ -44,13 +58,15 @@ public class OrderChangeServlet extends HttpServlet {
 			e.printStackTrace();
 			throw new ServletException(e);
 		}
-
-		ServletContext sc = this.getServletContext();
-		RequestDispatcher rd = sc.getRequestDispatcher("/jsp/P016.jsp");
-		rd.forward(req, res);
+		String isNullCheck = "true";
+		session.setAttribute("isNullCheck", isNullCheck);
+		final String url = "OrderChangeViewServlet";
+		res.setStatus(HttpServletResponse.SC_SEE_OTHER);
+		res.sendRedirect(url);
 		return;
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

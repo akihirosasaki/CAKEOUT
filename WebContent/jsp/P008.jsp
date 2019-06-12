@@ -11,9 +11,9 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-<meta name="description" content="">
-<meta name="keywords" content="">
-<title>カフェ検索</title>
+<meta name="description" content="カフェを地図検索します。">
+<meta name="keywords" content="ケーキ テイクアウト, ケーキ カフェ 持ち込み, カフェ 持ち込み 探す">
+<title>カフェMAP検索</title>
 <link rel="stylesheet" href="css/normalize.css" type="text/css"
 	media="screen">
 <link rel="stylesheet" href="css/style.css" type="text/css"
@@ -66,10 +66,16 @@
 								<div class="modal-contents-status-container">
 									<input type="checkbox" class="condition-status-check" id="open"
 										name="open" value="open"> <label
-										class="select-condition-label" for="open">営業中</label> <input
-										type="checkbox" class="condition-status-check" id="test"
+										class="select-condition-label" for="open">営業中</label>
+										<input type="checkbox" class="condition-status-check" id="test"
 										name="test" value="test"> <label
 										class="select-condition-label" for="test">テスト</label>
+										<input type="checkbox" class="condition-status-check" id="more"
+										name="more" value="more"> <label
+										class="select-condition-label" for="more">多人数可</label>
+										<input type="checkbox" class="condition-status-check" id="smoking"
+										name="smoking" value="smoking"> <label
+										class="select-condition-label" for="smoking">喫煙可</label>
 								</div>
 								<input class="submit-button" type="button" value="絞り込む"
 									id="select-button">
@@ -86,11 +92,16 @@
 							src="../images/cheezecake.jpeg">
 					</div> -->
 					<form action="CafeStoreInfoServlet" method="POST"
-						name="CafeStoreInfoForm">
+						name="CafeStoreInfoForm" class="CafeStoreInfoForm">
 						<p></p>
 						<input type="hidden" name="cafeStoreId"> <a
 							href="javascript:CafeStoreInfoForm.submit()"><span
 							class="shop-modal-a"></span></a>
+					</form>
+					<form action="CakeCafeConfirmServlet" method="POST"
+						name="CakeCafeConfirmForm" class="CakeCafeConfirmForm">
+						<input type="hidden" name="selectedCafeStoreId"> <input
+							class="btn-search" type="submit">
 					</form>
 				</article>
 			</section>

@@ -7,8 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-<meta name="description" content="">
-<meta name="keywords" content="">
+<meta name="description" content="ユーザーの注文リスト情報を表示します">
+<meta name="keywords" content="ケーキ テイクアウト, ケーキ カフェ 持ち込み, 注文 リスト">
 <title>注文リスト</title>
 <link rel="stylesheet" href="css/normalize.css" type="text/css"
 	media="screen">
@@ -25,7 +25,9 @@
 <script src="js/script.js"></script>
 </head>
 <body>
-	<jsp:include page="/jsp/header-top.jsp" flush="true" />
+	<jsp:include page="/jsp/account.jsp" flush="true" />
+	<div class="main-show">
+		<jsp:include page="/jsp/header-top.jsp" flush="true" />
 		<section id="main">
 			<section class="content">
 				<div class="content-block">
@@ -34,14 +36,24 @@
 						<hr>
 						<c:set var="count" value="0" scope="page" />
 						<c:forEach var="orderItem" items="${orderList}" varStatus="status">
-							<form action="OrderSelectServlet" method="POST" name="OrderListForm">
-								<input type="hidden" name="orderId" value="<c:out value="${orderItem.orderId}" />">
+							<form action="OrderSelectServlet" method="POST"
+								name="OrderListForm">
+								<input type="hidden" name="orderId"
+									value="<c:out value="${orderItem.orderId}" />">
 								<div class="order-list-box">
-									<p class="order-list-date">日時：<c:out value="${orderItem.createdAt}" /></p>
-									<p><c:out value="${orderItem.cakeStoreName}" /></p>
+									<p class="order-list-date">
+										日時：
+										<c:out value="${orderItem.createdAt}" />
+									</p>
+									<p>
+										<c:out value="${orderItem.cakeStoreName}" />
+									</p>
 									<img src="images/arrow.gif">
-									<p><c:out value="${orderItem.cafeStoreName}" /></p>
-									<a href="javascript:OrderListForm[<c:out value="${count}" />].submit()"></a>
+									<p>
+										<c:out value="${orderItem.cafeStoreName}" />
+									</p>
+									<a
+										href="javascript:OrderListForm[<c:out value="${count}" />].submit()"></a>
 								</div>
 							</form>
 							<c:set var="count" value="${count+1}" scope="page" />

@@ -6,11 +6,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import javax.naming.NamingException;
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.google.gson.Gson;
 import com.google.gson.stream.JsonWriter;
@@ -19,8 +22,9 @@ import model.CakeStoreSearchModel;
 import vo.CakeStoreVo;
 
 /**
- * @author Akihiro Sasaki
+ * ケーキ屋情報取得サーブレット
  * cakeStoreMap.jsから投げられたケーキ屋の駅情報をもとに、DBから最寄り駅県内のケーキ情報を取得し、cakeStoreMap.jsに返すサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/CakeStoreMapServlet")
 public class CakeStoreMapServlet extends HttpServlet {
@@ -30,9 +34,16 @@ public class CakeStoreMapServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		HttpSession session = req.getSession(false);
 		String cakeStoreArea = req.getParameter("cakeStoreArea");
+		if (session == null || cakeStoreArea == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
 		String[] statusList = req.getParameterValues("statusList[]");
 
 		ArrayList<CakeStoreVo> cakeStoreList = null;
@@ -59,6 +70,7 @@ public class CakeStoreMapServlet extends HttpServlet {
 		}
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		doGet(req, res);
 	}

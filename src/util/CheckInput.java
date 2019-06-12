@@ -4,8 +4,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * @author Akihiro Sasaki
+ * 入力チェッククラス
  * ユーザーが入力した情報の正規表現、DBとの整合性チェックをするクラス
+ * @author Akihiro Sasak
  */
 public class CheckInput {
 	/**
@@ -15,7 +16,7 @@ public class CheckInput {
 	public String CheckMail(String mailAdd) {
 		String mailFormatCheck = "true";
 		String mailFormat = "^[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+(\\.[a-zA-Z0-9!#$%&'_`/=~\\*\\+\\-\\?\\^\\{\\|\\}]+)*+(.*)@[a-zA-Z0-9][a-zA-Z0-9\\-]*(\\.[a-zA-Z0-9\\-]+)+$";
-		if(!mailAdd.matches(mailFormat)) {
+		if (!mailAdd.matches(mailFormat)) {
 			mailFormatCheck = "false";
 		}
 		return mailFormatCheck;
@@ -28,12 +29,12 @@ public class CheckInput {
 	public String CheckPass(String password) {
 		String isPassCheck = "true";
 		Pattern passPettern = Pattern.compile("/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,100}$/i");
-        Matcher passMatch = passPettern.matcher("aA1!\"#$%&'()*+,-./:;<=>?@[\\]^_`{|}~");
-        Boolean result = passMatch.matches();
-        if(result) {
-        	isPassCheck = "false";
-        }
-       return isPassCheck;
+		Matcher passMatch = passPettern.matcher(password);
+		Boolean result = passMatch.find();
+		if (result) {
+			isPassCheck = "false";
+		}
+		return isPassCheck;
 	}
 
 	/**
@@ -42,8 +43,8 @@ public class CheckInput {
 	 */
 	public String CheckUserLength(String userName) {
 		String userLengthCheck = "true";
-		if(userName.length()>16) {
-			userLengthCheck ="false";
+		if (userName.length() > 16) {
+			userLengthCheck = "false";
 		}
 		return userLengthCheck;
 	}
@@ -54,8 +55,8 @@ public class CheckInput {
 	 */
 	public String CheckPassLength(String password) {
 		String passLengthCheck = "true";
-		if(password.length()>16) {
-			passLengthCheck="false";
+		if (password.length() > 16) {
+			passLengthCheck = "false";
 		}
 		return passLengthCheck;
 	}
@@ -70,7 +71,7 @@ public class CheckInput {
 		Matcher m = p.matcher(input);
 		String isExceptionString = "true";
 
-		if(m.find()) {
+		if (m.find()) {
 			isExceptionString = "false";
 		}
 		return isExceptionString;

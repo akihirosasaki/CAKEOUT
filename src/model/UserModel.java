@@ -9,20 +9,20 @@ import dao.UserDao;
 import vo.UserVo;
 
 /**
- * @author Akihiro Sasaki
+ * ユーザーModel
  * UserDaoを扱うモデル
+ * @author Akihiro Sasaki
  */
 public class UserModel {
 	/**
-	 * @param mailAdd
-	 * @param password
-	 * @return loginUser
+	 * @param mailAdd メールアドレス
+	 * @param password パスワード
+	 * @return loginUser ユーザー情報をもつVo
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public UserVo getLoginUser(String mailAdd, String password) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		UserDao userDao = new UserDao();
 		UserVo loginUser = null;
 		//		コネクション管理はこのレベルで
@@ -33,14 +33,13 @@ public class UserModel {
 	}
 
 	/**
-	 * @param mailAdd
-	 * @return mailCheck
+	 * @param mailAdd メールアドレス
+	 * @return mailCheck メールアドレスの重複チェック
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public boolean checkAccount(String mailAdd) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		UserDao userDao = new UserDao();
 		boolean mailCheck;
 		//		コネクション管理はこのレベルで
@@ -51,15 +50,14 @@ public class UserModel {
 	}
 
 	/**
-	 * @param userName
-	 * @param mailAdd
-	 * @param password
+	 * @param userName ユーザーネーム
+	 * @param mailAdd メールアドレス
+	 * @param password　パスワード
 	 * @throws SQLException
 	 * @throws NamingException
 	 */
 	public void insertAccount(String userName, String mailAdd, String password) throws SQLException, NamingException {
 		//		問い合わせ開始
-		System.out.println("問い合わせ開始");
 		UserDao userDao = new UserDao();
 		//		コネクション管理はこのレベルで
 		try (Connection conn = userDao.connect()) {

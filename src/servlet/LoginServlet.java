@@ -22,23 +22,32 @@ import util.Digest;
 import vo.UserVo;
 
 /**
- * @author Akihiro Sasaki
+ * ログインサーブレット
  * ログイン画面でユーザーが入力した情報をチェックし、問題なければログイン済みのセッションを発行するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doPost(req, res);
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
+		HttpSession session = req.getSession(false);
 		UserVo loginUser = null;
 		String mailAdd = req.getParameter("mailAdd");
 		String password = req.getParameter("password");
+		if (session == null || password == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		}
 
 		String isLogin = "false";
 		String isAdmin = "false";
@@ -87,7 +96,6 @@ public class LoginServlet extends HttpServlet {
 		ip = ips[0];
 		LocalDateTime ldt = LocalDateTime.now();
 		LoggingModel ll = new LoggingModel();
-		HttpSession session = req.getSession(false);
 		session.setAttribute("isLogin", isLogin);
 		req.setAttribute("isUserNull", isUserNull);
 		if ("true".equals(isLogin)) {

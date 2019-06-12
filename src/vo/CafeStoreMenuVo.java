@@ -2,11 +2,13 @@ package vo;
 
 import java.io.Serializable;
 
+/**
+ * カフェメニューVo
+ * カフェメニュー情報を格納するVo
+ * @author 01027756
+ */
 public class CafeStoreMenuVo implements Serializable {
 
-	/**
-	 *
-	 */
 	private static final long serialVersionUID = 1L;
 	private int cafeMenuId;
 	private String cafeMenuName;
@@ -57,9 +59,4 @@ public class CafeStoreMenuVo implements Serializable {
 		this.cafeMenuPrice = cafeMenuPrice;
 	}
 
-
-
-
-
-
-	}
+}

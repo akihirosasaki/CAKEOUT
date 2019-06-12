@@ -7,16 +7,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * @author Akihiro Sasaki
+ * ログDao
  * Logテーブルを扱うDaoです
+ * @author Akihiro Sasaki
+
  */
 public class LogDao extends BaseDao {
 	/**
-	 * @param conn
-	 * @param ldt
-	 * @param requestUrl
-	 * @param referer
-	 * @param userAgent
+	 * @param conn コネクション
+	 * @param ldt 現在時間
+	 * @param requestUrl リクエストされたURL
+	 * @param referer リクエスト元ページ
+	 * @param userAgent ユーザーエージェント
 	 * @throws SQLException
 	 */
 	public void loggingAccess(Connection conn, LocalDateTime ldt, StringBuffer requestUrl, String referer, String userAgent)
@@ -24,7 +26,7 @@ public class LogDao extends BaseDao {
 		String ldtStr = toStr(ldt, "yyyy-MM-dd HH:mm:ss");
 		String requestUrlStr = requestUrl.toString();
 
-		String sql = "INSERT INTO log VALUES (?,?,?,?)";
+		final String sql = "INSERT INTO log VALUES (?,?,?,?)";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -37,9 +39,9 @@ public class LogDao extends BaseDao {
 	}
 
 	/**
-	 * @param localDateTime
-	 * @param format
-	 * @return localDateTime
+	 * @param localDateTime LocalDatetime型の時間
+	 * @param format 指定したい時間フォーマット
+	 * @return localDateTime 変換後のLocalDateTime
 	 */
 	public String toStr(LocalDateTime localDateTime, String format) {
 
@@ -49,17 +51,17 @@ public class LogDao extends BaseDao {
 	}
 
 	/**
-	 * @param conn
-	 * @param userId
-	 * @param ipAddress
-	 * @param ldt
-	 * @param logType
+	 * @param conn コネクション
+	 * @param userId ユーザーID
+	 * @param ipAddress ユーザーのIPアドレス
+	 * @param ldt 現在時間
+	 * @param logType ログイン、ログアウト、ログイン失敗のいずれか
 	 * @throws SQLException
 	 */
 	public void loggingLogin(Connection conn, int userId, String ipAddress, LocalDateTime ldt, String logType) throws SQLException {
 		String ldtStr = toStr(ldt, "yyyy-MM-dd HH:mm:ss");
 
-		String sql = "INSERT INTO loginlog (user_id, ip_address, login_date, log_type) VALUES (?,?,?,?)";
+		final String sql = "INSERT INTO loginlog (user_id, ip_address, login_date, log_type) VALUES (?,?,?,?)";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {

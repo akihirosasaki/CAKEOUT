@@ -18,8 +18,9 @@ import model.OrderModel;
 import vo.OrderVo;
 
 /**
- * @author Akihiro Sasaki
+ * 注文リスト表示サーブレット
  * ユーザーの注文情報を取得し、未入店の注文数をもとに、遷移先を分岐させるサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/OrderListServlet")
 public class OrderListServlet extends HttpServlet {
@@ -29,11 +30,24 @@ public class OrderListServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
-
-		String orderStatus = req.getParameter("accountLink");
-
 		HttpSession session = req.getSession(false);
+		String orderStatus = req.getParameter("accountLink");
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		} else {
+			if (orderStatus == null) {
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				rd.forward(req, res);
+				return;
+			}
+		}
+
 		session.setAttribute("orderStatus", orderStatus);
 		int userId = (Integer) session.getAttribute("userId");
 		ArrayList<OrderVo> orderList = new ArrayList<OrderVo>();
@@ -66,6 +80,7 @@ public class OrderListServlet extends HttpServlet {
 
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);

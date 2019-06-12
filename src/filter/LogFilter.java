@@ -19,26 +19,26 @@ import model.LoggingModel;
 /**
  * Servlet Filter implementation class LogFilter
  */
-@WebFilter(urlPatterns = {"/*"})
+@WebFilter(urlPatterns = { "/*" })
 public class LogFilter implements Filter {
 
 	/**
 	 * Default constructor.
 	 */
 	public LogFilter() {
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
 	 * @see Filter#destroy()
 	 */
+	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 	}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
+	@Override
 	public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain)
 			throws IOException, ServletException {
 
@@ -49,11 +49,8 @@ public class LogFilter implements Filter {
 		LocalDateTime ldt = LocalDateTime.now();
 		// URL取得
 		StringBuffer requestUrl = req.getRequestURL();
-		String requestUrlStr = requestUrl.toString();
 		String referer = req.getHeader("Referer");
 		String userAgent = req.getHeader("user-agent");
-		System.out.println(referer);
-		System.out.println(requestUrlStr);
 
 		LoggingModel lm = new LoggingModel();
 		try {
@@ -66,7 +63,6 @@ public class LogFilter implements Filter {
 			throw new ServletException(e);
 		}
 
-
 		chain.doFilter(request, response);
 
 	}
@@ -74,8 +70,8 @@ public class LogFilter implements Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
+	@Override
 	public void init(FilterConfig fConfig) throws ServletException {
-		// TODO Auto-generated method stub
 	}
 
 }

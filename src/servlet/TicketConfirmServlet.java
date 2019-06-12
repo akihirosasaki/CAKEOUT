@@ -17,8 +17,9 @@ import model.OrderModel;
 import vo.OrderVo;
 
 /**
- * @author Akihiro Sasaki
+ * チケット確認ページ表示サーブレット
  * アカウントページからユーザーがチケット確認アクションを起こした時に、取得したOrderIdをもとに、チケットページを表示するサーブレット
+ * @author Akihiro Sasaki
  */
 @WebServlet("/TicketConfirmServlet")
 public class TicketConfirmServlet extends HttpServlet {
@@ -28,10 +29,24 @@ public class TicketConfirmServlet extends HttpServlet {
 		super();
 	}
 
+	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
+		if (session == null) {
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+			rd.forward(req, res);
+			return;
+		} else {
+			if (session.getAttribute("orderId") == null) {
+				ServletContext sc = this.getServletContext();
+				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
+				rd.forward(req, res);
+				return;
+			}
+		}
 
 		int orderId = (Integer) session.getAttribute("orderId");
 
@@ -62,6 +77,7 @@ public class TicketConfirmServlet extends HttpServlet {
 		return;
 	}
 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
 		doGet(req, res);
