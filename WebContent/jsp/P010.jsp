@@ -20,6 +20,8 @@
 	media="screen">
 <link rel="stylesheet" href="css/account.css" type="text/css"
 	media="screen">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/script.js"></script>
@@ -49,6 +51,7 @@
 								</div>
 								<div class="confirm-text-container">
 									<h3>
+										<img alt="ケーキ屋" src="images/cake-icon.gif">
 										<c:out value="${cakeStoreInfo.cakeStoreName}" />
 									</h3>
 									<form action="CakeStoreMapViewServlet" method="POST">
@@ -60,9 +63,7 @@
 									</form>
 								</div>
 							</div>
-							<hr>
-							<img class="confirm-arrow-img" src="images/arrow.gif">
-							<hr>
+							<img class="confirm-arrow-img" src="images/route.gif">
 							<div class="confirm-container confirm-container-cafe">
 								<div class="confirm-img-container">
 									<img class="popular-suggest-img"
@@ -71,6 +72,7 @@
 								</div>
 								<div class="confirm-text-container">
 									<h3>
+										<img alt="カフェ" src="images/cafe-icon.gif">
 										<c:out value="${cafeStoreInfo.cafeStoreName}" />
 									</h3>
 									<form action="TicketServlet" method="POST"
@@ -81,9 +83,19 @@
 											<input type="hidden" name="cafeStoreName"
 												value="<c:out value="${cafeStoreInfo.cafeStoreName}" />">
 											<input type="hidden" name="pageToken"
-												value="<c:out value="${token}"></c:out>"> <input
-												class="change-order-num-box" type="text" placeholder="人数"
-												name="orderNum" required>
+												value="<c:out value="${token}"></c:out>"> <select
+												name="orderNum" class="change-order-num-box" required>
+												<option value='' hidden>人数</option>
+												<option value="1">1人</option>
+												<option value="2">2人</option>
+												<option value="3">3人</option>
+												<option value="4">4人</option>
+												<option value="5">5人</option>
+												<option value="6">6人</option>
+												<option value="7">7人</option>
+												<option value="8">8人</option>
+												<option value="9">9人</option>
+											</select>
 										</div>
 									</form>
 									<form action="CafeStoreMapViewServlet" method="POST">
@@ -98,7 +110,7 @@
 							<hr>
 						</div>
 						<div class="button-block">
-							<input class="submit-button" type="submit" value="確定する"
+							<input class="submit-button" type="submit" value="注文を確定する"
 								form="ticketCreateForm">
 						</div>
 					</div>

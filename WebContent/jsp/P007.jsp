@@ -20,6 +20,8 @@
 	media="screen">
 <link rel="stylesheet" href="css/swiper.min.css" type="text/css"
 	media="screen">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/script.js"></script>
@@ -131,7 +133,7 @@
 						<input type="hidden" name="selectedCakeStoreId" value="<c:out value="${cakeStoreInfo.cakeStoreId}"/>" >
 						<input type="hidden" name="selectedCakeStoreName" value="<c:out value="${cakeStoreInfo.cakeStoreName}"/>" >
 						<input type="hidden" name="selectedCakeStoreArea" value="<c:out value="${cakeStoreInfo.cakeStoreStation}"/>" >
-						<input type="submit" class="submit-button" value="決定する">
+						<input type="submit" class="submit-button" value="近くのカフェを探す">
 					</div>
 				</form>
 			</section>

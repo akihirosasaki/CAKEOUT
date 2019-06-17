@@ -71,7 +71,7 @@ public class CheckInput {
 		Matcher m = p.matcher(input);
 		String isExceptionString = "true";
 
-		if (m.find()) {
+		if (m.find() || "".equals(input)) {
 			isExceptionString = "false";
 		}
 		return isExceptionString;

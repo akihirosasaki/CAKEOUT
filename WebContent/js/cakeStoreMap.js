@@ -9,7 +9,7 @@ $(document)
 					$('#select-button')
 							.click(
 									function() {
-										var statusList = [];
+										statusList = [];
 										$(".select-condition-detail-box")
 												.empty();
 										if ($("#open").prop("checked") == true) {
@@ -17,12 +17,6 @@ $(document)
 											$(".select-condition-detail-box")
 													.append(
 															'<button class="condition-status">営業中</button>');
-										}
-										if ($("#test").prop("checked") == true) {
-											statusList.push("test");
-											$(".select-condition-detail-box")
-													.append(
-															'<button class="condition-status">テスト</button>');
 										}
 										ajaxCenter(cakeStoreArea).done(
 												function(result) {
@@ -74,6 +68,7 @@ function makeMap(lat, lng, cakeStoreArea) {
 	var mapOptions = { // マップのオプション
 		zoom : 15,
 		center : latlng,
+		clickableIcons: false,
 	};
 
 	map = new google.maps.Map(canvas, mapOptions); // 作成
@@ -195,7 +190,7 @@ $(function() {
 	}
 
 	function onTouchMove(event) {
-		if (position - getPosition(event) < -70) {
+		if (position - getPosition(event) < -20) {
 			direction = 'down';
 		}
 	}

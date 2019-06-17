@@ -20,6 +20,8 @@
 	media="screen">
 <link rel="stylesheet" href="css/account.css" type="text/css"
 	media="screen">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/script.js"></script>

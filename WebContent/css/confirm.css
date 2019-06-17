@@ -7,7 +7,11 @@
     align-items: center;
 }
 .confirm-container-cafe {
-    height: 200px;
+    height: 150px;
+   	margin-top: 5px;
+}
+.confirm-container-cakes {
+
 }
 .change-button {
     height:40%;
@@ -19,13 +23,19 @@
     border-color: #73DD53;
     padding: 0px 5px;
     color: #ffffff;
-    font-size: 18px;
+    font-size: 14px;
+}
+.confirm-text-container form {
+	width: 100%;
 }
 .confirm-text-container h3 {
     width: 100%;
     color: #707070;
     line-height: 1.5em;
-    font-size: 20px;
+    font-size: 14px;
+}
+.confirm-text-container img {
+	height: 11px;
 }
 .confirm-text-container {
     width: 200px;
@@ -37,20 +47,28 @@
     flex-direction: column;
 }
 .cafe-order-number {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 .confirm-arrow-img {
     height: 50px;
-    margin: 10px auto;
+    margin: 5px 0;
 }
 .change-order-num-box {
     font: 15px/24px sans-serif;
 	box-sizing: border-box;
 	width: 100%;
-	padding: 0.3em;
 	transition: 0.3s;
 	border: 1px solid #dadbe3;
 	border-radius: 4px;
     outline: none;
     color: #707070;
+    height: 30px;
+    padding-left: 0.3em;
+    background-color: #fff;
+}
+
+hr {
+	border-width: 1px 0 0 0;
+	border-style: dashed;
+	border-color: #C0C0C0;
 }
