@@ -3,8 +3,6 @@ package servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -18,6 +16,7 @@ import javax.servlet.http.HttpSession;
 
 import model.LoggingModel;
 import model.UserModel;
+import util.CheckInput;
 import util.Digest;
 import vo.UserVo;
 
@@ -55,15 +54,15 @@ public class LoginServlet extends HttpServlet {
 
 		Digest digest = new Digest(Digest.SHA512);
 		String hashPass = digest.hex(password);
-		System.out.println(hashPass);
-		String exceptPattern = "<|>|\"|\'|&";
-		Pattern p = Pattern.compile(exceptPattern);
-		Matcher m = p.matcher(mailAdd);
-		String isExceptionString = "false";
-		if (m.find()) {
-			isExceptionString = "true";
+		CheckInput ci = new CheckInput();
+		ci.CheckException(mailAdd);
+
+		String isExceptionMail = ci.CheckException(mailAdd);
+		String isExceptionPass = ci.CheckException(password);
+		if ("false".equals(isExceptionMail) || "false".equals(isExceptionPass)) {
+			String isExceptionString = "true";
 			req.setAttribute("isExceptionString", isExceptionString);
-			final String url = "IndexServlet";
+			final String url = "/jsp/P002.jsp";
 			req.getRequestDispatcher(url).forward(req, res);
 			return;
 		}

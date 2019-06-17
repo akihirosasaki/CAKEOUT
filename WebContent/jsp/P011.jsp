@@ -18,6 +18,8 @@
 	media="screen">
 <link rel="stylesheet" href="css/account.css" type="text/css"
 	media="screen">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/script.js"></script>
@@ -63,17 +65,17 @@
 									</p>
 								</div>
 							</div>
+							<form action="TicketCheckServlet" method="POST">
+								<div class="button-block">
+									<input type="hidden" name="cakeStoreId"
+										value="<c:out value="${selectedCakeStoreId}" />"> <input
+										type="hidden" name="cafeStoreId"
+										value="<c:out value="${selectedCafeStoreId}" />"> <input
+										class="submit-button" type="submit" value="入店しました">
+								</div>
+							</form>
 						</div>
 					</div>
-					<form action="TicketCheckServlet" method="POST">
-						<div class="button-block">
-							<input type="hidden" name="cakeStoreId"
-								value="<c:out value="${selectedCakeStoreId}" />"> <input
-								type="hidden" name="cafeStoreId"
-								value="<c:out value="${selectedCafeStoreId}" />"> <input
-								class="submit-button" type="submit" value="入店しました">
-						</div>
-					</form>
 					<div class="button-block">
 						<button class="submit-button-white"
 							onclick="location.href='IndexServlet'">TOPへ戻る</button>

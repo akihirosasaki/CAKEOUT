@@ -16,6 +16,8 @@
 	media="screen">
 <link rel="stylesheet" href="css/form.css" type="text/css"
 	media="screen">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/script.js"></script>
@@ -46,8 +48,8 @@
 					<form action="InsertAccountCompleteServlet" method="POST">
 						<div class="button-block form-inline">
 							<input type="hidden" name="pageToken"
-								value="<c:out value="${token}"></c:out>">
-							<input class="submit-button" type="submit" value="確定する">
+								value="<c:out value="${token}"></c:out>"> <input
+								class="submit-button" type="submit" value="確定する">
 						</div>
 					</form>
 				</div>

@@ -42,18 +42,12 @@ public class TicketServlet extends HttpServlet {
 		}
 		String cakeStoreName = req.getParameter("cakeStoreName");
 		String cafeStoreName = req.getParameter("cafeStoreName");
-		String orderNumString = req.getParameter("orderNum");
+		String[] orderNumString = req.getParameterValues("orderNum");
 		String isOrdered = "true";
 		String isNumCheck = "true";
 		String sendPageToken = req.getParameter("pageToken");
 		String sessionPageToken = (String) session.getAttribute("token");
 		String errorReason;
-		if (cakeStoreName == null) {
-			ServletContext sc = this.getServletContext();
-			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
-			rd.forward(req, res);
-			return;
-		}
 		if (sessionPageToken == null || sendPageToken == null) {
 			errorReason = "正規の順序でアクセスしていません";
 			req.setAttribute("errorReason", errorReason);
@@ -74,7 +68,7 @@ public class TicketServlet extends HttpServlet {
 			session.setAttribute("cafeStoreName", cafeStoreName);
 			session.setAttribute("orderNum", orderNumString);
 			session.setAttribute("isOrdered", isOrdered);
-			if (orderNumString.matches("[-_@+*;:#$%&A-Za-z]+") || orderNumString.length() > 2) {
+			if (orderNumString[0].matches("[-_@+*;:#$%&A-Za-z]+") || orderNumString[0].length() > 2) {
 				isNumCheck = "false";
 				req.setAttribute("isNumCheck", isNumCheck);
 				ServletContext sc = this.getServletContext();
@@ -98,10 +92,10 @@ public class TicketServlet extends HttpServlet {
 			int orderId = 0;
 			cakeStoreName = (String) session.getAttribute("cakeStoreName");
 			cafeStoreName = (String) session.getAttribute("cafeStoreName");
-			orderNumString = (String) session.getAttribute("orderNum");
+			orderNumString = (String[]) session.getAttribute("orderNum");
 			String isInputCheck = "true";
 			int orderNum;
-			if (orderNumString == null || "".equals(orderNumString)) {
+			if (orderNumString[0] == null || "".equals(orderNumString[0])) {
 				isInputCheck = "false";
 				req.setAttribute("isInputCheck", isInputCheck);
 				ServletContext sc = this.getServletContext();
@@ -109,7 +103,7 @@ public class TicketServlet extends HttpServlet {
 				rd.forward(req, res);
 				return;
 			} else {
-				orderNum = Integer.parseInt(orderNumString);
+				orderNum = Integer.parseInt(orderNumString[0]);
 			}
 
 			String dateSQL = toStr(LocalDateTime.now(), "yyyy/MM/dd");

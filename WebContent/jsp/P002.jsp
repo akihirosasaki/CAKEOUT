@@ -7,7 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-<meta name="description" content="街中でテイクアウトしたケーキを食べられる場所が見つかる！気になるケーキをテイクアウトして、
+<meta name="description"
+	content="街中でテイクアウトしたケーキを食べられる場所が見つかる！気になるケーキをテイクアウトして、
 おしゃれなカフェに持ち込もう！まずは、CAKEOUTにログインしましょう。">
 <meta name="keywords" content="ケーキ テイクアウト, ケーキ カフェ 持ち込み, ログイン">
 <title>ログイン</title>
@@ -17,6 +18,8 @@
 	media="screen">
 <link rel="stylesheet" href="css/form.css" type="text/css"
 	media="screen">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="js/script.js"></script>
@@ -52,7 +55,9 @@
 							<p>メールアドレスかパスワードが間違っています</p>
 						</c:if>
 						<div class="button-block form-inline">
-							<input class="submit-button" type="submit" value="ログイン">
+							<input type="hidden" name="pageToken"
+								value="<c:out value="${token}"></c:out>"> <input
+								class="submit-button" type="submit" value="ログイン">
 						</div>
 						<hr>
 						<div class="form-footer">

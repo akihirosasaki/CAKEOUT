@@ -22,6 +22,8 @@
 	media="screen">
 <link rel="stylesheet" href="css/search.css" type="text/css"
 	media="screen">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script async defer
@@ -66,14 +68,11 @@
 								<div class="modal-contents-status-container">
 									<input type="checkbox" class="condition-status-check" id="open"
 										name="open" value="open"> <label
-										class="select-condition-label" for="open">営業中</label>
-										<input type="checkbox" class="condition-status-check" id="test"
-										name="test" value="test"> <label
-										class="select-condition-label" for="test">テスト</label>
-										<input type="checkbox" class="condition-status-check" id="more"
+										class="select-condition-label" for="open">営業中</label> <input
+										type="checkbox" class="condition-status-check" id="more"
 										name="more" value="more"> <label
-										class="select-condition-label" for="more">多人数可</label>
-										<input type="checkbox" class="condition-status-check" id="smoking"
+										class="select-condition-label" for="more">多人数可</label> <input
+										type="checkbox" class="condition-status-check" id="smoking"
 										name="smoking" value="smoking"> <label
 										class="select-condition-label" for="smoking">喫煙可</label>
 								</div>

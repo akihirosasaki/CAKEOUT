@@ -7,7 +7,8 @@
 <meta charset="utf-8">
 <meta name="viewport"
 	content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=yes">
-<meta name="description" content="街中でテイクアウトしたケーキを食べられる場所が見つかる！気になるケーキをテイクアウトして、
+<meta name="description"
+	content="街中でテイクアウトしたケーキを食べられる場所が見つかる！気になるケーキをテイクアウトして、
 おしゃれなカフェに持ち込もう！まずは、アカウント登録してCAKEOUTで気になるケーキ屋の最寄りのカフェを探しましょう。">
 <meta name="keywords" content="ケーキ テイクアウト, ケーキ カフェ 持ち込み, アカウント 登録 入力">
 <title>アカウント登録</title>
@@ -19,6 +20,8 @@
 	media="screen">
 <link rel="stylesheet" type="text/css"
 	href="css/validationEngine.jquery.css">
+<link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP"
+	rel="stylesheet">
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script type="text/javascript" src="js/jquery.validationEngine.js"></script>
