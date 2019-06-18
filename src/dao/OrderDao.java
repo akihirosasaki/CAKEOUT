@@ -198,10 +198,12 @@ public class OrderDao extends BaseDao {
 			throws SQLException {
 		OrderVo orderItem = null;
 
-		final String sql = "SELECT t1.user_id, t1.cake_store_id, t2.cake_store_name, t1.cafe_store_id, t3.cafe_store_name, "
-				+ "t1.order_num, t1.created_at "
-				+ "FROM order_info AS t1 LEFT JOIN cake_store AS t2 ON t1.cake_store_id = t2.cake_store_id LEFT JOIN "
-				+ "cafe_store AS t3 ON t1.cafe_store_id = t3.cafe_store_id WHERE order_id = ?";
+		final String sql = "SELECT t1.user_id, t1.cake_store_id, t2.cake_store_name, t1.cafe_store_id, t3.cafe_store_name, t1.order_num, t1.created_at, t4.cake_store_img_url, t5.cafe_store_img_url " +
+				"FROM order_info AS t1 LEFT JOIN cake_store AS t2 ON t1.cake_store_id = t2.cake_store_id LEFT JOIN " +
+				"cafe_store AS t3 ON t1.cafe_store_id = t3.cafe_store_id " +
+				"LEFT JOIN cake_store_img AS t4 ON t1.cake_store_id = t4.cake_store_id " +
+				"LEFT JOIN cafe_store_img AS t5 ON t1.cafe_store_id = t5.cafe_store_id " +
+				"WHERE t4.cake_store_img_primary = 1 AND t5.cafe_store_img_primary = 1 AND order_id = ?";
 
 		try (
 				PreparedStatement pstmt = conn.prepareStatement(sql);) {
@@ -215,10 +217,12 @@ public class OrderDao extends BaseDao {
 					String cafeStoreName = rs.getString("cafe_store_name");
 					int orderNum = rs.getInt("order_num");
 					Date createdAt = rs.getDate("created_at");
+					String cakeStorePrimaryImg = rs.getString("cake_store_img_url");
+					String cafeStorePrimaryImg = rs.getString("cafe_store_img_url");
 
 					orderItem = new OrderVo(orderId, userId, cakeStoreId, cakeStoreName, cafeStoreId, cafeStoreName,
 							orderNum, createdAt,
-							createdAt, "", "");
+							createdAt, cakeStorePrimaryImg, cafeStorePrimaryImg);
 				}
 			}
 			return orderItem;

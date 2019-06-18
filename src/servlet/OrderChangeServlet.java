@@ -32,14 +32,14 @@ public class OrderChangeServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 
 		HttpSession session = req.getSession(false);
-		String orderNumString = req.getParameter("orderNum");
+		String[] orderNumString = req.getParameterValues("orderNum");
 		if (session == null) {
 			ServletContext sc = this.getServletContext();
 			RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 			rd.forward(req, res);
 			return;
 		} else {
-			if (orderNumString == null) {
+			if (orderNumString == null || "".equals(orderNumString[0])) {
 				ServletContext sc = this.getServletContext();
 				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 				rd.forward(req, res);
@@ -47,7 +47,7 @@ public class OrderChangeServlet extends HttpServlet {
 			}
 		}
 		int orderId = (Integer) session.getAttribute("orderId");
-		int orderNum = Integer.parseInt(req.getParameter("orderNum"));
+		int orderNum = Integer.parseInt(orderNumString[0]);
 		OrderModel om = new OrderModel();
 		try {
 			om.changeOrderNum(orderId, orderNum);

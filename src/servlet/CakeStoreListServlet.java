@@ -54,6 +54,10 @@ public class CakeStoreListServlet extends HttpServlet {
 				return;
 			} else {
 				ArrayList<CakeStoreVo> cakeStoreList = cssm.searchCakeStoreName(cakeStoreNameInput);
+				if(cakeStoreList.size()==0) {
+					String isCakeStoreList = "true";
+					session.setAttribute("isCakeStoreList", isCakeStoreList);
+				}
 				session.setAttribute("cakeStoreNameInput", cakeStoreNameInput);
 				session.setAttribute("cakeStoreList", cakeStoreList);
 				ServletContext sc = this.getServletContext();

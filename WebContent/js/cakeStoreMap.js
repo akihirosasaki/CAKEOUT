@@ -130,9 +130,6 @@ function attachMessage(marker, item) {
 		$(".CafeStoreMapViewForm input:nth-child(3)").attr({
 			'value' : item["cakeStoreStation"]
 		});
-		$(".CafeStoreMapViewForm input:nth-child(4)").attr({
-			'value' : "決定"
-		});
 	});
 }
 

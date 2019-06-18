@@ -83,7 +83,8 @@
 									<option value='' hidden>選択してください</option>
 									<option value="渋谷">渋谷</option>
 									<option value="代官山">代官山</option>
-									<option value="恵比寿">原宿</option>
+									<option value="原宿">原宿</option>
+									<option value="恵比寿">恵比寿</option>
 								</select>
 							</div>
 							<c:if test="${empty searchArea}">

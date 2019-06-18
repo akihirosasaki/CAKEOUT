@@ -41,6 +41,9 @@
 							」の検索結果
 						</h1>
 						<hr>
+						<c:if test="${isCakeStoreList==true}">
+							<p>この名前に一致するケーキ屋は見つかりませんでした</p>
+						</c:if>
 						<c:choose>
 							<c:when test="${ fn:length(cakeStoreList)>1}">
 								<c:set var="count" value="0" scope="page" />

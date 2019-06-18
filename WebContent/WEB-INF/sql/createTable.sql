@@ -1,4 +1,4 @@
-use cakeout;
+use CAKEOUT;
 
 drop table if exists order_info;
 drop table if exists user;
@@ -39,7 +39,7 @@ create table if not exists user(
 
 create table if not exists cake_store (
     cake_store_id int(5) auto_increment not null,
-    cake_store_name varchar(32) not null,
+    cake_store_name varchar(255) not null,
     cake_store_open_time varchar(5),
     cake_store_close_time varchar(5),
     cake_store_phone_num varchar(13),
@@ -54,7 +54,7 @@ create table if not exists cake_store (
 
 create table if not exists cafe_store(
     cafe_store_id int(5) auto_increment not null,
-    cafe_store_name varchar(32) not null,
+    cafe_store_name varchar(255) not null,
     cafe_store_open_time varchar(5),
     cafe_store_close_time varchar(5),
     cafe_store_phone_num varchar(13) not null,
@@ -120,8 +120,8 @@ create table if not exists station_location (
 
 create table if not exists loginlog (
 	log_id int(11) not null auto_increment,
-    user_id char(5) not null,
-    ip_address varchar(16) not null,
+    user_id char(5),
+    ip_address varchar(255) not null,
     login_date timestamp not null,
     log_type varchar(10) not null,
     primary key(log_id)
@@ -129,7 +129,7 @@ create table if not exists loginlog (
 
 create table if not exists log (
 		log_time varchar(30) not null,
-        requestUrl varchar(255) not null,
-        referer varchar(255) not null,
-        userAgent varchar(255) not null
+        request_url varchar(255) not null,
+        referer varchar(255),
+        user_agent varchar(255) not null
 );

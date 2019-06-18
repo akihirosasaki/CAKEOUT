@@ -28,7 +28,7 @@
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
 <script async defer
 	src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAkVaV9oexHW-Mg302lv4S7AUIa_icr554"></script>
-<script type="text/javascript" src="js/script.js"></script>
+<script type="text/javascript" src="js/script.js" charset="utf-8"></script>
 <script type="text/javascript" charset="utf-8">
 var cakeStoreArea = "<%=cakeStoreArea%>";
 </script>
@@ -48,6 +48,7 @@ var cakeStoreArea = "<%=cakeStoreArea%>";
 								<option value="渋谷">渋谷</option>
 								<option value="代官山">代官山</option>
 								<option value="原宿">原宿</option>
+								<option value="恵比寿">恵比寿</option>
 							</select>
 						</div>
 					</div>
@@ -98,7 +99,7 @@ var cakeStoreArea = "<%=cakeStoreArea%>";
 							<input type="hidden" name="selectedCakeStoreId"> <input
 								type="hidden" name="selectedCakeStoreName"> <input
 								type="hidden" name="selectedCakeStoreArea"> <input
-								class="btn-search" type="submit">
+								class="btn-search" type="submit" value="決定">
 						</form>
 					</article>
 				</section>

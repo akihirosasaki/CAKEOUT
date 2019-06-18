@@ -137,9 +137,6 @@ function attachMessage(marker, item) {
 		$(".CakeCafeConfirmForm input:nth-child(1)").attr({
 			'value' : item["cafeStoreId"]
 		});
-		$(".CakeCafeConfirmForm input:nth-child(2)").attr({
-			'value' : "決定"
-		});
 	});
 }
 
