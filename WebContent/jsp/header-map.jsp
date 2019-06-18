@@ -3,7 +3,7 @@
 <header class="header">
 	<div class="header-frame-search">
 		<div class="logo">
-			<a href="IndexServlet">CAKEOUT</a>
+			<a href="IndexServlet"><img src="images/CAKEOUT_logo_wide_p.gif" alt="CAKEOUT"></a>
 		</div>
 	</div>
 </header>
