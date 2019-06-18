@@ -28,10 +28,10 @@ public class CheckInput {
 	 */
 	public String CheckPass(String password) {
 		String isPassCheck = "true";
-		Pattern passPettern = Pattern.compile("/^(?=.*?[a-z])(?=.*?\\d)[a-z\\d]{8,100}$/i");
+		Pattern passPettern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Za-z])(?=.*[!\\x22\\#$%&@'()*+,-./_])[\\w!\\x22\\#$%&@'()*+,-./]{8,}");
 		Matcher passMatch = passPettern.matcher(password);
 		Boolean result = passMatch.find();
-		if (result) {
+		if (!result) {
 			isPassCheck = "false";
 		}
 		return isPassCheck;

@@ -54,7 +54,7 @@ public class InsertAccountServlet extends HttpServlet {
 		String isExceptionPass = ci.CheckException(password);
 		if ("false".equals(isPassCheck)) {
 			req.setAttribute("isPassCheck", isPassCheck);
-			final String url = "/jsp/P001.jsp";
+			final String url = "/jsp/P003.jsp";
 			req.getRequestDispatcher(url).forward(req, res);
 			return;
 		}

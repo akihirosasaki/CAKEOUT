@@ -39,7 +39,7 @@
 								<span class="labeled-form-group-main-label">メールアドレス</span>
 							</div>
 							<div class="labeled-form-group-input">
-								<input type="text" name="mailAdd" placeholder="メールアドレス" required>
+								<input type="text" name="mailAdd" placeholder="メールアドレス">
 							</div>
 						</div>
 						<div class="labeled-form-group form-inline">
@@ -47,8 +47,7 @@
 								<span class="labeled-form-group-main-label">パスワード</span>
 							</div>
 							<div class="labeled-form-group-input">
-								<input type="password" name="password" placeholder="パスワード"
-									required>
+								<input type="password" name="password" placeholder="パスワード">
 							</div>
 						</div>
 						<c:if test="${isUserNull==true}">
