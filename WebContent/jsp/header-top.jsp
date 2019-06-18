@@ -4,7 +4,7 @@
 <header class="header">
 	<div class="header-frame">
 		<div class="logo">
-			<a href="IndexServlet">CAKEOUT</a>
+			<a href="IndexServlet"><img src="images/CAKEOUT_logo_wide_p.gif" alt="CAKEOUT"></a>
 		</div>
 		<c:if test="${isLogin==false}">
 			<div class="login-button-wrapper">

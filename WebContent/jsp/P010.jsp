@@ -110,8 +110,14 @@
 							<hr>
 						</div>
 						<div class="button-block">
-							<input class="submit-button" type="submit" value="注文を確定する"
-								form="ticketCreateForm">
+							<c:if test="${isLogin==true}">
+								<input class="submit-button" type="submit" value="注文を確定する"
+									form="ticketCreateForm">
+							</c:if>
+							<c:if test="${isLogin==false}">
+								<input class="submit-button" type="submit" value="ログインして注文する"
+									form="ticketCreateForm">
+							</c:if>
 						</div>
 					</div>
 				</section>
