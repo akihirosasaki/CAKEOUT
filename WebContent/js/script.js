@@ -1,3 +1,8 @@
+history.pushState(null, null, null);
+window.addEventListener("popstate", function() {
+	history.pushState(null, null, null);
+});
+
 $(function() {
 	$(".account-show").css("display", "none");
 
@@ -11,9 +16,17 @@ $(function() {
 	});
 });
 
-$(function(){
-	$(".top-cakes-search input").on("click", function(){
+$(function() {
+	$(".top-cakes-search input").on("click", function() {
 		var p = document.getElementById("labeled-form-group-main-label");
 
 	});
+});
+
+$("form").submit(function() {
+	var self = this;
+	$(":submit", self).prop("disabled", true);
+	setTimeout(function() {
+		$(":submit", self).prop("disabled", false);
+	}, 10000);
 });

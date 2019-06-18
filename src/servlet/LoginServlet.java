@@ -3,6 +3,9 @@ package servlet;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
@@ -95,7 +98,19 @@ public class LoginServlet extends HttpServlet {
 		ip = ips[0];
 		LocalDateTime ldt = LocalDateTime.now();
 		LoggingModel ll = new LoggingModel();
-		session.setAttribute("isLogin", isLogin);
+		Enumeration<?> sessionEnum = session.getAttributeNames();
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		while (sessionEnum.hasMoreElements()) {
+			String key = (String) sessionEnum.nextElement();
+			Object value = session.getAttribute(key);
+			map.put(key, value);
+		}
+		session.invalidate();
+		HttpSession sess = req.getSession(true);
+		for (Map.Entry<String, Object> entry : map.entrySet()) {
+			sess.setAttribute(entry.getKey(), entry.getValue());
+		}
+		sess.setAttribute("isLogin", isLogin);
 		req.setAttribute("isUserNull", isUserNull);
 		if ("true".equals(isLogin)) {
 			String logType = "login";
@@ -108,12 +123,12 @@ public class LoginServlet extends HttpServlet {
 				e.printStackTrace();
 				throw new ServletException(e);
 			}
-			session.setAttribute("userId", loginUser.getUserId());
-			session.setAttribute("userRole", loginUser.getUserRole());
-			session.setAttribute("userName", loginUser.getUserName());
+			sess.setAttribute("userId", loginUser.getUserId());
+			sess.setAttribute("userRole", loginUser.getUserRole());
+			sess.setAttribute("userName", loginUser.getUserName());
 			ServletContext sc = this.getServletContext();
 			if ("false".equals(isAdmin)) {
-				String isOrdered = (String) session.getAttribute("isOrdered");
+				String isOrdered = (String) sess.getAttribute("isOrdered");
 				if (isOrdered == null) {
 					RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 					rd.forward(req, res);
