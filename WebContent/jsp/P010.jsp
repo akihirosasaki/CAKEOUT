@@ -63,7 +63,7 @@
 									</form>
 								</div>
 							</div>
-							<img class="confirm-arrow-img" src="images/route.gif">
+							<img class="confirm-arrow-img" src="images/arrow.gif">
 							<div class="confirm-container confirm-container-cafe">
 								<div class="confirm-img-container">
 									<img class="popular-suggest-img"

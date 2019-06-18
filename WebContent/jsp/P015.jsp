@@ -38,12 +38,12 @@
 						<div class="confirm-container confirm-container-cakes">
 							<div class="confirm-img-container">
 								<img class="popular-suggest-img"
-									src="images/<c:out value="${orderList[0].cakeStorePrimaryImg}" />"
+									src="images/<c:out value="${orderItem.cakeStorePrimaryImg}" />"
 									alt="ケーキ屋">
 							</div>
 							<div class="confirm-text-container">
 								<h3>
-									<c:out value="${orderList[0].cakeStoreName}" />
+									<c:out value="${orderItem.cakeStoreName}" />
 								</h3>
 							</div>
 						</div>
@@ -53,20 +53,30 @@
 						<div class="confirm-container confirm-container-cafe">
 							<div class="confirm-img-container">
 								<img class="popular-suggest-img"
-									src="images/<c:out value="${orderList[0].cafeStorePrimaryImg}" />"
+									src="images/<c:out value="${orderItem.cafeStorePrimaryImg}" />"
 									alt="カフェ">
 							</div>
 							<div class="confirm-text-container">
 								<h3>
-									<c:out value="${orderList[0].cafeStoreName}" />
+									<c:out value="${orderItem.cafeStoreName}" />
 								</h3>
 								<form action="OrderChangeServlet" method="POST"
 									id="orderChangeForm">
 									<div class="cafe-order-number">
 										<input type="hidden" name="orderId"
-											value="${orderList[0].orderId}"> <input
-											class="change-order-num-box" type="text" placeholder="人数"
-											name="orderNum" required>
+											value="${orderItem.orderId}">
+										<select name="orderNum" class="change-order-num-box" required>
+											<option value='' hidden>人数</option>
+											<option value="1">1人</option>
+											<option value="2">2人</option>
+											<option value="3">3人</option>
+											<option value="4">4人</option>
+											<option value="5">5人</option>
+											<option value="6">6人</option>
+											<option value="7">7人</option>
+											<option value="8">8人</option>
+											<option value="9">9人</option>
+										</select>
 									</div>
 								</form>
 							</div>

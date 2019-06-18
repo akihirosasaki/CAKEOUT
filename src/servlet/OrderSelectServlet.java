@@ -1,7 +1,9 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
+import javax.naming.NamingException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -10,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import model.OrderModel;
+import vo.OrderVo;
 
 /**
  * マイページアクション振り分けサーブレット
@@ -51,6 +56,17 @@ public class OrderSelectServlet extends HttpServlet {
 		}
 
 		session.setAttribute("orderId", orderId);
+		OrderModel om = new OrderModel();
+		try {
+			OrderVo orderItem = om.getOrder(orderId);
+			session.setAttribute("orderItem", orderItem);
+		} catch (SQLException | NamingException e) {
+			System.out.println("SQLの実行に失敗しました");
+			System.out.println("SQLException:" + e.getMessage());
+			System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
+			e.printStackTrace();
+			throw new ServletException(e);
+		}
 
 		String orderStatus = (String) session.getAttribute("orderStatus");
 		String destination = null;

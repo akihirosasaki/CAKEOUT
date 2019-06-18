@@ -40,7 +40,7 @@ public class InsertAccountCompleteServlet extends HttpServlet {
 			rd.forward(req, res);
 			return;
 		} else {
-			if (!(session.getAttribute("userName") == null)) {
+			if (session.getAttribute("userName") == null) {
 				ServletContext sc = this.getServletContext();
 				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 				rd.forward(req, res);
@@ -100,11 +100,20 @@ public class InsertAccountCompleteServlet extends HttpServlet {
 		session.setAttribute("userId", loginUser.getUserId());
 		session.setAttribute("userRole", loginUser.getUserRole());
 		session.setAttribute("userName", loginUser.getUserName());
-		final String url = "InsertAccountCompleteViewServlet";
-		res.setStatus(HttpServletResponse.SC_SEE_OTHER);
-		res.sendRedirect(url);
-		return;
-
+		String isOrdered = (String) session.getAttribute("isOrdered");
+		final String url;
+		if(isOrdered==null) {
+			url = "InsertAccountCompleteViewServlet";
+			res.setStatus(HttpServletResponse.SC_SEE_OTHER);
+			res.sendRedirect(url);
+			return;
+		}else {
+			url = "/TicketServlet";
+			ServletContext sc = this.getServletContext();
+			RequestDispatcher rd = sc.getRequestDispatcher(url);
+			rd.forward(req, res);
+			return;
+		}
 	}
 
 	@Override

@@ -32,7 +32,7 @@
 <script type="text/javascript" charset="utf-8">
 	var cakeStoreArea = "<%=selectedCakeStoreArea%>";
 </script>
-<script type="text/javascript" src="js/cafeStoreMap.js"></script>
+<script type="text/javascript" src="js/cafeStoreMap.js" charset="utf-8"></script>
 </head>
 <body>
 	<div class="main-show">
@@ -46,6 +46,7 @@
 							<option value="渋谷">渋谷</option>
 							<option value="代官山">代官山</option>
 							<option value="原宿">原宿</option>
+							<option value="恵比寿">恵比寿</option>
 						</select>
 					</div>
 				</div>
@@ -100,7 +101,7 @@
 					<form action="CakeCafeConfirmServlet" method="POST"
 						name="CakeCafeConfirmForm" class="CakeCafeConfirmForm">
 						<input type="hidden" name="selectedCafeStoreId"> <input
-							class="btn-search" type="submit">
+							class="btn-search" type="submit" value="決定">
 					</form>
 				</article>
 			</section>

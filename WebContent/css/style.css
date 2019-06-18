@@ -1,9 +1,14 @@
 /* ボディ */
 body {
 	margin: 0px;
-	/* font-family: "TsukuARdGothic-Regular"; */
-	/* font-family: "M PLUS Rounded 1c"; */
 	font-family: "Noto Sans JP";
+	min-height: 100vh;
+}
+.main-show {
+	min-height: inherit;
+}
+#main {
+	min-height: 600px;
 }
 /* ロゴ */
 .logo {
@@ -13,7 +18,6 @@ body {
 	justify-content: center;
 	align-items: center;
 	font-size: 20px;
-	/* position: absolute; */
 }
 
 .logo a {

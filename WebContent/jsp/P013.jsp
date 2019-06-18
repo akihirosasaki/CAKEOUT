@@ -40,12 +40,12 @@
 							<div class="popular-suggest-block">
 								<div class="popular-suggest-img-container">
 									<img class="popular-suggest-img"
-										src="images/<c:out value="${orderList[0].cakeStorePrimaryImg}" />"
+										src="images/<c:out value="${orderItem.cakeStorePrimaryImg}" />"
 										alt="ケーキ屋">
 								</div>
 								<div class="popular-suggest-h3">
 									<h3>
-										<c:out value="${orderList[0].cakeStoreName}" />
+										<c:out value="${orderItem.cakeStoreName}" />
 									</h3>
 								</div>
 							</div>
@@ -55,12 +55,12 @@
 							<div class="popular-suggest-block">
 								<div class="popular-suggest-img-container">
 									<img class="popular-suggest-img"
-										src="images/<c:out value="${orderList[0].cafeStorePrimaryImg}" />"
+										src="images/<c:out value="${orderItem.cafeStorePrimaryImg}" />"
 										alt="カフェ">
 								</div>
 								<div class="popular-suggest-h3">
 									<h3>
-										<c:out value="${orderList[0].cafeStoreName}" />
+										<c:out value="${orderItem.cafeStoreName}" />
 									</h3>
 								</div>
 							</div>
