@@ -106,7 +106,8 @@ public class TicketServlet extends HttpServlet {
 				orderNum = Integer.parseInt(orderNumString[0]);
 			}
 
-			String dateSQL = toStr(LocalDateTime.now(), "yyyy/MM/dd");
+			String dateSQL = toStr(LocalDateTime.now(), "yyyy-MM-dd");
+			System.out.println(dateSQL);
 			OrderModel om = new OrderModel();
 
 			try {

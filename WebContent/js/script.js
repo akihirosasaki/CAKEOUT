@@ -1,7 +1,14 @@
-history.pushState(null, null, null);
-window.addEventListener("popstate", function() {
-	history.pushState(null, null, null);
-});
+window.onunload = function(){};
+history.forward();
+
+$(document).ready(function(){
+	var hSize = $(window).height();
+	  $('.main-img').height(hSize); // アドレスバーを除いたサイズを付与
+	});
+	$(window).resize(function(){ // ページをリサイズした時の処理
+	var hSize = $(window).height();
+	  $('.main-img').height(hSize); // アドレスバーを除いたサイズを付与
+	});
 
 $(function() {
 	$(".account-show").css("display", "none");
