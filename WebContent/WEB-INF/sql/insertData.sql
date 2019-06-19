@@ -2447,3 +2447,4 @@ insert into order_info (order_id, user_id, cake_store_id, cafe_store_id, order_n
 insert into station_location (station_id, station_name, station_lat, station_lon) values (1, "渋谷", 35.658034, 139.701636);
 insert into station_location (station_id, station_name, station_lat, station_lon) values (2, "代官山", 35.650547, 139.704221);
 insert into station_location (station_id, station_name, station_lat, station_lon) values (3, "原宿", 35.669968, 139.709008);
+insert into station_location (station_id, station_name, station_lat, station_lon) values (4, "恵比寿", 35.646729, 139.710103);

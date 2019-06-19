@@ -43,6 +43,7 @@ public class CafeStoreInfoServlet extends HttpServlet {
 			rd.forward(req, res);
 			return;
 		}
+
 		int[] cafeStoreId = Stream.of(cafeStoreIdString).mapToInt(Integer::parseInt).toArray();
 		CafeStoreSearchModel cssm = new CafeStoreSearchModel();
 
@@ -50,7 +51,6 @@ public class CafeStoreInfoServlet extends HttpServlet {
 			CafeStoreVo cafeStoreInfo = cssm.getCafeStoreInfo(cafeStoreId[0]);
 			ArrayList<String> cafeStoreImgList = cssm.getCafeStoreImg(cafeStoreId[0]);
 			ArrayList<CafeStoreMenuVo> cafeStoreMenuList = cssm.getCafeStoreMenu(cafeStoreId[0]);
-			System.out.println("cafeStoreMenuList:" + cafeStoreMenuList);
 			session.setAttribute("cafeStoreInfo", cafeStoreInfo);
 			session.setAttribute("cafeStoreImgList", cafeStoreImgList);
 			session.setAttribute("cafeStoreMenuList", cafeStoreMenuList);
@@ -59,10 +59,6 @@ public class CafeStoreInfoServlet extends HttpServlet {
 			rd.forward(req, res);
 			return;
 		} catch (SQLException | NamingException e) {
-			System.out.println("SQLの実行に失敗しました");
-			System.out.println("SQLException:" + e.getMessage());
-			System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-			e.printStackTrace();
 			throw new ServletException(e);
 		}
 	}

@@ -62,10 +62,6 @@ public class CakeStoreMapServlet extends HttpServlet {
 			writer.close();
 
 		} catch (SQLException | NamingException e) {
-			System.out.println("SQLの実行に失敗しました");
-			System.out.println("SQLException:" + e.getMessage());
-			System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-			e.printStackTrace();
 			throw new ServletException(e);
 		}
 	}
