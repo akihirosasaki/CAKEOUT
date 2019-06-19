@@ -57,10 +57,6 @@ public class OrderListServlet extends HttpServlet {
 			orderList = om.getOrderList(userId);
 			session.setAttribute("orderList", orderList);
 		} catch (SQLException | NamingException e) {
-			System.out.println("SQLの実行に失敗しました");
-			System.out.println("SQLException:" + e.getMessage());
-			System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-			e.printStackTrace();
 			throw new ServletException(e);
 		}
 		final String url;

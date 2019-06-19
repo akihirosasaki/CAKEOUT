@@ -55,10 +55,6 @@ public class LogoutServlet extends HttpServlet {
 		try {
 			ll.loggingLogin(userId, ip, ldt, logType);
 		} catch (SQLException | NamingException e) {
-			System.out.println("SQLの実行に失敗しました");
-			System.out.println("SQLException:" + e.getMessage());
-			System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-			e.printStackTrace();
 			throw new ServletException(e);
 		}
 		session.invalidate();

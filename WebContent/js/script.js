@@ -1,6 +1,3 @@
-window.onunload = function(){};
-history.forward();
-
 $(document).ready(function(){
 	var hSize = $(window).height();
 	  $('.main-img').height(hSize); // アドレスバーを除いたサイズを付与

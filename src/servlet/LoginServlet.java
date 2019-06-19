@@ -83,10 +83,6 @@ public class LoginServlet extends HttpServlet {
 			}
 
 		} catch (SQLException | NamingException e) {
-			System.out.println("SQLの実行に失敗しました");
-			System.out.println("SQLException:" + e.getMessage());
-			System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-			e.printStackTrace();
 			throw new ServletException(e);
 		}
 
@@ -117,10 +113,6 @@ public class LoginServlet extends HttpServlet {
 			try {
 				ll.loggingLogin(loginUser.getUserId(), ip, ldt, logType);
 			} catch (SQLException | NamingException e) {
-				System.out.println("SQLの実行に失敗しました");
-				System.out.println("SQLException:" + e.getMessage());
-				System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-				e.printStackTrace();
 				throw new ServletException(e);
 			}
 			sess.setAttribute("userId", loginUser.getUserId());
@@ -132,18 +124,15 @@ public class LoginServlet extends HttpServlet {
 				if (isOrdered == null) {
 					RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 					rd.forward(req, res);
-					System.out.println("注文前顧客ログイン成功");
 					return;
 				} else {
 					RequestDispatcher rd = sc.getRequestDispatcher("/TicketServlet");
 					rd.forward(req, res);
-					System.out.println("注文後顧客ログイン成功");
 					return;
 				}
 			} else {
 				RequestDispatcher rd = sc.getRequestDispatcher("/IndexServlet");
 				rd.forward(req, res);
-				System.out.println("管理者ログイン成功");
 				return;
 			}
 		} else {
@@ -152,10 +141,6 @@ public class LoginServlet extends HttpServlet {
 			try {
 				ll.loggingLogin(failedId, ip, ldt, logType);
 			} catch (SQLException | NamingException e) {
-				System.out.println("SQLの実行に失敗しました");
-				System.out.println("SQLException:" + e.getMessage());
-				System.out.println("VendorError:" + ((SQLException) e).getErrorCode());
-				e.printStackTrace();
 				throw new ServletException(e);
 			}
 			ServletContext sc = this.getServletContext();
