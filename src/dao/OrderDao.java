@@ -120,6 +120,7 @@ public class OrderDao extends BaseDao {
 	 * @throws SQLException
 	 */
 	public void ticketCheck(Connection conn, int orderId) throws SQLException {
+		System.out.println("check");
 
 		final String sql = "UPDATE order_info SET is_checked = 1 WHERE order_id = ?";
 
